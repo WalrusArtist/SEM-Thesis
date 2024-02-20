@@ -32,14 +32,14 @@ The growing popularity of GHA is immense, with more than 20 million GitHub Actio
 Given the concerns surrounding the GHA ecosystem, it is self-evident that developers will experience the effects of these issues.  Moreover, it's worth noting that not all Actions are available on the GitHub marketplace. Many developers create and maintain their own actions within local repositories, without making them available on the marketplace. Decan et al. \cite{b4} conducted an analysis of prevalent automation practices on GitHub and discovered that 43.9\% of repositories in their dataset reflected this behavior.\\
 Due to its novelty, there is limited understanding of the challenges faced when implementing GHA.  
 Therefore,  by systematically analysing StackOverflow posts, GitHub Discussions threads, tags, and other pertinent repositories, alongside the utilization of database queries and APIs, we aim to quantitatively examine the questions, topics, and answers surrounding GHA. This endeavor not only facilitates the clarification of prevalent issues but also provides insights into potential solutions and areas requiring further research and development within the GHA landscape.\\
-Throught this research, we intend to answer the following questions:
+Through this research, we intend to answer the following questions:
 
 \begin{enumerate}
-    \item What are the prevalent automation practices and patterns observed within GitHub repositories, particularly concerning the adoption and utilization of GitHub Actions (GHA)?
+    \item What are the prevalent automation practices and patterns observed within GitHub repositories, particularly concerning the adoption and utilization of GHA?
     
     \item To what extent do developers rely on locally maintained actions within their repositories, as opposed to utilizing actions available on the GitHub marketplace, and what factors contribute to this distribution pattern?
     
-    \item What are the primary challenges and issues encountered during the implementation and usage of GitHub Actions (GHA), and how do these challenges manifest in the evolving ecosystem surrounding GHA, particularly in comparison to established software library ecosystems like npm, Cargo, RubyGems, Maven, and PyPI?
+    \item What are the primary challenges and issues encountered during the implementation and usage of GHA, and how do these challenges manifest in the evolving ecosystem surrounding GHA, particularly in comparison to established software library ecosystems like npm, Cargo, RubyGems, Maven, and PyPI?
 \end{enumerate}
 
 \section{Related Work}
@@ -53,7 +53,7 @@ With each passing year, it is common for software code to go through regular cha
 Software systems are usually developed using pre-existing and reusable packages such as modules, components, libraries, etc \cite{b7}\cite{b8}. Consequently, this leads to a large extent of dependencies between the reused packages and the original software code. According to Dietrich et al. \cite{b10}, software developers struggle to choose which versions of a given package to use and mentions that a handful number of software systems encounter runtime version conflicts due to incompatibility with the versions of other dependant packages. GitHub actions and workflows that depend on jobs from other Actions might fall on a similar pitfall of runtime version conflict and possibly other dependency issues.
 \subsection{Security Vulnerabilities}
 Software that depends on open source and free reusable libraries provided by package managers like npm are more likely to be exposed to security vulnerabilities. Zimmermann et al. [\cite{b12} quotes: \\
-“The open nature of npm has boosted its growth, providing over 800,000 free and reusable software packages. Unfortunately, this open nature also causes security risks, as evidenced by recent incidents of single packages that broke or attacked software running on millions of computers.” \\
+“\textit{The open nature of npm has boosted its growth, providing over 800,000 free and reusable software packages. Unfortunately, this open nature also causes security risks, as evidenced by recent incidents of single packages that broke or attacked software running on millions of computers.”} \\
  According to Zimmermann et al. \cite{b12}, one way of exposing vulnerability on software is by publishing malicious packages and guiding the client to depend on these harmful packages. Since GHA consists of many open-source reusable Actions, workflow and GHA developers need to be extra careful on choosing what packages they depend on for building jobs. It is a good practice to depend on first-party packages and packages from trustworthy maintainers \cite{b12}.
 
 
