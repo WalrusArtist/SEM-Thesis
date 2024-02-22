@@ -68,15 +68,74 @@ In general, you should be prepared to interpret any possible outcome with respec
 Describe the main research question(s) that you intend to answer with your thesis project. Use sub-questions if needed.
 
 \subsection{Research methodology to be used}
-Any research or problem solving requires a systematic approach with methods and procedures. Indicate the steps you will take to answer every question or to test every hypothesis indicated in Section III.A, to solve the problem that you are addressing. There are several research methods, e.g. design research \cite{b3}, case study \cite{b5}, and Survey \cite{b2, b4}, just to mention a few. Different research methods and procedures require different descriptions.
+\section{Research Methodology}
 
-For example, for a survey, it becomes vital to describe sampling and instrumentation. The sampling, i.e. the population and how the sample has been drawn from that, needs to be described to clarify to what extent the findings of a study can be generalized to people or situations. You shall also outline the instruments you propose to use (surveys, scales, interview protocols, observation grids). For a case study or a design research, other aspects become vital.
+This section outlines the methodology to address each research question outlined in Section III.A using appropriate research methods. Each method is accompanied by steps for data collection and analysis.
 
-\subsubsection{Data collection}
-For all studies, you need to have a systematic approach for data collection. Outline the general plan for what data to collect, and how. This may include survey administration procedures, interview or observation procedures. Also, provide a general outline of the time schedule you expect to follow.
+\subsection{Research Question 1: Prevalent automation practices and patterns observed within GitHub repositories, particularly concerning the adoption and utilization of GHA.}
 
-\subsubsection{Data analysis}
-For all studies, you need to have a systematic approach for data analysis. Specify the procedures you will use to analyze your data. If coding procedures are to be used, describe these in reasonable detail. For evaluations, describe the criteria to be used in reasonable detail.
+\subsubsection{Research Method: Case Study}
+
+\begin{enumerate}
+    \item \textbf{Data Collection}:
+    \begin{itemize}
+        \item \textbf{Sampling}: Select diverse GitHub repositories based on programming languages, project sizes, and industries.
+        \item \textbf{Data Sources}: Extract data from GitHub repositories, focusing on GHA workflow configurations, historical builds, and project documentation.
+        \item \textbf{Procedures}: Develop a scriptive program to extract and analyse repository information in a cloud based environment.
+        \item \textbf{Time Schedule}: Allocate approximately 1 month for metric design and data collection.
+    \end{itemize}
+    
+    \item \textbf{Data Analysis}:
+    \begin{itemize}
+        \item \textbf{Coding Procedures}: Employ thematic analysis to identify prevalent automation practices and patterns within GHA workflows.
+        \item \textbf{Criteria}: Define coding categories based on workflow structures, triggers and actions used.
+        \item \textbf{Evaluation}: Assess frequency and distribution of identified patterns across repositories.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Research Question 2: Distribution pattern and factors influencing reliance on locally maintained actions versus marketplace actions.}
+
+\subsubsection{Research Method: Survey}
+
+\begin{enumerate}
+    \item \textbf{Data Collection}:
+    \begin{itemize}
+        \item \textbf{Sampling}: Administer online surveys targeting active GitHub users involved in software development and GHA workflows.
+        \item \textbf{Instrumentation}: Design a questionnaire to gather demographic information, usage patterns of GHA, and factors influencing action selection.
+        \item \textbf{Procedures}: Distribute surveys through GitHub platforms, developer forums, and social media.
+        \item \textbf{Time Schedule}: Plan for 1 month to design, distribute, and collect responses.
+    \end{itemize}
+    
+    \item \textbf{Data Analysis}:
+    \begin{itemize}
+        \item \textbf{Procedures}: Employ descriptive and inferential statistics to analyse survey responses.
+        \item \textbf{Criteria}: Define metrics such as frequency of marketplace action usage, reasons for selection, and perceived advantages/disadvantages.
+        \item \textbf{Evaluation}: Identify trends and factors influencing distribution patterns.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Research Question 3: Primary challenges and issues encountered during the implementation and usage of GHA, and comparison with established software library ecosystems.}
+
+\subsubsection{Research Method: Data Mining and Interview}
+
+\begin{enumerate}
+    \item \textbf{Data Collection}:
+    \begin{itemize}
+        \item \textbf{Data Mining}: Utilize APIs and database queries to collect relevant data from StackOverflow, GitHub Discussions, and other pertinent repositories.
+        \item \textbf{Interviews}: Conduct semi-structured interviews with developers experienced in GHA usage and are actively devoloping.
+        \item \textbf{Procedures}: Develop interview protocols focusing on specific topics related to challenges, issues, and comparisons.
+        \item \textbf{Time Schedule}: Allocate 1.5 month for data collection, including both data mining and interviews.
+    \end{itemize}
+    
+    \item \textbf{Data Analysis}:
+    \begin{itemize}
+        \item \textbf{Data Mining Analysis}: Employ data mining techniques to analyze patterns and trends in StackOverflow posts, GitHub Discussions threads and repository data obtained through APIs and database queries.
+        \item \textbf{Interview Analysis}: Utilize qualitative analysis techniques to analyze interview transcripts, identifying recurring themes and insights.
+        \item \textbf{Integration}: Integrate findings from data mining and interviews with the results obtained from RQ1 and RQ2 to measure and categorize the challenges and issues encountered during the implementation and usage of GHA. The analysis will consider how prevalent automation practices (RQ1) and distribution patterns of actions (RQ2) influence the identified challenges and issues, providing a comprehensive understanding on the application of GHA based on a subset of factors.
+    \end{itemize}
+\end{enumerate}
+
+These methods ensure a systematic approach to address each research question effectively.
 
 \subsection{Threats to Validity}
 A limitation identifies potential weaknesses of the study. Think about your analysis, the nature of self-report, your instruments, and the sample. Think about threats to external or internal validity that may have been impossible to avoid or minimize and explain these.
