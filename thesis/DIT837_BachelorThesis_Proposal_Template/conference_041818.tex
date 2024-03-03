@@ -28,7 +28,7 @@ If yes, is your supervisor aware of the external organization and the contact pe
 \section{Introduction}
 Continuous Integration (CI) has become an integrated part of collaborative software development and DevOps practices. CI automates the quality of code checks, tests and integration of code changes in collaborative environments. The benefits of CI brings early detection of issues, fast feedback loops, increased code quality, reduced integration risks and continuous improvements. Famous examples of CI services include Jenkins, Travis, CircleCI and GitLab CI/CD \cite{b1}. GitHub Actions (abbreviated as GHA) was introduced to the public in 2019 as an alternative CI service for GitHub repositories. GitHub introduced its marketplace for sharing automation tools in an effort for developers to reuse workflow components \cite{b2}. \\ 
 
-    The so called "Actions" refers to automated workflows triggered by specific events within a repository, including committing changes, opening pull requests, or creating new branches \cite{b14}. These workflows streamline development processes by automating tasks and enhancing efficiency. GitHub's integration of GHA allows developers to define custom task sequences in response to events, simplifying collaboration and promoting a seamless development experience. \\
+    The so called "Actions" refers to automated workflows triggered by specific events within a repository, including committing changes, opening pull requests, or creating new branches. These workflows streamline development processes by automating tasks and enhancing efficiency. GitHub's integration of GHA allows developers to define custom task sequences in response to events, simplifying collaboration and promoting a seamless development experience \cite{b14}. \\
 
     The growing popularity of GHA is immense, with more than 20 million GitHub Action minutes used per day on average in 2023. Leading to a 169\% increase of usage to automate tasks in public projects,  pipelines and more\cite{b3}. Given its popularity,  the increasing usage of GHA has lead to an emergence of its own ecosystem \cite{b4}.  According to Decan et al. \cite{b4}, the growing ecosystem of GHA bears similarities to reusable software libraries distributed by package managers such as npm, Cargo, RubyGems, Maven and PyPI among others. Where these ecosystems are well known to suffer from variety of issues such as obsolescence \cite{b5},\cite{b6}, dependency issues\cite{b7},\cite{b8},\cite{b9}, breaking changes \cite{b10}, \cite{b11}, and security vulnerabilities \cite{b12}, \cite{b13} to name a few. Decan et al. \cite{b4} go on to state "\textit{The GHA ecosystem is likely to suffer from very similar issues and these issues will continue to become more important and more impactful, as the number of reusable actions continues to grow at a rapid pace.}"\\
 
@@ -40,13 +40,16 @@ Therefore,  by systematically analysing StackOverflow posts, GitHub Discussions 
 Through this research, we intend to answer the following questions:
 \\
 
-\begin{enumerate}
-    \item What are the prevalent automation practices and patterns observed within GitHub repositories, particularly concerning the adoption and utilization of GHA?
-    \\
-    \item To what extent do developers rely on locally maintained actions within their repositories, as opposed to utilizing actions available on the GitHub marketplace, and what factors contribute to this distribution pattern?
-    \\
-    \item What are the primary challenges and issues encountered during the implementation and usage of GHA, and how do these challenges manifest in the evolving ecosystem surrounding GHA, particularly in comparison to established software library ecosystems like npm, Cargo, RubyGems, Maven, and PyPI?
-\end{enumerate}
+
+     \textbf{RQ1:} To what extent do developers rely on locally maintained actions within their repositories, as opposed to utilizing actions available on the GitHub marketplace, and what factors contribute to this distribution pattern?
+\\
+\\
+We selected RQ1 in order to distinguish between the problems faced between locally maintained and marketplace actions. It is not currently known now the exact factors that contribute to this distribution. There are also worlkflows that utilise both action types and knowing which action types are more locally maintained opposed to others, will give great insight into the decision making of designing a worlkflow. \\
+
+     \textbf{RQ2:} What are the challenges and issues encountered during the implementation and usage of GHA?\\
+\\
+For RQ2 we want to determine what the chanllenges are for developing, maintaining and using GHA from a developers perspective. We intend to answer this question from several perspectives such as; complexity, scaling, GUI, ecosystem, YML files and tool integrations.
+
 
 \section{Related Work}
 Previous studies on the use of GHA have shown its significant rise in popularity after only 18 months of its official release, thereby slowly replacing the use of traditional CI/CD services in GitHub repositories \cite{b15}. Unlike traditional CI/CD services, GHA assists the software development processes by improving code reviews, team communication and internal repository management in addition to automating the build and test procedures of software \cite{b16}. This emerging popularity on the use of GHA and the increasing number of reusable actions that can be found on its marketplace led GHA to be considered similar to popular reusable software libraries distributed by package managers such as npm, Cargo, RubyGems, Maven and PyPI and so on \cite{b4}. However, this also means GHA is more likely to face similar problems that are currently encountered by these reusable libraries. Consequently, this would increase the chances of failure when building GitHub workflows in GitHub repositories leading to unsuccessful deployment of software packages. 
@@ -97,30 +100,7 @@ RQ3: What are the primary challenges and issues encountered during the implement
 
 This section outlines the methodology to address each research question outlined in Section III.A using appropriate research methods. Each method is accompanied by steps for data collection and analysis.\\
 
-Research Question 1: Prevalent automation practices and patterns observed within GitHub repositories, particularly concerning the adoption and utilization of GHA.\\
-
-Research Method: Case Study\\
-
-\begin{enumerate}
-
-    \item \textbf{Data Collection}:\\
-    \begin{itemize}
-        \item \textbf{Sampling}: Select diverse GitHub repositories based on programming languages, project sizes, and industries.
-        \item \textbf{Data Sources}: Extract data from GitHub repositories, focusing on GHA workflow configurations, historical builds, and project documentation.
-        \item \textbf{Procedures}: Develop a scriptive program to extract and analyse repository information in a cloud based environment.
-        \item \textbf{Time Schedule}: Allocate approximately 1 month for metric design and data collection.\\
-    \end{itemize}
-    
-    \item \textbf{Data Analysis}:\\
-    \begin{itemize}
-        \item \textbf{Coding Procedures}: Employ thematic analysis to identify prevalent automation practices and patterns within GHA workflows.
-        \item \textbf{Criteria}: Define coding categories based on workflow structures, triggers and actions used.
-        \item \textbf{Evaluation}: Assess frequency and distribution of identified patterns across repositories.\\
-    \end{itemize}
-\end{enumerate}
-
-
-Research Question 2: Distribution pattern and factors influencing reliance on locally maintained actions versus marketplace actions.\\
+Research Question 1: Distribution pattern and factors influencing reliance on locally maintained actions versus marketplace actions.\\
 
 Research Method: Survey\\
 
@@ -141,7 +121,7 @@ Research Method: Survey\\
     \end{itemize}
 \end{enumerate}
 
-Research Question 3: Primary challenges and issues encountered during the implementation and usage of GHA, and comparison with established software library ecosystems.\\
+Research Question 2: Primary challenges and issues encountered during the implementation and usage of GHA, and comparison with established software library ecosystems.\\
 
 Research Method: Data Mining and Interview\\
 
@@ -158,7 +138,7 @@ Research Method: Data Mining and Interview\\
     \begin{itemize}
         \item \textbf{Data Mining Analysis}: Employ data mining techniques to analyze patterns and trends in StackOverflow posts, GitHub Discussions threads and repository data obtained through APIs and database queries.
         \item \textbf{Interview Analysis}: Utilize qualitative analysis techniques to analyze interview transcripts, identifying recurring themes and insights.
-        \item \textbf{Integration}: Integrate findings from data mining and interviews with the results obtained from RQ1 and RQ2 to measure and categorize the challenges and issues encountered during the implementation and usage of GHA. The analysis will consider how prevalent automation practices (RQ1) and distribution patterns of actions (RQ2) influence the identified challenges and issues, providing a comprehensive understanding on the application of GHA based on a subset of factors.\\
+        \item \textbf{Integration}: Integrate findings from data mining and interviews with the results obtained from RQ1 and RQ2 to measure and categorize the challenges and issues encountered during the implementation and usage of GHA. The analysis will consider how distribution patterns of actions (RQ1) influence the identified challenges and issues, providing a comprehensive understanding on the application of GHA based on a subset of factors.\\
     \end{itemize}
 \end{enumerate}
 
