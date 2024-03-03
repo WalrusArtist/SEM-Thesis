@@ -54,10 +54,10 @@ For RQ2 we want to determine what the chanllenges are for developing, maintainin
 
 
 \section{Related Work}
-Previous studies on the use of GHA have shown its significant rise in popularity after only 18 months of its official release, thereby slowly replacing the use of traditional CI/CD services in GitHub repositories \cite{b15}. Unlike traditional CI/CD services, GHA assists the software development processes by improving code reviews, team communication and internal repository management in addition to automating the build and test procedures of software \cite{b16}. This emerging popularity on the use of GHA and the increasing number of reusable actions that can be found on its marketplace led GHA to be considered similar to popular reusable software libraries distributed by package managers such as npm, Cargo, RubyGems, Maven and PyPI and so on \cite{b4}. However, this also means GHA is more likely to face similar problems that are currently encountered by these reusable libraries. Consequently, this would increase the chances of failure when building GitHub workflows in GitHub repositories leading to unsuccessful deployment of software packages. 
+Previous studies on the use of GHA have shown its significant rise in popularity after only 18 months of its official release, thereby slowly replacing the use of traditional CI/CD services in GitHub repositories \cite{b15}. Unlike traditional CI/CD services, GHA assists the software development processes by improving code reviews, team communication and internal repository management in addition to automating the build and test procedures of software \cite{b16}. As mentioned in the ‘Introduction’ section, this emerging popularity on the use of GHA and the increasing number of reusable actions that can be found on its marketplace led GHA to be considered similar to popular reusable software libraries distributed by package managers such as npm, Cargo, RubyGems, Maven and PyPI and so on. However, this also means GHA is more likely to face similar problems that are currently encountered by these reusable libraries \cite{b4}. Consequently, this would increase the chances of failure when building GitHub workflows in GitHub repositories leading to unsuccessful deployment of software packages. 
 \\
 
-According to Decan et al. \cite{b4}, it is reasonable enough to consider GHA as its own software ecosystem consisting of more than 12K reusable actions. The paper claims that the GHA ecosystem deserves to be studied as all other reusable software ecosystems that have made progress in finding issues related to them. Since GHA is a new emerging ecosystem, there is a lack of research and studies that have been carried out to identify the challenges and issues that are encountered in GHA. Due to insufficient research and unaddressed questions regarding the GHA ecosystem, it is high time we set out to look for issues and challenges faced during the implementation and usage of GHA. Decan et al. \cite{b4} points out that the GHA ecosystem is exposed to similar challenges, such as obsolescence, dependency issues, breaking changes, security vulnerabilities, etc., that are encountered in well-researched reusable ecosystems. This section aims to briefly describe some of the issues pointed out above, using findings from related literatures, that are likely to appear in GHA.
+According to Decan et al. \cite{b4}, the GHA ecosystem deserves to be studied as all other reusable software ecosystems that have made progress in finding issues related to them. Since GHA is a new emerging ecosystem, there is a lack of research and studies that have been carried out to identify the challenges and issues that are encountered in GHA. Decan et al. \cite{b4} points out that the GHA ecosystem is exposed to similar challenges, such as obsolescence, dependency issues, breaking changes, security vulnerabilities, etc., that are encountered in well-researched reusable ecosystems. This section aims to briefly describe some of the issues pointed out above, using findings from related literatures, that are likely to appear in GHA.
 \subsection{Obsolescence}
 
 Software codes are regularly updated to add features, fix bugs and so on. Sometimes functions or part of code becomes deprecated meaning they are outdated and no longer used; this usually happens after a long period of time when parts of the software code are replaced by an improved version. Generally, it is a good practice to avoid using deprecated code. Through the findings of Cogo et al. \cite{b6}, deprecated code used in npm packages has shown to give rise to risks such as incompatibility between two different dependant libraries, presence/absence of features, bugs, security vulnerability and more. Cox et al. \cite{b17} found that deprecated systems are four time more likely to suffer from security issues and backward incompatibilities than systems that are up-to-date. In the context of GHA, there is a high possibility that a significant amount of code that are reused are deprecated which might consequently lead GitHub workflows to fail building.
@@ -68,43 +68,26 @@ Software that depends on open source and free reusable libraries provided by pac
 
 “\textit{The open nature of npm has boosted its growth, providing over 800,000 free and reusable software packages. Unfortunately, this open nature also causes security risks, as evidenced by recent incidents of single packages that broke or attacked software running on millions of computers.”} \\
 
- According to Zimmermann et al. \cite{b12}, one way of exposing vulnerability on software is by publishing malicious packages and guiding the client to depend on these harmful packages. Since GHA consists of many open-source reusable Actions, workflow and GHA developers need to be extra careful on choosing what packages they depend on for building jobs. It is a good practice to depend on first-party packages and packages from trustworthy maintainers \cite{b12}.
+ According to Zimmermann et al. \cite{b12}, one way of exposing vulnerability on software is by publishing malicious packages and guiding the client to depend on these harmful packages. Since GHA consists of many open-source reusable Actions, workflow and GHA developers need to be extra careful on choosing what packages they depend on for building jobs. It is a good practice to depend on first-party packages and packages from trustworthy maintainers \cite{b12}. \\
+
+Saroar et al. [3] mentions that even though the GHA platform provides a marketplace for sharing and reusing open-source actions, there are still many repositories that prefer to maintain their own GitHub workflows. Although the survey analysis conducted by the authors resulted in identifying several challenges developers faced when using their own customised YAML files. 
 
 
 \section{Research Methodology}
-Our findings from several scientific papers relevant to the topic led us to identify the gap in knowledge regarding the new emerging GHA ecosystem. To address the contemporary lack of research and studies within this area, we aim to answer some of the challenges and problems developers face when building GitHub Actions (GHA). Our goal is to evaluate whether similar challenges and issues from well-researched reusable libraries can be spotted in the GHA ecosystem. We also intend to mine software repositories on GitHub to discover further problems development teams encounter while building workflows specific to their project and address the challenges surrounding the development of workflows. While doing so, we expect our research to provide insights on potential solutions and identify areas surrounding the GHA ecosystem that require further research.\\
+With this study we aim to answer some of the challenges and problems developers face when building GitHub Actions (GHA). Our goal is to evaluate whether similar challenges and issues from well-researched reusable libraries can be spotted in the GHA ecosystem. We also intend to mine software repositories on GitHub to discover further problems development teams encounter while building workflows specific to their project and address the challenges surrounding the development of workflows. While doing so, we expect our research to provide insights on potential solutions and identify areas surrounding the GHA ecosystem that require further research.\\
 
 In this section, we describe the research questions we are trying to answer and the research strategies which will be implemented to facilitate our explorative study. Finally, we identify and explain the limitations relevant to our research.
 
-\subsection{Research questions and/or hypotheses}
+\subsection{Research questions and methodology}
 Throughout this study, we aim to obtain answers and data to the three research questions we mentioned in the Introduction section. For each of the questions, we elaborate it further and describe the research method we believe is suitable for our study.\\
 
-RQ1: What are the prevalent automation practices and   patterns observed within GitHub repositories, particularly concerning the adoption and utilization of GHA?\\ 
+RQ1: To what extent do developers rely on locally maintained actions within their repositories, as opposed to utilizing actions available on the GitHub marketplace, and what factors contribute to this distribution pattern?\\
 
-        Our intention is to pick a wide variety of public repositories on GitHub and identify how developers mitigate problems faced when utilizing GHA. Consequently, we recognise the common trend of practices developers follow to prevent automation failures. \\
-
-To address RQ1, we carry out our research through a case study. The study should explore several diverse GitHub repositories where data is collected and analysed from their respective builds of workflows, comments and implementation of workflows, GitHub documentations concerning the development of workflows and more. Case study aligns with our aim to discover the present problems within GHA ecosystem in real-time \cite{b18}.\\
-
-RQ2: To what extent do developers rely on locally maintained actions within their repositories, as opposed to utilizing actions available on the GitHub marketplace, and what factors contribute to this distribution pattern?\\
+Research Method: Survey\\
 	
 This research question is answered by finding out whether developers favour to build their own GitHub workflows versus reusing GitHub actions from the marketplace. In turn, it also explains the reason for the differences between them.\\
 
-To address RQ2, we take surveys of individuals from a large group of GitHub users, utilizing GitHub actions, from all over Gothenburg, Sweden. A questionnaire is designed to obtain statistical data about their preferences. Using online surveys makes it possible to collect data for a large population by generalizing our findings based on a sample \cite{b19}.\\
-
-RQ3: What are the primary challenges and issues encountered during the implementation and usage of GHA, and how do these challenges manifest in the evolving ecosystem surrounding GHA, particularly in comparison to established software library ecosystems like npm, Cargo, RubyGems, Maven, and PyPI?\\
-
-	Here we already know the problems that are encountered in other ecosystems. Our goal is to locate these similar challenges and/or issues in GHA and evaluate the effect of these problems on the GHA ecosystem.\\
-
-	We plan to carry out data mining and interviews to address RQ3. We are using data mining which is  a type of case study which is followed by a semi-structured interview. We can also automate the process of mining data by developing scripts and easing the process of going through multiple repositories \cite{b20}.\\
-
-
-\subsection{Research methodology to be used}
-
-This section outlines the methodology to address each research question outlined in Section III.A using appropriate research methods. Each method is accompanied by steps for data collection and analysis.\\
-
-Research Question 1: Distribution pattern and factors influencing reliance on locally maintained actions versus marketplace actions.\\
-
-Research Method: Survey\\
+To address RQ1, we take surveys of individuals from a large group of GitHub users, utilizing GitHub actions, from all over Gothenburg, Sweden. A questionnaire is designed to obtain statistical data about their preferences. Using online surveys makes it possible to collect data for a large population by generalizing our findings based on a sample \cite{b19}.\\
 
 \begin{enumerate}
     \item \textbf{Data Collection}:\\
@@ -123,9 +106,13 @@ Research Method: Survey\\
     \end{itemize}
 \end{enumerate}
 
-Research Question 2: Primary challenges and issues encountered during the implementation and usage of GHA, and comparison with established software library ecosystems.\\
+RQ2: What are the challenges and issues encountered during the implementation and usage of GHA?\\
 
 Research Method: Data Mining and Interview\\
+
+	Here we already know the problems that are encountered in other ecosystems. Our goal is to locate these similar challenges and/or issues in GHA and evaluate the effect of these problems on the GHA ecosystem.\\
+
+	We plan to carry out data mining and interviews to address RQ2. We are using data mining which is  a type of case study which is followed by a semi-structured interview. We can also automate the process of mining data by developing scripts and easing the process of going through multiple repositories \cite{b20}.\\
 
 \begin{enumerate}
     \item \textbf{Data Collection}:\\
