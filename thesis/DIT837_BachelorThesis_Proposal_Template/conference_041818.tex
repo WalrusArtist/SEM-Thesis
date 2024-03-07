@@ -81,13 +81,15 @@ If yes, is your supervisor aware of the external organization and the contact pe
     In this section, we describe the research questions we are trying to answer and the research strategies which will be implemented to facilitate our explorative study. Additionally, we would like to emphasize that we are employing a mixed method study, utilising different data collection and analysis methods that will be described and motivated after each research question. Finally, we identify and explain the limitations relevant to our research.
 
     \subsection{Research questions and methodology}
+
+
         \textbf{RQ1: To what extent do developers rely on locally maintained Actions within their repositories, as opposed to utilising Actions available on the GitHub marketplace, and what factors contribute to this distribution pattern?}\\
 
-        Research Method: Survey\\
+        \textbf{Research Method:} Survey\\
             
-        This research question is answered by finding out whether developers favour to build their own GitHub workflows versus reusing Actions from the marketplace. In turn, it also explains the reason for the differences between them.\\
+        This research question is answered by determining whether developers prefer to build their own GitHub workflows or reuse GitHub actions from the marketplace. Additionally, it aims to explain the reasons behind the observed differences between these approaches.\\
 
-        To address RQ1, we take surveys of individuals from a large group of GitHub users utilising GHA across the internet. A questionnaire is designed to obtain statistical data about their preferences. Using an online survey makes it possible to collect data for a large population by generalizing our findings based on a sample \cite{linaker2013guidelines}.\\
+        To address RQ1, we plan to conduct surveys of individuals from a large group of GitHub users utilizing GHA across the internet. A questionnaire is designed to obtain qualitative and statistical data about their preferences. Linåker et al. \cite{linaker2013guidelines} claim that conducting an online survey makes it possible to collect data for a large population efficiently by generalizing our findings based on a sample. Moreover, surveys are suitable for collecting numerical data which would allow us to analyse responses numerically to identify patterns and trends in our results \cite{fowler2009survey}. We believe utilizing this methodology is time and cost effective compared to other research methodologies; since surveys can be administered remotely, eliminating the need for face-to-face interactions, and reducing operational costs.\\
 
         \begin{enumerate}
             \item \textbf{Data Collection}:\\
@@ -108,11 +110,11 @@ If yes, is your supervisor aware of the external organization and the contact pe
 
         \textbf{RQ2: What are the challenges and issues encountered during the implementation and usage of GHA?}\\
 
-        Research Method: Repository Mining and Interview\\
+        \textbf{Research Method:} Repository Mining and Interview\\
 
-        Here we already know the problems that are encountered in other ecosystems. Our goal is to locate these similar challenges and/or issues in GHA and evaluate the effect of these problems on the GHA ecosystem.\\
+        We are already aware of the problems encountered in other ecosystems. Our goal is to identify similar challenges and/or issues within the GHA ecosystem and evaluate the impact of these problems. Additionally, we want to investigate what are the challenges developers face while implementing workflows.\\
 
-        We plan to carry out repository mining and interviews to address RQ2. We are using repository mining which is  a type of case study followed by a semi-structured interview. We can also automate the process of mining data by developing scripts and easing the process of going through multiple repositories \cite{chaturvedi2013tools}.\\
+       To address RQ2, we plan to carry out repository mining and interviews. Through repository mining, we can collect vast amounts of data from relevant software repositories using GHA. We can also automate the process of mining data by developing scripts and easing the process of going through multiple repositories \cite{chaturvedi2013tools}. By combining repository mining with semi-structured interviews would allow us to compare our quantitative data with qualitative data obtained from the interviews. Thus, we can validate our findings from one methodology against the other; this would strengthen the credibility and reliability of our research findings. Moreover, through interviews, we might also come across further problems encountered by developers. According to Rigby and Storey \cite{rigby2013understanding}, interviews can help identify topics that are not well-documented in software repositories, such as the reasons behind code changes and developer’s experiences.\\
 
         \begin{enumerate}
             \item \textbf{Data Collection}:\\
@@ -139,9 +141,11 @@ If yes, is your supervisor aware of the external organization and the contact pe
         In this section, we discuss the limitations and threats to
         validity and how we can mitigate them.\\
 
-        \textbf{External Validity:} Since our repository mining procedure is supposed to collect data from diverse GitHub repositories with different implementation of workflows, programming languages and size of the project, the results we obtain might differ depending on these factors and our findings cannot be generalized for all types of GitHub projects. However, it is possible to group the projects based on their size, programming language, etc. After grouping the projects, we could try to analyse data from each group and identify a common trend between the results to generalize our findings.\\
+        \textbf{External Validity:} Since our repository mining procedure is supposed to collect data from diverse GitHub repositories with different implementation of workflows, programming languages and size of the project, the results we obtain might differ depending on these factors and our findings can’t be generalized for all types of GitHub projects. However, it is possible to group the projects based on their size, programming language, etc. After grouping the projects, we could try to analyse data from each group and identify a common trend between the results to generalize our findings.\\
 
-        \textbf{Internal validity:} Collecting data from online surveys is a risky approach and might give anomalies in our result, especially distributing the surveys through social media might result in invalid responses. There is even a chance that we lack sufficient answers to come to a conclusion. To mitigate this threat and limitation, we could distribute the surveys through highly maintained development platforms or reach out to potential companies in person. 
+        \textbf{Internal validity:} Collecting data through online surveys carries some risks and may result in anomalies in our results. Specifically, distributing surveys via social media can lead to invalid responses, and we may also face challenges in obtaining a sufficient number of responses to draw meaningful conclusions. To mitigate these potential limitations, we can consider distributing surveys through highly maintained development platforms or reaching out to potential companies in person. \\
+
+	\textbf{Construct Validity:} The questionnaire, we are planning to use as our survey instrumentation, might have errors or inconsistencies. The formulated questions might be unclear, ambiguous and/or irrelevant. We could address this risk by adhering to a well-defined criterion for formulating questionnaires. Additionally, we could conduct pilot testing to validate our survey instrument.
 
 
                                                                         %%% REFERENCES %%%
