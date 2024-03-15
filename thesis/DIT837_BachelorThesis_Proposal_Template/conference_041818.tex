@@ -47,10 +47,10 @@ If yes, is your supervisor aware of the external organization and the contact pe
     Through this research, we intend to answer the following questions:\\
 
 
-    \textbf{RQ1: What factors developers to rely on locally maintained Actions within their repositories, as opposed to utilising Actions available on the GitHub marketplace?}\\\\
+    \textbf{RQ1: What factors cause developers to rely on locally maintained Actions within their repositories, as opposed to utilizing Actions available on the GitHub Marketplace?}\\\\
     We selected RQ1 in order to distinguish the problems faced between locally maintained and marketplace Actions. It is not currently known the exact factors that contribute to this distribution. There are also workflows that utilise both action types and knowing which action types are more locally maintained opposed to others, will give great insight into the decision making of designing and developing a workflow. \\
 
- \textbf{RQ2: What factors cause developers to rely on locally maintained Actions within their repositories, as opposed to utilizing Actions available on the GitHub Marketplace?}\\\\
+ \textbf{RQ2: In what ways do the key issues encountered in GitHub Actions (GHA) parallel those found in other software ecosystems?}\\\\
     This research question is inspired by the concerns raised by Decan \cite{decan2022use}, as previously mentioned. The objective is to compile a list of current issues prevalent in reusable software libraries distributed via package managers and draw parallels with our research findings. This comparative analysis aims to determine whether these concerns are indeed applicable to the GHA ecosystem. If similarities are found, it will aid in identifying effective solutions previously implemented in other ecosystems to address these issues. Subsequently, these solutions can be adapted for the GHA ecosystem to prevent the escalation of such problems in the future.
 
 
@@ -99,7 +99,7 @@ If yes, is your supervisor aware of the external organization and the contact pe
     \subsection{Research questions and methodology}
 
 
-        \textbf{RQ1: To what extent do developers rely on locally maintained Actions within their repositories, as opposed to utilising Actions available on the GitHub marketplace, and what factors contribute to this distribution pattern?}\\
+        \textbf{RQ1: What factors developers to rely on locally maintained Actions within their repositories, as opposed to utilising Actions available on the GitHub marketplace?}\\
 
         \textbf{Research Method:} Survey\\
             
@@ -107,24 +107,13 @@ If yes, is your supervisor aware of the external organization and the contact pe
 
         To address RQ1, we plan to conduct surveys of individuals from a large group of GitHub users utilizing GHA across the internet. A questionnaire is designed to obtain qualitative and statistical data about their preferences. Linåker et al. \cite{linaker2013guidelines} claim that conducting an online survey makes it possible to collect data for a large population efficiently by generalizing our findings based on a sample. Moreover, surveys are suitable for collecting numerical data which would allow us to analyse responses numerically to identify patterns and trends in our results \cite{fowler2009survey}. We believe utilizing this methodology is time and cost effective compared to other research methodologies; since surveys can be administered remotely, eliminating the need for face-to-face interactions, and reducing operational costs.\\
 
-        \begin{enumerate}
-            \item \textbf{Data Collection}:\\
-            \begin{itemize}
-                \item \textbf{Sampling}: Administer online surveys targeting active GitHub users involved in software development and GHA workflows.
-                \item \textbf{Instrumentation}: Design a questionnaire to gather demographic information, usage patterns of GHA and factors influencing the selection of Actions.
-                \item \textbf{Procedures}: Distribute surveys through GitHub platforms, developer forums and social media.
-                \item \textbf{Time Schedule}: Plan for 1 month to design, distribute, and collect responses.\\
-            \end{itemize}
-            
-            \item \textbf{Data Analysis}:\\
-            \begin{itemize}
-                \item \textbf{Procedures}: Employ descriptive and inferential statistics to analyse survey responses.
-                \item \textbf{Criteria}: Define metrics such as frequency of marketplace action usage, reasons for selection, and perceived advantages/disadvantages.
-                \item \textbf{Evaluation}: Identify trends and factors influencing distribution patterns.\\
-            \end{itemize}
-        \end{enumerate}
+        \subsubsection{\textbf{Data Collection}}
+            To administer online surveys, the target audience will be active GitHub users engaged in software development and GitHub Actions (GHA) workflows. Instrumentation entails designing a questionnaire to collect demographic information, usage patterns of GHA, and factors influencing the selection of Actions. The aim is to collect responses from at least 50 participants. This procedure will include distributing surveys through GitHub platforms, developer forums, and social media channels. The time schedule encompasses a one-month plan to design, distribute, and collect responses efficiently.\\
 
-        \textbf{RQ2: What are the challenges and issues encountered during the implementation and usage of GHA?}\\
+        \subsubsection{\textbf{Data Analysis}}
+            In the analysis phase, the intent is to utilize both descriptive and inferential statistical techniques to rigorously scrutinize the survey data.  This entails establishing specific criteria for analysis, including the definition of metrics such as the frequency of marketplace action usage, rationales underlying action selection, and the perceived advantages and disadvantages associated with these selections. Moreover, the evaluation process will involve a meticulous examination of emerging trends and the identification of factors shaping distribution patterns.\\
+
+        \textbf{RQ2: In what ways do the key issues encountered in GHA parallel those found in other software ecosystems?}\\
 
         \textbf{Research Method:} Repository Mining and Interview\\
 
@@ -132,26 +121,49 @@ If yes, is your supervisor aware of the external organization and the contact pe
 
        To address RQ2, we plan to carry out repository mining and interviews. Through repository mining, we can collect vast amounts of data from relevant software repositories using GHA. We can also automate the process of mining data by developing scripts and easing the process of going through multiple repositories \cite{chaturvedi2013tools}. By combining repository mining with semi-structured interviews would allow us to compare our quantitative data with qualitative data obtained from the interviews. Thus, we can validate our findings from one methodology against the other; this would strengthen the credibility and reliability of our research findings. Moreover, through interviews, we might also come across further problems encountered by developers. According to Rigby and Storey \cite{rigby2013understanding}, interviews can help identify topics that are not well-documented in software repositories, such as the reasons behind code changes and developer’s experiences.\\
 
-        \begin{enumerate}
-            \item \textbf{Data Collection}:\\
-            \begin{itemize}
-                \item \textbf{Repository/Data Mining}: Utilise APIs and database queries to collect relevant data from StackOverflow, GitHub Discussions, and other pertinent repositories.
-                \item \textbf{Interviews}: Conduct semi-structured interviews with developers experienced in GHA usage and are actively devoloping.
-                \item \textbf{Procedures}: Develop interview protocols focusing on specific topics related to challenges, issues, and comparisons.
-                \item \textbf{Time Schedule}: Allocate 1 month for data collection, including both repository/data mining and interviews.\\
-            \end{itemize}
-            
-            \item \textbf{Data Analysis}:\\
-            \begin{itemize}
-                \item \textbf{Repository Mining Analysis}: Employ repository mining techniques to analyse patterns and trends in StackOverflow posts, GitHub Discussions threads and repository data obtained through APIs and database queries.
-                \item \textbf{Interview Analysis}: Utilise qualitative analysis techniques to analyse interview transcripts, identifying recurring themes and insights.
-                \item \textbf{Integration}: Integrate findings from repository mining and interviews with the results obtained from RQ1 to measure and categorize the challenges and issues encountered during the implementation and usage of GHA. The analysis will consider how distribution patterns of Actions (RQ1) influence the identified challenges and issues, providing a comprehensive understanding on the application of GHA based on a set of factors.\\
-            \end{itemize}
-        \end{enumerate}
+        \subsubsection{\textbf{Data Collection}}
+            The first methodology will be to utilise APIs and database queries to collect relevant data from StackOverflow, GitHub Discussions, and other pertinent repositories via Repository/Data Mining. The data of interest will pertain to challenges within the scopes of obsolescence, dependency issues, breaking changes and security vulnerabilities. 
+            The second methodology will be to conduct semi-structured interviews with developers experienced in GHA usage and are actively devoloping. To recruit participants, we aim to utilise our existing network within Volvo Group Trucks Technology and aim to interview 10 team leaders involved in Software Development utilising GHA in their environments, upon agreement. The procedure will be to Develop interview protocols focusing on specific topics related to the challenges. The time schedule is to Allocate 1 month for data collection, including both repository/data mining and interviews.\\
+
+        \subsubsection{\textbf{Data Analysis}}
+            In our data analysis approach, we will employ repository mining techniques to analyse patterns and trends in StackOverflow posts, GitHub Discussions threads, and repository data obtained through APIs and database queries. Quantitative analysis will encompass descriptive statistics such as mean and visualization methods including histograms and scatter plots. Qualitative analysis techniques will be utilised to analyse interview transcripts and identify recurring themes. Moreover, in Mining Software Repositories (MSR), we will extract and analyse metrics such as code churn and complexity. We may also explore the application of machine learning methods, with detailed descriptions provided to ensure transparency and repeatability. Overall, our approach aims to provide a comprehensive understanding of the challenges in the GHA ecosystem parallel to other software ecosystems. \\
 
         These methods ensure a systematic approach to address each research question effectively.\\
 
-
+    \subsection{Time Plan}
+        The table bellow gives a high level overview of the time plan. A SCRUM framework will be in use throughout the management of the research. 
+        \begin{table}[h]
+            \centering
+            \caption{Project Sprint Timeline}
+            \label{tab:sprint_timeline}
+            \begin{tabular}{|c|p{0.7\linewidth}|}
+            \hline
+            \textbf{Sprints} & \textbf{Activities} \\ \hline
+            1 and 2 & Design base structure for data collection:
+            \begin{itemize}
+                \item Surveys
+                \item Interview questions
+                \item API scripts
+                \item Database Queries
+                \item Document and write the literature
+            \end{itemize} \\ \hline
+            3 and 4 & Collect data based using the instruments designed in sprints 1 and 2:
+            \begin{itemize}
+                \item Conduct interviews
+                \item Send out surveys
+                \item Run and gather data from API calls and queries
+                \item Document and write the literature
+            \end{itemize} \\ \hline
+            5 and 6 & Analyse the data collected from sprints 3 and 4:
+            \begin{itemize}
+                \item Detect patterns
+                \item Identify key factors
+                \item Draw conclusions
+                \item Document and write the literature
+            \end{itemize} \\ \hline
+            7 and 8 & Refine and finalize the analysis and ensure the literature is clear and concise. \\ \hline
+            \end{tabular}
+        \end{table}
 
     \subsection{Threats to Validity}
         In this section, we discuss the limitations and threats to
