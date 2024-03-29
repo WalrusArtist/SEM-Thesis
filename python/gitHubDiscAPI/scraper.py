@@ -24,10 +24,23 @@ def scrape_github_discussions(url_template, pages):
 
             i = 0
             for link in discussion_links:
+                disc_url = 'https://github.com/' + link['href']
+                disc_response = requests.get(disc_url)
+
+                if disc_response.status_code == 200:
+                    disc_soup = BeautifulSoup(disc_response.text, 'html.parser')
+                    discussion_links = disc_soup.find_all('td', class_='d-block color-fg-default comment-body markdown-body js-comment-body')
+
+                    aggregated_p = ''
+                    for x in discussion_links:
+                        if x.find('p') is not None:
+                            aggregated_p += x.find('p').text + '/n'
+
                 discussion = {
                     'title': link.text.strip(),
-                    'url': link['href'],
-                    'upvotes': upvotes[i]['upvotes']
+                    'url': disc_url,
+                    'upvotes': upvotes[i]['upvotes'],
+                    'body': aggregated_p
                 }
                 discussions.append(discussion)
                 i += 1
@@ -38,7 +51,7 @@ def scrape_github_discussions(url_template, pages):
 
 def main():
     url_template = "https://github.com/orgs/community/discussions?discussions_q=is%3Aopen+sort%3Atop&page={}"
-    pages = 40
+    pages = 1
 
     discussions = scrape_github_discussions(url_template, pages)
     
