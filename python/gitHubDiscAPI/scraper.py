@@ -1,6 +1,19 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+# from openai import OpenAI
+
+# client = OpenAI()
+
+# completion = client.chat.completions.create(
+#   model="gpt-3.5-turbo",
+#   messages=[
+#     {"role": "system", "content": "You are a poetic assistant, skilled in explaining complex programming concepts with creative flair."},
+#     {"role": "user", "content": "Compose a poem that explains the concept of recursion in programming."}
+#   ]
+# )
+
+# print(completion.choices[0].message)
 
 def scrape_github_discussions(url_template, pages):
     discussions = []
@@ -50,7 +63,7 @@ def scrape_github_discussions(url_template, pages):
     return discussions
 
 def main():
-    url_template = "https://github.com/orgs/community/discussions?discussions_q=is%3Aopen+sort%3Atop&page={}"
+    url_template = "https://github.com/orgs/community/discussions/categories/actions?discussions_q=is%3Aopen+category%3AActions+sort%3Atop+is%3Aunanswered={}"
     pages = 1
 
     discussions = scrape_github_discussions(url_template, pages)
