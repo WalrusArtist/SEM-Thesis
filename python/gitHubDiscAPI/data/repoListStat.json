@@ -1,0 +1,86 @@
+[
+    {
+        "actions/starter-workflows": {
+            "localActions": 0,
+            "marketplaceActions": 2
+        }
+    },
+    {
+        "actions/runner-images": {
+            "localActions": 4,
+            "marketplaceActions": 8
+        }
+    },
+    {
+        "P3TERX/Actions-OpenWrt": {
+            "localActions": 0,
+            "marketplaceActions": 2
+        }
+    },
+    {
+        "sindresorhus/Actions": {
+            "localActions": 0,
+            "marketplaceActions": 1
+        }
+    },
+    {
+        "sdras/awesome-actions": {
+            "localActions": 0,
+            "marketplaceActions": 1
+        }
+    },
+    {
+        "Azure/actions": {
+            "localActions": 0,
+            "marketplaceActions": 7
+        }
+    },
+    {
+        "actions/toolkit": {
+            "localActions": 0,
+            "marketplaceActions": 7
+        }
+    },
+    {
+        "actions/runner": {
+            "localActions": 0,
+            "marketplaceActions": 9
+        }
+    },
+    {
+        "antlr/grammars-v4": {
+            "localActions": 0,
+            "marketplaceActions": 0
+        }
+    },
+    {
+        "upptime/upptime": {
+            "localActions": 0,
+            "marketplaceActions": 0
+        }
+    },
+    {
+        "actions/cache": {
+            "localActions": 0,
+            "marketplaceActions": 6
+        }
+    },
+    {
+        "actions/actions-runner-controller": {
+            "localActions": 0,
+            "marketplaceActions": 0
+        }
+    },
+    {
+        "esirplayground/AutoBuild-OpenWrt": {
+            "localActions": 0,
+            "marketplaceActions": 0
+        }
+    },
+    {
+        "facebook/watchman": {
+            "localActions": 0,
+            "marketplaceActions": 5
+        }
+    }
+]

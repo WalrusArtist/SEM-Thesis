@@ -1,0 +1,702 @@
+[
+    {
+        "title": "How to get the current branch within Github Actions?",
+        "score": 366,
+        "link": "https://stackoverflow.com/questions/58033366/how-to-get-the-current-branch-within-github-actions",
+        "number_of_answers": 36,
+        "last_updated": 1710771053
+    },
+    {
+        "title": "Running actions in another directory",
+        "score": 323,
+        "link": "https://stackoverflow.com/questions/58139175/running-actions-in-another-directory",
+        "number_of_answers": 3,
+        "last_updated": 1709572838
+    },
+    {
+        "title": "How to run a github-actions step, even if the previous step fails, while still failing the job",
+        "score": 322,
+        "link": "https://stackoverflow.com/questions/58858429/how-to-run-a-github-actions-step-even-if-the-previous-step-fails-while-still-f",
+        "number_of_answers": 9,
+        "last_updated": 1701398529
+    },
+    {
+        "title": "How to apt-get install in a GitHub Actions workflow?",
+        "score": 302,
+        "link": "https://stackoverflow.com/questions/57982945/how-to-apt-get-install-in-a-github-actions-workflow",
+        "number_of_answers": 3,
+        "last_updated": 1709629929
+    },
+    {
+        "title": "How to run GitHub Actions workflows locally?",
+        "score": 262,
+        "link": "https://stackoverflow.com/questions/59241249/how-to-run-github-actions-workflows-locally",
+        "number_of_answers": 10,
+        "last_updated": 1697547420
+    },
+    {
+        "title": "Only run job on specific branch with GitHub Actions",
+        "score": 254,
+        "link": "https://stackoverflow.com/questions/58139406/only-run-job-on-specific-branch-with-github-actions",
+        "number_of_answers": 12,
+        "last_updated": 1692201219
+    },
+    {
+        "title": "How do I set an env var with a bash expression in GitHub Actions?",
+        "score": 253,
+        "link": "https://stackoverflow.com/questions/57968497/how-do-i-set-an-env-var-with-a-bash-expression-in-github-actions",
+        "number_of_answers": 3,
+        "last_updated": 1696868601
+    },
+    {
+        "title": "How to resolve &quot;refusing to allow an OAuth App to create or update workflow&quot; on git push",
+        "score": 221,
+        "link": "https://stackoverflow.com/questions/64059610/how-to-resolve-refusing-to-allow-an-oauth-app-to-create-or-update-workflow-on",
+        "number_of_answers": 23,
+        "last_updated": 1707993992
+    },
+    {
+        "title": "Dependencies Between Workflows on Github Actions",
+        "score": 213,
+        "link": "https://stackoverflow.com/questions/58457140/dependencies-between-workflows-on-github-actions",
+        "number_of_answers": 5,
+        "last_updated": 1686323639
+    },
+    {
+        "title": "Github Action: Split Long Command into Multiple Lines",
+        "score": 200,
+        "link": "https://stackoverflow.com/questions/59954185/github-action-split-long-command-into-multiple-lines",
+        "number_of_answers": 7,
+        "last_updated": 1700946484
+    },
+    {
+        "title": "Github actions share workspace/artifacts between jobs?",
+        "score": 196,
+        "link": "https://stackoverflow.com/questions/57498605/github-actions-share-workspace-artifacts-between-jobs",
+        "number_of_answers": 6,
+        "last_updated": 1706804398
+    },
+    {
+        "title": "Delete a workflow from GitHub Actions",
+        "score": 167,
+        "link": "https://stackoverflow.com/questions/57927115/delete-a-workflow-from-github-actions",
+        "number_of_answers": 33,
+        "last_updated": 1710542194
+    },
+    {
+        "title": "How to run GitHub Actions workflow only if the pushed files are in a specific folder",
+        "score": 144,
+        "link": "https://stackoverflow.com/questions/63822219/how-to-run-github-actions-workflow-only-if-the-pushed-files-are-in-a-specific-fo",
+        "number_of_answers": 5,
+        "last_updated": 1695892674
+    },
+    {
+        "title": "Repository &#39;http://security.debian.org/debian-security buster/updates InRelease&#39; changed its &#39;Suite&#39; value from &#39;stable&#39; to &#39;oldstable&#39;",
+        "score": 144,
+        "link": "https://stackoverflow.com/questions/68802802/repository-http-security-debian-org-debian-security-buster-updates-inrelease",
+        "number_of_answers": 3,
+        "last_updated": 1691319014
+    },
+    {
+        "title": "Get the current pushed tag in Github Actions",
+        "score": 142,
+        "link": "https://stackoverflow.com/questions/58177786/get-the-current-pushed-tag-in-github-actions",
+        "number_of_answers": 8,
+        "last_updated": 1710494867
+    },
+    {
+        "title": "Github Actions - trigger another action after one action is completed",
+        "score": 138,
+        "link": "https://stackoverflow.com/questions/62750603/github-actions-trigger-another-action-after-one-action-is-completed",
+        "number_of_answers": 5,
+        "last_updated": 1678810732
+    },
+    {
+        "title": "Set default Timeout on Github action pipeline",
+        "score": 138,
+        "link": "https://stackoverflow.com/questions/59073731/set-default-timeout-on-github-action-pipeline",
+        "number_of_answers": 1,
+        "last_updated": 1633913179
+    },
+    {
+        "title": "In a github actions workflow, is there a way to have multiple jobs reuse the same setup?",
+        "score": 133,
+        "link": "https://stackoverflow.com/questions/65242830/in-a-github-actions-workflow-is-there-a-way-to-have-multiple-jobs-reuse-the-sam",
+        "number_of_answers": 4,
+        "last_updated": 1710618313
+    },
+    {
+        "title": "GitHub Action workflow not running",
+        "score": 127,
+        "link": "https://stackoverflow.com/questions/61989951/github-action-workflow-not-running",
+        "number_of_answers": 28,
+        "last_updated": 1709459202
+    },
+    {
+        "title": "GitHub Actions: how to target all branches EXCEPT master?",
+        "score": 126,
+        "link": "https://stackoverflow.com/questions/57699839/github-actions-how-to-target-all-branches-except-master",
+        "number_of_answers": 2,
+        "last_updated": 1702913658
+    },
+    {
+        "title": "GitHub Actions: Run step on specific OS",
+        "score": 123,
+        "link": "https://stackoverflow.com/questions/57946173/github-actions-run-step-on-specific-os",
+        "number_of_answers": 2,
+        "last_updated": 1687645974
+    },
+    {
+        "title": "Github Actions: how to run a workflow created on a non-master branch from the workflow_dispatch event?",
+        "score": 123,
+        "link": "https://stackoverflow.com/questions/63362126/github-actions-how-to-run-a-workflow-created-on-a-non-master-branch-from-the-wo",
+        "number_of_answers": 7,
+        "last_updated": 1710275081
+    },
+    {
+        "title": "How do I use an env file with GitHub Actions?",
+        "score": 122,
+        "link": "https://stackoverflow.com/questions/60176044/how-do-i-use-an-env-file-with-github-actions",
+        "number_of_answers": 15,
+        "last_updated": 1710174189
+    },
+    {
+        "title": "Using output from a previous job in a new one in a GitHub Action",
+        "score": 122,
+        "link": "https://stackoverflow.com/questions/59175332/using-output-from-a-previous-job-in-a-new-one-in-a-github-action",
+        "number_of_answers": 7,
+        "last_updated": 1706262978
+    },
+    {
+        "title": "How to run multiple commands in one Github Actions Docker",
+        "score": 121,
+        "link": "https://stackoverflow.com/questions/56726429/how-to-run-multiple-commands-in-one-github-actions-docker",
+        "number_of_answers": 1,
+        "last_updated": 1591357121
+    },
+    {
+        "title": "Clear cache in GitHub Actions",
+        "score": 120,
+        "link": "https://stackoverflow.com/questions/63521430/clear-cache-in-github-actions",
+        "number_of_answers": 10,
+        "last_updated": 1702585645
+    },
+    {
+        "title": "How do I get the output of a specific step in GitHub Actions?",
+        "score": 110,
+        "link": "https://stackoverflow.com/questions/59191913/how-do-i-get-the-output-of-a-specific-step-in-github-actions",
+        "number_of_answers": 5,
+        "last_updated": 1702027915
+    },
+    {
+        "title": "Getting current branch and commit hash in GitHub action",
+        "score": 108,
+        "link": "https://stackoverflow.com/questions/58886293/getting-current-branch-and-commit-hash-in-github-action",
+        "number_of_answers": 8,
+        "last_updated": 1689332240
+    },
+    {
+        "title": "How do I use Docker with GitHub Actions?",
+        "score": 103,
+        "link": "https://stackoverflow.com/questions/57549439/how-do-i-use-docker-with-github-actions",
+        "number_of_answers": 2,
+        "last_updated": 1576012610
+    },
+    {
+        "title": "Trigger Github Actions only when PR is merged",
+        "score": 100,
+        "link": "https://stackoverflow.com/questions/60710209/trigger-github-actions-only-when-pr-is-merged",
+        "number_of_answers": 7,
+        "last_updated": 1673190351
+    },
+    {
+        "title": "&quot;Resource not accessible by integration&quot; on github post /repos/{owner}/{repo}/actions/runners/registration-token API",
+        "score": 99,
+        "link": "https://stackoverflow.com/questions/70435286/resource-not-accessible-by-integration-on-github-post-repos-owner-repo-ac",
+        "number_of_answers": 5,
+        "last_updated": 1693239976
+    },
+    {
+        "title": "Trigger Github Action only on new tags?",
+        "score": 99,
+        "link": "https://stackoverflow.com/questions/61891328/trigger-github-action-only-on-new-tags",
+        "number_of_answers": 3,
+        "last_updated": 1709000328
+    },
+    {
+        "title": "Push to origin from GitHub action",
+        "score": 98,
+        "link": "https://stackoverflow.com/questions/57921401/push-to-origin-from-github-action",
+        "number_of_answers": 6,
+        "last_updated": 1705462299
+    },
+    {
+        "title": "How to cancel previous runs in the PR when you push new commits(update the current) in github-actions",
+        "score": 98,
+        "link": "https://stackoverflow.com/questions/66335225/how-to-cancel-previous-runs-in-the-pr-when-you-push-new-commitsupdate-the-curre",
+        "number_of_answers": 4,
+        "last_updated": 1653667745
+    },
+    {
+        "title": "Reuse portion of github action across jobs",
+        "score": 98,
+        "link": "https://stackoverflow.com/questions/59757355/reuse-portion-of-github-action-across-jobs",
+        "number_of_answers": 4,
+        "last_updated": 1709559638
+    },
+    {
+        "title": "The unauthenticated git protocol on port 9418 is no longer supported",
+        "score": 95,
+        "link": "https://stackoverflow.com/questions/70663523/the-unauthenticated-git-protocol-on-port-9418-is-no-longer-supported",
+        "number_of_answers": 10,
+        "last_updated": 1651488784
+    },
+    {
+        "title": "How to run a GitHub Action from a branch other than master?",
+        "score": 93,
+        "link": "https://stackoverflow.com/questions/63480433/how-to-run-a-github-action-from-a-branch-other-than-master",
+        "number_of_answers": 5,
+        "last_updated": 1702622244
+    },
+    {
+        "title": "Get current date and time in GitHub workflows",
+        "score": 92,
+        "link": "https://stackoverflow.com/questions/60942067/get-current-date-and-time-in-github-workflows",
+        "number_of_answers": 6,
+        "last_updated": 1698463067
+    },
+    {
+        "title": "How to fail a job in Github Actions?",
+        "score": 92,
+        "link": "https://stackoverflow.com/questions/57903836/how-to-fail-a-job-in-github-actions",
+        "number_of_answers": 3,
+        "last_updated": 1666920850
+    },
+    {
+        "title": "Github Actions, how to share a calculated value between job steps?",
+        "score": 92,
+        "link": "https://stackoverflow.com/questions/57819539/github-actions-how-to-share-a-calculated-value-between-job-steps",
+        "number_of_answers": 2,
+        "last_updated": 1700070225
+    },
+    {
+        "title": "Cloning private github repository within organisation in actions",
+        "score": 88,
+        "link": "https://stackoverflow.com/questions/57612428/cloning-private-github-repository-within-organisation-in-actions",
+        "number_of_answers": 9,
+        "last_updated": 1697653299
+    },
+    {
+        "title": "Create dependencies between jobs in GitHub Actions",
+        "score": 88,
+        "link": "https://stackoverflow.com/questions/63148639/create-dependencies-between-jobs-in-github-actions",
+        "number_of_answers": 2,
+        "last_updated": 1677993372
+    },
+    {
+        "title": "GitHub Actions - How to build project in sub-directory",
+        "score": 84,
+        "link": "https://stackoverflow.com/questions/57806624/github-actions-how-to-build-project-in-sub-directory",
+        "number_of_answers": 2,
+        "last_updated": 1647199494
+    },
+    {
+        "title": "How do I cache steps in GitHub actions?",
+        "score": 84,
+        "link": "https://stackoverflow.com/questions/55110729/how-do-i-cache-steps-in-github-actions",
+        "number_of_answers": 6,
+        "last_updated": 1710920972
+    },
+    {
+        "title": "Trigger a GitHub Action when another repository creates a new release",
+        "score": 84,
+        "link": "https://stackoverflow.com/questions/58465057/trigger-a-github-action-when-another-repository-creates-a-new-release",
+        "number_of_answers": 3,
+        "last_updated": 1693329636
+    },
+    {
+        "title": "How to get the short sha for the github workflow?",
+        "score": 83,
+        "link": "https://stackoverflow.com/questions/59810838/how-to-get-the-short-sha-for-the-github-workflow",
+        "number_of_answers": 6,
+        "last_updated": 1708004695
+    },
+    {
+        "title": "Difference between Github&#39;s &quot;Environment&quot; and &quot;Repository&quot; secrets?",
+        "score": 83,
+        "link": "https://stackoverflow.com/questions/65957197/difference-between-githubs-environment-and-repository-secrets",
+        "number_of_answers": 3,
+        "last_updated": 1688571556
+    },
+    {
+        "title": "npm ci can only install packages with an existing package-lock.json or npm-shrinkwrap.json with lockfileVersion &gt;= 1",
+        "score": 81,
+        "link": "https://stackoverflow.com/questions/69984660/npm-ci-can-only-install-packages-with-an-existing-package-lock-json-or-npm-shrin",
+        "number_of_answers": 20,
+        "last_updated": 1704403372
+    },
+    {
+        "title": "github-action: does the IF have an ELSE?",
+        "score": 80,
+        "link": "https://stackoverflow.com/questions/60916931/github-action-does-the-if-have-an-else",
+        "number_of_answers": 6,
+        "last_updated": 1692950320
+    },
+    {
+        "title": "Error &quot;Waiting for a runner to pick up this job&quot; using GitHub Actions",
+        "score": 77,
+        "link": "https://stackoverflow.com/questions/70959954/error-waiting-for-a-runner-to-pick-up-this-job-using-github-actions",
+        "number_of_answers": 10,
+        "last_updated": 1710458297
+    },
+    {
+        "title": "How to force job to exit in GitHub Actions step",
+        "score": 77,
+        "link": "https://stackoverflow.com/questions/60589373/how-to-force-job-to-exit-in-github-actions-step",
+        "number_of_answers": 4,
+        "last_updated": 1705326491
+    },
+    {
+        "title": "How to get the commit message in GitHub Actions",
+        "score": 76,
+        "link": "https://stackoverflow.com/questions/63619329/how-to-get-the-commit-message-in-github-actions",
+        "number_of_answers": 10,
+        "last_updated": 1710994683
+    },
+    {
+        "title": "Can I have multiple GitHub Actions workflow files?",
+        "score": 74,
+        "link": "https://stackoverflow.com/questions/57115520/can-i-have-multiple-github-actions-workflow-files",
+        "number_of_answers": 3,
+        "last_updated": 1624543940
+    },
+    {
+        "title": "How can I extract secrets using GitHub Actions?",
+        "score": 74,
+        "link": "https://stackoverflow.com/questions/59481933/how-can-i-extract-secrets-using-github-actions",
+        "number_of_answers": 9,
+        "last_updated": 1706469854
+    },
+    {
+        "title": "Run Github Actions when pull requests have a specific label",
+        "score": 72,
+        "link": "https://stackoverflow.com/questions/62325286/run-github-actions-when-pull-requests-have-a-specific-label",
+        "number_of_answers": 3,
+        "last_updated": 1676584316
+    },
+    {
+        "title": "Is there a way to get the project folder name only on a Github action?",
+        "score": 69,
+        "link": "https://stackoverflow.com/questions/58467939/is-there-a-way-to-get-the-project-folder-name-only-on-a-github-action",
+        "number_of_answers": 2,
+        "last_updated": 1670623061
+    },
+    {
+        "title": "Permission denied to github-actions[bot]",
+        "score": 68,
+        "link": "https://stackoverflow.com/questions/72851548/permission-denied-to-github-actionsbot",
+        "number_of_answers": 4,
+        "last_updated": 1708691315
+    },
+    {
+        "title": "How to auto-reject a pull request if tests are failing (Github actions)",
+        "score": 68,
+        "link": "https://stackoverflow.com/questions/58654530/how-to-auto-reject-a-pull-request-if-tests-are-failing-github-actions",
+        "number_of_answers": 2,
+        "last_updated": 1638416887
+    },
+    {
+        "title": "Is there a way to push changes with a GitHub action?",
+        "score": 68,
+        "link": "https://stackoverflow.com/questions/55657835/is-there-a-way-to-push-changes-with-a-github-action",
+        "number_of_answers": 4,
+        "last_updated": 1709201114
+    },
+    {
+        "title": "How to version build artifacts using GitHub Actions?",
+        "score": 66,
+        "link": "https://stackoverflow.com/questions/54310050/how-to-version-build-artifacts-using-github-actions",
+        "number_of_answers": 7,
+        "last_updated": 1695749117
+    },
+    {
+        "title": "How can I see my git secrets unencrypted?",
+        "score": 66,
+        "link": "https://stackoverflow.com/questions/63003669/how-can-i-see-my-git-secrets-unencrypted",
+        "number_of_answers": 9,
+        "last_updated": 1698790214
+    },
+    {
+        "title": "How can I make a GitHub Workflow depend on the success of another workflow?",
+        "score": 66,
+        "link": "https://stackoverflow.com/questions/62367778/how-can-i-make-a-github-workflow-depend-on-the-success-of-another-workflow",
+        "number_of_answers": 0,
+        "last_updated": 1592102566
+    },
+    {
+        "title": "Caching APT packages in GitHub Actions workflow",
+        "score": 61,
+        "link": "https://stackoverflow.com/questions/59269850/caching-apt-packages-in-github-actions-workflow",
+        "number_of_answers": 5,
+        "last_updated": 1680795499
+    },
+    {
+        "title": "How to cache yarn packages in GitHub Actions",
+        "score": 58,
+        "link": "https://stackoverflow.com/questions/61010294/how-to-cache-yarn-packages-in-github-actions",
+        "number_of_answers": 4,
+        "last_updated": 1701071532
+    },
+    {
+        "title": "How do I re-run Github Actions?",
+        "score": 58,
+        "link": "https://stackoverflow.com/questions/56435547/how-do-i-re-run-github-actions",
+        "number_of_answers": 6,
+        "last_updated": 1692239202
+    },
+    {
+        "title": "Github Action Status check missing from the list of checks in Protected branch settings",
+        "score": 56,
+        "link": "https://stackoverflow.com/questions/68554735/github-action-status-check-missing-from-the-list-of-checks-in-protected-branch-s",
+        "number_of_answers": 3,
+        "last_updated": 1710943706
+    },
+    {
+        "title": "How to get the target branch of the GitHub pull request from an Actions?",
+        "score": 56,
+        "link": "https://stackoverflow.com/questions/62331829/how-to-get-the-target-branch-of-the-github-pull-request-from-an-actions",
+        "number_of_answers": 3,
+        "last_updated": 1678208725
+    },
+    {
+        "title": "Is there a way to continue on error while still getting correct feedback?",
+        "score": 56,
+        "link": "https://stackoverflow.com/questions/62045967/is-there-a-way-to-continue-on-error-while-still-getting-correct-feedback",
+        "number_of_answers": 4,
+        "last_updated": 1704566459
+    },
+    {
+        "title": "github actions: how to check if current push has new tag (is new release)?",
+        "score": 55,
+        "link": "https://stackoverflow.com/questions/58475748/github-actions-how-to-check-if-current-push-has-new-tag-is-new-release",
+        "number_of_answers": 3,
+        "last_updated": 1692694213
+    },
+    {
+        "title": "How to get pull request number within GitHub Actions workflow",
+        "score": 54,
+        "link": "https://stackoverflow.com/questions/59077079/how-to-get-pull-request-number-within-github-actions-workflow",
+        "number_of_answers": 9,
+        "last_updated": 1709400071
+    },
+    {
+        "title": "Dynamically retrieve GitHub Actions secret",
+        "score": 54,
+        "link": "https://stackoverflow.com/questions/61255989/dynamically-retrieve-github-actions-secret",
+        "number_of_answers": 7,
+        "last_updated": 1687121661
+    },
+    {
+        "title": "How to connect to Postgres in GitHub Actions",
+        "score": 54,
+        "link": "https://stackoverflow.com/questions/57915791/how-to-connect-to-postgres-in-github-actions",
+        "number_of_answers": 3,
+        "last_updated": 1672918700
+    },
+    {
+        "title": "How to pass the output of a bash command to Github Action parameter",
+        "score": 53,
+        "link": "https://stackoverflow.com/questions/61256824/how-to-pass-the-output-of-a-bash-command-to-github-action-parameter",
+        "number_of_answers": 3,
+        "last_updated": 1666980585
+    },
+    {
+        "title": "Only run GitHub Actions step if not a pull request",
+        "score": 53,
+        "link": "https://stackoverflow.com/questions/66205887/only-run-github-actions-step-if-not-a-pull-request",
+        "number_of_answers": 2,
+        "last_updated": 1668478380
+    },
+    {
+        "title": "How do you trigger a push when a specific directory in a branch gets an update?",
+        "score": 52,
+        "link": "https://stackoverflow.com/questions/63460875/how-do-you-trigger-a-push-when-a-specific-directory-in-a-branch-gets-an-update",
+        "number_of_answers": 1,
+        "last_updated": 1681341648
+    },
+    {
+        "title": "Github Actions: check steps status",
+        "score": 52,
+        "link": "https://stackoverflow.com/questions/57850553/github-actions-check-steps-status",
+        "number_of_answers": 5,
+        "last_updated": 1657871677
+    },
+    {
+        "title": "Share artifacts between workflows / Github Actions",
+        "score": 52,
+        "link": "https://stackoverflow.com/questions/60355925/share-artifacts-between-workflows-github-actions",
+        "number_of_answers": 8,
+        "last_updated": 1707767830
+    },
+    {
+        "title": "difference between &quot;run |&quot; and multiple runs in github actions",
+        "score": 52,
+        "link": "https://stackoverflow.com/questions/59529042/difference-between-run-and-multiple-runs-in-github-actions",
+        "number_of_answers": 2,
+        "last_updated": 1663327751
+    },
+    {
+        "title": "GitHub Actions run on push to all branches",
+        "score": 51,
+        "link": "https://stackoverflow.com/questions/64635032/github-actions-run-on-push-to-all-branches",
+        "number_of_answers": 2,
+        "last_updated": 1665501268
+    },
+    {
+        "title": "Repository Name as a GitHub Action environment variable?",
+        "score": 50,
+        "link": "https://stackoverflow.com/questions/62803531/repository-name-as-a-github-action-environment-variable",
+        "number_of_answers": 5,
+        "last_updated": 1676925493
+    },
+    {
+        "title": "How to archive files in artifact for github workflow actions in order to fix this warning?",
+        "score": 49,
+        "link": "https://stackoverflow.com/questions/68470162/how-to-archive-files-in-artifact-for-github-workflow-actions-in-order-to-fix-thi",
+        "number_of_answers": 4,
+        "last_updated": 1678825383
+    },
+    {
+        "title": "Deploy individual services from a monorepo using github actions",
+        "score": 49,
+        "link": "https://stackoverflow.com/questions/58136102/deploy-individual-services-from-a-monorepo-using-github-actions",
+        "number_of_answers": 5,
+        "last_updated": 1680369255
+    },
+    {
+        "title": "Use environment variable in github action if",
+        "score": 49,
+        "link": "https://stackoverflow.com/questions/59882715/use-environment-variable-in-github-action-if",
+        "number_of_answers": 5,
+        "last_updated": 1681129152
+    },
+    {
+        "title": "How to push nuget package in GitHub actions",
+        "score": 49,
+        "link": "https://stackoverflow.com/questions/57889719/how-to-push-nuget-package-in-github-actions",
+        "number_of_answers": 7,
+        "last_updated": 1641586090
+    },
+    {
+        "title": "Github actions - how to deploy to remote server using SSH",
+        "score": 48,
+        "link": "https://stackoverflow.com/questions/60477061/github-actions-how-to-deploy-to-remote-server-using-ssh",
+        "number_of_answers": 5,
+        "last_updated": 1707869920
+    },
+    {
+        "title": "Github actions, schedule operation on branch",
+        "score": 48,
+        "link": "https://stackoverflow.com/questions/58798886/github-actions-schedule-operation-on-branch",
+        "number_of_answers": 1,
+        "last_updated": 1709787384
+    },
+    {
+        "title": "What is the difference between GitHub actions/checkout@v3 and v2?",
+        "score": 48,
+        "link": "https://stackoverflow.com/questions/73473617/what-is-the-difference-between-github-actions-checkoutv3-and-v2",
+        "number_of_answers": 1,
+        "last_updated": 1677811201
+    },
+    {
+        "title": "How to skip GitHub Actions job on push event?",
+        "score": 47,
+        "link": "https://stackoverflow.com/questions/59759921/how-to-skip-github-actions-job-on-push-event",
+        "number_of_answers": 4,
+        "last_updated": 1652979709
+    },
+    {
+        "title": "Manual workflow triggers in Github Actions",
+        "score": 47,
+        "link": "https://stackoverflow.com/questions/58933155/manual-workflow-triggers-in-github-actions",
+        "number_of_answers": 7,
+        "last_updated": 1628881519
+    },
+    {
+        "title": "Using an array of values to repeat a step in GitHub Actions workflow",
+        "score": 47,
+        "link": "https://stackoverflow.com/questions/59180385/using-an-array-of-values-to-repeat-a-step-in-github-actions-workflow",
+        "number_of_answers": 2,
+        "last_updated": 1705065964
+    },
+    {
+        "title": "Github action works on push but not scheduled",
+        "score": 47,
+        "link": "https://stackoverflow.com/questions/59560214/github-action-works-on-push-but-not-scheduled",
+        "number_of_answers": 3,
+        "last_updated": 1698525326
+    },
+    {
+        "title": "Invoke GitHub Actions workflow manually and pass parameters",
+        "score": 45,
+        "link": "https://stackoverflow.com/questions/62736315/invoke-github-actions-workflow-manually-and-pass-parameters",
+        "number_of_answers": 3,
+        "last_updated": 1608625621
+    },
+    {
+        "title": "How to fix or avoid Error: Unable to process file command &#39;output&#39; successfully?",
+        "score": 45,
+        "link": "https://stackoverflow.com/questions/74137120/how-to-fix-or-avoid-error-unable-to-process-file-command-output-successfully",
+        "number_of_answers": 6,
+        "last_updated": 1706004508
+    },
+    {
+        "title": "GitHub actions: default branch variable",
+        "score": 44,
+        "link": "https://stackoverflow.com/questions/64781462/github-actions-default-branch-variable",
+        "number_of_answers": 9,
+        "last_updated": 1704760930
+    },
+    {
+        "title": "GitHub Action - Define Workflow Level Environment Variable Between Jobs",
+        "score": 44,
+        "link": "https://stackoverflow.com/questions/63467662/github-action-define-workflow-level-environment-variable-between-jobs",
+        "number_of_answers": 4,
+        "last_updated": 1678097266
+    },
+    {
+        "title": "What is the use of &quot;actions/checkout&quot; in GitHub Actions?",
+        "score": 44,
+        "link": "https://stackoverflow.com/questions/67131269/what-is-the-use-of-actions-checkout-in-github-actions",
+        "number_of_answers": 2,
+        "last_updated": 1710866385
+    },
+    {
+        "title": "Running a GitHub Actions step only if previous step has run",
+        "score": 43,
+        "link": "https://stackoverflow.com/questions/60453924/running-a-github-actions-step-only-if-previous-step-has-run",
+        "number_of_answers": 2,
+        "last_updated": 1641048646
+    },
+    {
+        "title": "Dropdown for GitHub Workflows input parameters",
+        "score": 43,
+        "link": "https://stackoverflow.com/questions/69296314/dropdown-for-github-workflows-input-parameters",
+        "number_of_answers": 1,
+        "last_updated": 1656659192
+    },
+    {
+        "title": "github actions get URL of test build",
+        "score": 43,
+        "link": "https://stackoverflow.com/questions/59073850/github-actions-get-url-of-test-build",
+        "number_of_answers": 4,
+        "last_updated": 1699460449
+    },
+    {
+        "title": "Is it possible to not run github action for readme updates?",
+        "score": 43,
+        "link": "https://stackoverflow.com/questions/62968897/is-it-possible-to-not-run-github-action-for-readme-updates",
+        "number_of_answers": 2,
+        "last_updated": 1645646365
+    }
+]

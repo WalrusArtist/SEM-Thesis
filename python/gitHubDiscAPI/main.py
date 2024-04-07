@@ -32,7 +32,7 @@ def fetch_github_discussions(token):
       }
     }
     """
-
+    
     response = requests.post(url, json={'query': query}, headers=headers)
     if response.status_code == 200:
         return response.json()
@@ -41,7 +41,7 @@ def fetch_github_discussions(token):
         return None
 
 def main():
-    token = os.environ.get('GITHUB_TOKEN')
+    token = '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' # os.environ.get('GITHUB_TOKEN')''
     if token is None:
         print("GitHub token not found. Set the GITHUB_TOKEN environment variable.")
         return
