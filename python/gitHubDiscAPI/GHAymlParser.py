@@ -28,7 +28,9 @@ def fetch_workflow_files(repository):
             if content.type == "file" and content.name.endswith(".yml"):
                 workflows.append(content)
     except:
-        print('some error occured, skipping over ', repository)
+        for content in repo.get_contents(".github/workflows", ref="master"):
+            if content.type == "file" and content.name.endswith(".yml"):
+                workflows.append(content)
     return workflows
 
 def parse_workflow_files(workflows, repo):
@@ -42,7 +44,8 @@ def parse_workflow_files(workflows, repo):
         workflow_content = workflow.decoded_content.decode("utf-8")
         if "uses: ./.github" in workflow_content:
             repoDict[repo]['localActions'] += 1
-        elif "uses: actions/" in workflow_content:
+        elif "uses: " in workflow_content and "uses: ./.github" not in workflow_content:
+            # find all lines where 'uses: ' exists. and see how many unique lines exist.
             repoDict[repo]['marketplaceActions'] += 1
         else:
             print("Workflow does not specify any actions.")
@@ -53,8 +56,6 @@ def main():
     for repo in repositories:
         print(f"Fetching workflows for repository: {repo}")
         workflows = fetch_workflow_files(repo)
-        if workflows is None:
-            return
         repoDict = parse_workflow_files(workflows, repo)
         repoListStat.append(repoDict)
     
