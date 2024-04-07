@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import json
-# from openai import OpenAI
+from openai import OpenAI
 
 # client = OpenAI()
 
