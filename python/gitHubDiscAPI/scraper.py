@@ -21,6 +21,7 @@ def scrape_github_discussions(url_template, pages):
     upvotes     = []
 
     for page in range(1, pages + 1):
+        print('page: ', page)
         url = url_template.format(page)
         response = requests.get(url)
         if response.status_code == 200:
@@ -102,8 +103,8 @@ def scrape_github_discussions(url_template, pages):
     return discussions
 
 def main():
-    url_template = "https://github.com/orgs/community/discussions/categories/actions?discussions_q=is%3Aopen+category%3AActions+sort%3Atop+is%3Aunanswered={}"
-    pages = 1
+    url_template = "https://github.com/orgs/community/discussions/categories/actions?discussions_q=is%3Aopen+category%3AActions+sort%3Atop+is%3Aunanswered%3D%7B40%7D&page={}"
+    pages = 40
 
     discussions = scrape_github_discussions(url_template, pages)
     
