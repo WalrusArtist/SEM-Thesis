@@ -2,7 +2,7 @@
     {
         "actions/starter-workflows": {
             "localActions": 0,
-            "marketplaceActions": 2
+            "marketplaceActions": 6
         }
     },
     {
@@ -50,13 +50,13 @@
     {
         "antlr/grammars-v4": {
             "localActions": 0,
-            "marketplaceActions": 0
+            "marketplaceActions": 2
         }
     },
     {
         "upptime/upptime": {
             "localActions": 0,
-            "marketplaceActions": 0
+            "marketplaceActions": 8
         }
     },
     {
@@ -74,7 +74,7 @@
     {
         "esirplayground/AutoBuild-OpenWrt": {
             "localActions": 0,
-            "marketplaceActions": 0
+            "marketplaceActions": 7
         }
     },
     {

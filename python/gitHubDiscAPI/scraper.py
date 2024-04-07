@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 from openai import OpenAI
+import re
 
 # client = OpenAI()
 
@@ -43,6 +44,41 @@ def scrape_github_discussions(url_template, pages):
                 if disc_response.status_code == 200:
                     disc_soup = BeautifulSoup(disc_response.text, 'html.parser')
                     discussion_links = disc_soup.find_all('td', class_='d-block color-fg-default comment-body markdown-body js-comment-body')
+                    buttons = disc_soup.find_all('button', attrs={'name': 'input[content]'})
+                    commentCount = disc_soup.find_all('h2', attrs={'id': 'discussion-comment-count'})
+
+                    commentsAmount = 0
+                    repliesAmount = 0
+                    for x in commentCount:
+                        if x.find('span') is not None:
+                            spans = x.find_all('span')
+                            for y in spans:
+                                if any(char.isdigit() for char in y.text):
+                                    cleaned_y_text = ''.join(y.text.split())
+                                    if 'repl' in cleaned_y_text:
+                                        cleaned_y_text = re.sub(r"\D", "", cleaned_y_text)
+                                        text2int = int(cleaned_y_text)
+                                        repliesAmount = text2int
+
+                                    if 'comment' in cleaned_y_text:
+                                        cleaned_y_text = cleaned_y_text = re.sub(r"\D", "", cleaned_y_text)
+                                        text2int = int(cleaned_y_text)
+                                        commentsAmount = text2int
+                    
+                    filtered_buttons = []
+                    for button in buttons:
+                        parent_div = button.find_parent('div', class_='edit-comment-hide')
+                        if parent_div:
+                            filtered_buttons.append(button)
+
+                    aggregated_reactions = 0
+                    for x in filtered_buttons:
+                        if x.find('span') is not None:
+                            try:
+                                text2int = int(x.find('span').text)
+                                aggregated_reactions += text2int
+                            except ValueError:
+                                print("Cannot convert the text to an integer. Value: ", x.find('span').text)
 
                     aggregated_p = ''
                     for x in discussion_links:
@@ -53,6 +89,9 @@ def scrape_github_discussions(url_template, pages):
                     'title': link.text.strip(),
                     'url': disc_url,
                     'upvotes': upvotes[i]['upvotes'],
+                    'rections' : aggregated_reactions,
+                    'replies': repliesAmount,
+                    'comments': commentsAmount,
                     'body': aggregated_p
                 }
                 discussions.append(discussion)
