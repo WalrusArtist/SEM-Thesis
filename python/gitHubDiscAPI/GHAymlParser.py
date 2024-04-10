@@ -8,7 +8,7 @@ g = Github(github_token)
 
 repositories = []
 
-with open('data/repoListTesting.txt', 'r') as file:
+with open('data/repoListAuto.txt', 'r') as file:
     repositories = [line.strip() for line in file.readlines()]
 
 print(repositories)
@@ -28,9 +28,12 @@ def fetch_workflow_files(repository):
             if content.type == "file" and content.name.endswith(".yml"):
                 workflows.append(content)
     except:
-        for content in repo.get_contents(".github/workflows", ref="master"):
-            if content.type == "file" and content.name.endswith(".yml"):
-                workflows.append(content)
+        try:
+            for content in repo.get_contents(".github/workflows", ref="master"):
+                if content.type == "file" and content.name.endswith(".yml"):
+                    workflows.append(content)
+        except:
+            print('SKIPPING: Failed processing info for repository: ', repository)
     return workflows
 
 def parse_workflow_files(workflows, repo):
@@ -38,17 +41,28 @@ def parse_workflow_files(workflows, repo):
     repoDict[repo] = {}
     repoDict[repo]['localActions'] = 0
     repoDict[repo]['marketplaceActions'] = 0
+    unique_lines = set()
 
     for workflow in workflows:
         print(f"Processing workflow file: {workflow.path}")
         workflow_content = workflow.decoded_content.decode("utf-8")
-        if "uses: ./.github" in workflow_content:
+        lines = workflow_content.split('\n')
+
+        for line in lines:
+            if "uses:" in line:
+                line = line.replace(" ", "")
+                if line.startswith("-"):
+                    line = line[1:]
+                unique_lines.add(line)
+
+    for line in unique_lines:
+        if './.github' in line:
             repoDict[repo]['localActions'] += 1
-        elif "uses: " in workflow_content and "uses: ./.github" not in workflow_content:
-            # find all lines where 'uses: ' exists. and see how many unique lines exist.
-            repoDict[repo]['marketplaceActions'] += 1
-        else:
-            print("Workflow does not specify any actions.")
+
+    repoDict[repo]['marketplaceActions'] = len(unique_lines) - repoDict[repo]['localActions']
+
+    print(unique_lines)
+
     return repoDict
 
 def main():
