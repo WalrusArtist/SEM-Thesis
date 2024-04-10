@@ -1,0 +1,802 @@
+[
+    {
+        "title": "How to get the current branch within Github Actions?",
+        "score": 368,
+        "link": "https://stackoverflow.com/questions/58033366/how-to-get-the-current-branch-within-github-actions",
+        "number_of_answers": 36,
+        "last_updated": 1710771053,
+        "body": "I'm building Docker images with Github Actions and want to tag images with the\nbranch name.\n\nI found the `GITHUB_REF` variable, but it results in `refs/heads/feature-\nbranch-1` and I need only `feature-branch-1`.\n\n"
+    },
+    {
+        "title": "Running actions in another directory",
+        "score": 325,
+        "link": "https://stackoverflow.com/questions/58139175/running-actions-in-another-directory",
+        "number_of_answers": 3,
+        "last_updated": 1709572838,
+        "body": "I've just started exploring Github actions however I've found myself placing a\ncommand in multiple places.\n\nI have a PHP project where the `composer.json` is not in the root, my\nstructure looks like:\n\n    \n    \n    my-project:\n        readme.md\n        app:\n            composer.json\n    \n\nObviously there is more to it and there is a reason why, but my\n`composer.json` sits in a subdirectory called 'app'. As a result in my\nworkflow, I have to cd into that folder every time to run a command:\n\n    \n    \n    name: CI\n    \n    on: [push]\n    \n    jobs:\n      phpunit:\n        runs-on: ubuntu-latest\n        steps:\n          - uses: actions/checkout@v1\n          - name: Setup Symfony\n            run: |\n              cd app\n              cp .env.dev .env\n          - name: Install Composer Dependencies\n            run: |\n              cd app\n              composer install --prefer-dist\n          - name: Run Tests\n            run: |\n              cd app\n              php bin/phpunit\n    \n\nHow can I remove the `cd app` in every stage?\n\n"
+    },
+    {
+        "title": "How to run a github-actions step, even if the previous step fails, while still failing the job",
+        "score": 324,
+        "link": "https://stackoverflow.com/questions/58858429/how-to-run-a-github-actions-step-even-if-the-previous-step-fails-while-still-f",
+        "number_of_answers": 9,
+        "last_updated": 1701398529,
+        "body": "I'm trying to follow an example Github has for testing my build with github\nactions, and then compressing the test results and uploading them as an\nartifact. <https://help.github.com/en/actions/automating-your-workflow-with-\ngithub-actions/persisting-workflow-data-using-artifacts#uploading-build-and-\ntest-artifacts>\n\nI'm having trouble with what to do when my tests fail though. This is my\naction. When my tests pass everything works great, my results are zipped an\nexported as an artifact, but if my tests fail, it stops the rest of the steps\nin the job, so my results never get published.  \n[![github-ci-\nresult](https://i.stack.imgur.com/NFoGe.png)](https://i.stack.imgur.com/NFoGe.png)  \nI tried adding the continue-on-error: true\n<https://help.github.com/en/actions/automating-your-workflow-with-github-\nactions/workflow-syntax-for-github-actions#jobsjob_idstepscontinue-on-error>  \nThis makes it continue after it fails and uploads my test results. but then\nthe job is marked as passed, even though my test step failed. Is there some\nway to have it upload my artifact even if a step fails, while still marking\nthe overall job as failed?\n\n    \n    \n    name: CI\n    on:\n      pull_request:\n        branches:\n        - master\n      push:\n        branches:\n          - master\n    \n    jobs:\n      build-and-test:\n        runs-on: ubuntu-latest\n        steps:\n        - uses: actions/checkout@v1    \n        - name: Test App\n          run: ./gradlew test\n    \n        - name: Archive Rest Results\n          uses: actions/upload-artifact@v1\n          with:\n            name: test-results\n            path: app/build/reports/tests\n    \n\n"
+    },
+    {
+        "title": "How to apt-get install in a GitHub Actions workflow?",
+        "score": 304,
+        "link": "https://stackoverflow.com/questions/57982945/how-to-apt-get-install-in-a-github-actions-workflow",
+        "number_of_answers": 3,
+        "last_updated": 1709629929,
+        "body": "In the new GitHub Actions, I am trying to install a package in order to use it\nin one of the next steps.\n\n    \n    \n    name: CI\n    \n    on: [push, pull_request]\n    \n    jobs:\n      translations:\n        runs-on: ubuntu-latest\n        steps:\n        - uses: actions/checkout@v1\n          with:\n            fetch-depth: 1\n        - name: Install xmllint\n          run: apt-get install libxml2-utils\n        # ...\n    \n\nHowever this fails with\n\n    \n    \n    Run apt-get install libxml2-utils\n      apt-get install libxml2-utils\n      shell: /bin/bash -e {0}\n    E: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)\n    E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?\n    ##[error]Process completed with exit code 100.\n    \n\nWhat's the best way to do this? Do I need to reach for Docker?\n\n"
+    },
+    {
+        "title": "How can I run GitHub Actions workflows locally?",
+        "score": 265,
+        "link": "https://stackoverflow.com/questions/59241249/how-can-i-run-github-actions-workflows-locally",
+        "number_of_answers": 10,
+        "last_updated": 1712668461,
+        "body": "I am planning to move our [Travis CI](https://en.wikipedia.org/wiki/Travis_CI)\nbuild to GitHub Actions using Docker for our per-commit testing.\n\nCan I reproducibly run these new GitHub Actions workflows locally? Is there a\ngeneric way to run any GitHub Actions workflow locally?\n\n"
+    },
+    {
+        "title": "Only run job on specific branch with GitHub Actions",
+        "score": 256,
+        "link": "https://stackoverflow.com/questions/58139406/only-run-job-on-specific-branch-with-github-actions",
+        "number_of_answers": 12,
+        "last_updated": 1692201219,
+        "body": "I'm relatively new to GitHub Actions and I have 2 jobs\u2013one that runs my tests,\nand one that deploys my project onto a server.\n\nObviously I want the tests to run on every branch, but deploying should only\nhappen when something gets pushed to master.\n\nI'm struggling to find a way to run a job on a specific branch. I know it's\npossible to only run _entire workflows_ on a specific branch, however that\nwould mean I would have a \"test\" workflow and a \"deploy\" workflow.\n\nThis sounds like a solution, however they would run parallel. In an ideal\nworld, the tests would run first, and only if they succeed, then the deploy\njob would start. This isn't the case when using 2 separate workflows.\n\nHow would I be able to achieve this? Is it possible to run **jobs** on a\nspecific branch?\n\n"
+    },
+    {
+        "title": "How do I set an env var with a bash expression in GitHub Actions?",
+        "score": 253,
+        "link": "https://stackoverflow.com/questions/57968497/how-do-i-set-an-env-var-with-a-bash-expression-in-github-actions",
+        "number_of_answers": 3,
+        "last_updated": 1696868601,
+        "body": "In GitHub Actions, I'd like to evaluate a bash expression and then assign it\nto an environment variable:\n\n    \n    \n        - name: Tag image\n          env:\n            GITHUB_SHA_SHORT: ${{ $(echo $GITHUB_SHA | cut -c 1-6) }}\n          ..do other things...\n    \n\nHowever, this naive attempt has failed. [According to the\ndocs](https://help.github.com/en/articles/contexts-and-expression-syntax-for-\ngithub-actions#literals) this doesn't seem to be supported; a somewhat clean\nworkaround would be fine.\n\n"
+    },
+    {
+        "title": "How to resolve &quot;refusing to allow an OAuth App to create or update workflow&quot; on git push",
+        "score": 223,
+        "link": "https://stackoverflow.com/questions/64059610/how-to-resolve-refusing-to-allow-an-oauth-app-to-create-or-update-workflow-on",
+        "number_of_answers": 23,
+        "last_updated": 1707993992,
+        "body": "Getting\n\n> refusing to allow an OAuth App to create or update workflow\n> `.github/workflows/cd.yml` without `workflow` scope\"\n\non `git push`. How to grant `workflow` scope?\n\n"
+    },
+    {
+        "title": "Dependencies Between Workflows on Github Actions",
+        "score": 214,
+        "link": "https://stackoverflow.com/questions/58457140/dependencies-between-workflows-on-github-actions",
+        "number_of_answers": 5,
+        "last_updated": 1686323639,
+        "body": "I have a monorepo with two workflows:\n\n`.github/workflows/test.yml`\n\n    \n    \n    name: test\n    \n    on: [push, pull_request]\n    \n    jobs:\n      test-packages:\n        runs-on: ubuntu-latest\n        steps:\n          - uses: actions/checkout@v1\n          - name: test packages\n            run: |\n              yarn install\n              yarn test\n    ...\n    \n\n`.github/workflows/deploy.yml`\n\n    \n    \n    name: deploy\n    \n    on:\n      push:\n        tags:\n          - \"*\"\n    \n    jobs:\n      deploy-packages:\n        runs-on: ubuntu-latest\n        needs: test-packages\n        steps:\n          - uses: actions/checkout@v1\n          - name: deploy packages\n            run: |\n              yarn deploy\n            env:\n              NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}\n    ...\n    \n\nThis doesn't work, I can't reference a job in another workflow:\n\n    \n    \n    ### ERRORED 19:13:07Z\n    \n    - Your workflow file was invalid: The pipeline is not valid. The pipeline must contain at least one job with no dependencies.\n    \n\n**Is there a way to create a dependency between workflows?**\n\nWhat I want is to run `test.yml` then `deploy.yml` on tags, and `test.yml`\nonly on push and pull requests. I don't want to duplicate jobs between\nworkflows.\n\n"
+    },
+    {
+        "title": "Github Action: Split Long Command into Multiple Lines",
+        "score": 203,
+        "link": "https://stackoverflow.com/questions/59954185/github-action-split-long-command-into-multiple-lines",
+        "number_of_answers": 7,
+        "last_updated": 1700946484,
+        "body": "I have a Github action command that is really long:\n\n    \n    \n    name: build\n    \n    on: [push]\n    \n    jobs:\n        build:\n            runs-on: ubuntu-18.04\n            steps:\n                - uses: actions/checkout@v1\n                - name: Install Prerequisites\n                  run: |\n                    sudo apt-get update\n                    sudo apt-get install -y --no-install-recommends \"a very very long list of prerequisites\"\n    \n\nMay I know whether it is possible to split the long command into multiple\nlines for better readability? I have tried the separator '' but it does not\nwork.\n\n"
+    },
+    {
+        "title": "Github actions share workspace/artifacts between jobs?",
+        "score": 199,
+        "link": "https://stackoverflow.com/questions/57498605/github-actions-share-workspace-artifacts-between-jobs",
+        "number_of_answers": 6,
+        "last_updated": 1706804398,
+        "body": "Trying to use Github's beta actions, I have two jobs, one that builds the code\nand then one that will deploy code. However, I can't seem to get the build\nartifact in deploy job.\n\nMy latest attempt is to manually set a container image with the same volumes\nfor each job, according to docs this should be solution:\n<https://help.github.com/en/articles/workflow-syntax-for-github-\nactions#jobsjob_idcontainervolumes>\n\n> Sets an array of volumes for the container to use. You can use volumes to\n> share data between services or other steps in a job. You can specify named\n> Docker volumes, anonymous Docker volumes, or bind mounts on the host.\n\n**Workflow**\n\n    \n    \n    name: CI\n    on:\n      push:\n        branches:\n        - master\n        paths:\n        - .github/workflows/server.yml\n        - server/*\n    jobs:\n      build:\n        runs-on: ubuntu-latest\n        container:\n          image: docker://node:10\n          volumes:\n          - /workspace:/github/workspace\n        steps:\n        - uses: actions/checkout@master\n        - run: yarn install\n          working-directory: server\n        - run: yarn build\n          working-directory: server\n        - run: yarn test\n          working-directory: server\n        - run: ls\n          working-directory: server\n      deploy:\n        needs: build\n        runs-on: ubuntu-latest\n        container:\n          image: docker://google/cloud-sdk:latest\n          volumes:\n          - /workspace:/github/workspace\n        steps:\n          - uses: actions/checkout@master\n          - run: ls\n            working-directory: server\n          - run: gcloud --version\n    \n\nThe first job (build) has a build directory, but when the second job (deploy)\nruns it doesn't and only contains the source code.\n\n_This project is a mono repo with code I'm trying to deploy being under\npath`server` hence all the `working-directory` flags._\n\n"
+    },
+    {
+        "title": "Delete a workflow from GitHub Actions",
+        "score": 167,
+        "link": "https://stackoverflow.com/questions/57927115/delete-a-workflow-from-github-actions",
+        "number_of_answers": 33,
+        "last_updated": 1712781226,
+        "body": "I create a couple workflows in the `.github/workflows` folder of my repository\nto experiment with GitHub Actions. I have since learned quite a bit and\ndeleted said \"experimental\" workflows from my repo. After deleting the\n\"experimental\" workflow yaml files and committing the deletions, when I go to\nthe Actions tab of my repository I **STILL** see the workflows that I have\nsince deleted.\n\nI see no option to delete and start from scratch?! Is this not possible? Is it\nmaybe possible through GitHub API? Hmm.\n\n"
+    },
+    {
+        "title": "How to run GitHub Actions workflow only if the pushed files are in a specific folder",
+        "score": 146,
+        "link": "https://stackoverflow.com/questions/63822219/how-to-run-github-actions-workflow-only-if-the-pushed-files-are-in-a-specific-fo",
+        "number_of_answers": 5,
+        "last_updated": 1695892674,
+        "body": "I have a folder structure that looks something like this.\n\n    \n    \n    - folder1\n      - file1\n      - *other files*\n    - folder2\n      - file1\n      - *other files*\n    - .gitignore\n    - package.json\n    - *other files*\n    \n\nI want to run my GitHub Actions workflow on push, only if any of the\nchanged/pushed files are located in the `folder1` directory/folder.\n\n"
+    },
+    {
+        "title": "Repository &#39;http://security.debian.org/debian-security buster/updates InRelease&#39; changed its &#39;Suite&#39; value from &#39;stable&#39; to &#39;oldstable&#39;",
+        "score": 144,
+        "link": "https://stackoverflow.com/questions/68802802/repository-http-security-debian-org-debian-security-buster-updates-inrelease",
+        "number_of_answers": 3,
+        "last_updated": 1691319014,
+        "body": "Some of my GitHub Actions workflows started recently to return this error when\ninstalling Chromedriver:\n\n    \n    \n    Get:1 http://security.debian.org/debian-security buster/updates InRelease [65.4 kB]\n    Get:2 http://deb.debian.org/debian buster InRelease [122 kB]\n    Get:3 http://deb.debian.org/debian buster-updates InRelease [51.9 kB]\n    Reading package lists...\n    E: Repository 'http://security.debian.org/debian-security buster/updates InRelease' changed its 'Suite' value from 'stable' to 'oldstable'\n    E: Repository 'http://deb.debian.org/debian buster InRelease' changed its 'Suite' value from 'stable' to 'oldstable'\n    E: Repository 'http://deb.debian.org/debian buster-updates InRelease' changed its 'Suite' value from 'stable-updates' to 'oldstable-updates'\n    Error: Process completed with exit code 100.\n    \n\nHere is my step implementation:\n\n    \n    \n    jobs:\n      build:\n        runs-on: ubuntu-latest\n        container:\n            image: docker://guillaumefalourd/ritchiecli:py-3.8\n        steps:\n          - name: Install Chrome Driver\n            run: |\n                sudo apt-get update\n                sudo apt-get install -y unzip xvfb libxi6 libgconf-2-4 gnupg2\n                sudo curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add\n                sudo echo \"deb https://dl.google.com/linux/chrome/deb/ stable main\" >> /etc/apt/sources.list.d/google-chrome.list\n                sudo apt-get -y update\n                sudo apt-get -y install google-chrome-stable\n                wget -N https://chromedriver.storage.googleapis.com/89.0.4389.23/chromedriver_linux64.zip -P ~/\n                unzip ~/chromedriver_linux64.zip -d ~/\n                rm ~/chromedriver_linux64.zip\n                sudo mv -f ~/chromedriver /usr/local/bin/chromedriver\n                sudo chown root:root /usr/local/bin/chromedriver\n                sudo chmod 0755 /usr/local/bin/chromedriver\n    \n\nDocker Image Implementation:\n[docker://guillaumefalourd/ritchiecli:py-3.8](https://github.com/GuillaumeFalourd/ritchie-\ndocker-images/blob/master/py-3.8/Dockerfile)\n\n## What I tried\n\n  1. I read from [here](https://www.reddit.com/r/debian/comments/ca3se6/for_people_who_gets_this_error_inrelease_changed/) and [here](https://superuser.com/questions/1456989/how-to-configure-apt-in-debian-buster-after-release) that adding `sudo apt-get --allow-releaseinfo-change update` or `sudo apt-get dist-upgrade` could resolve the problem, but even adding those to my workflow didn't resolve it.\n\n  2. I tried using this action [setup-chromedriver](https://github.com/marketplace/actions/setup-chromedriver) but it returned the same error when following the documentation:\n    \n        steps:\n    - uses: actions/checkout@v2\n    - uses: nanasess/setup-chromedriver@master\n      with:\n        # Optional: do not specify to match Chrome's version\n        chromedriver-version: '88.0.4324.96'\n    - run: |\n        export DISPLAY=:99\n        chromedriver --url-base=/wd/hub &\n        sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional\n    \n\n  3. As it seems to be related to _[Debian 10](https://en.wikipedia.org/wiki/Debian_version_history#Debian_10_\\(Buster\\)) (Buster)_ (?) I also tried to use another Ubuntu runner version as a runner (`ubuntu-18.04` instead of `ubuntu-latest`), but nothing changed, same error.\n\n### How can I resolve this issue?\n\n* * *\n\n* * *\n\n### Answer\n\n_I observed afterwards that the problem was happening at the first command\n:`sudo apt-get update` (and I was adding the other command after...)._\n\n_Substituting it for`sudo apt-get --allow-releaseinfo-change update` resolved\nmy problem._\n\n_Therefore the answer was not to add the`sudo apt-get --allow-releaseinfo-\nchange update` to the step executed commands, but **substituting** the `sudo\napt-get update` command for it._\n\n    \n    \n    jobs:\n      build:\n        runs-on: ubuntu-latest\n        container:\n            image: docker://guillaumefalourd/ritchiecli:py-3.8\n        steps:\n          - name: Install Chrome Driver\n            run: |\n                sudo apt-get --allow-releaseinfo-change update\n                sudo apt-get install -y unzip xvfb libxi6 libgconf-2-4 gnupg2\n                sudo curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add\n                sudo echo \"deb https://dl.google.com/linux/chrome/deb/ stable main\" >> /etc/apt/sources.list.d/google-chrome.list\n                sudo apt-get -y update\n                sudo apt-get -y install google-chrome-stable\n                wget -N https://chromedriver.storage.googleapis.com/89.0.4389.23/chromedriver_linux64.zip -P ~/\n                unzip ~/chromedriver_linux64.zip -d ~/\n                rm ~/chromedriver_linux64.zip\n                sudo mv -f ~/chromedriver /usr/local/bin/chromedriver\n                sudo chown root:root /usr/local/bin/chromedriver\n                sudo chmod 0755 /usr/local/bin/chromedriver\n    \n\n"
+    },
+    {
+        "title": "Get the current pushed tag in Github Actions",
+        "score": 142,
+        "link": "https://stackoverflow.com/questions/58177786/get-the-current-pushed-tag-in-github-actions",
+        "number_of_answers": 8,
+        "last_updated": 1710494867,
+        "body": "Is there a way to access the current tag that has been pushed in a Github\nAction? In CircleCI you can access this value with the `$CIRCLE_TAG` variable.\n\nMy Workflow yaml is being triggered by a tag like so:\n\n    \n    \n    on:\n      push:\n        tags:\n          - 'v*.*.*'\n    \n\nAnd I want to use that version number as a file path later on in the workflow.\n\n"
+    },
+    {
+        "title": "Set default Timeout on Github action pipeline",
+        "score": 140,
+        "link": "https://stackoverflow.com/questions/59073731/set-default-timeout-on-github-action-pipeline",
+        "number_of_answers": 1,
+        "last_updated": 1633913179,
+        "body": "Normally, my pipelines take 15 minutes to execute.\n\nRecently, for some strange reasons, some pipelines take between 45 minutes and\n6 hours to fail.\n\nIs it possible to set a default timeout limit on GitHub Action's pipeline (for\nexample, auto cancel after 30 minutes)?\n\n"
+    },
+    {
+        "title": "Github Actions - trigger another action after one action is completed",
+        "score": 138,
+        "link": "https://stackoverflow.com/questions/62750603/github-actions-trigger-another-action-after-one-action-is-completed",
+        "number_of_answers": 5,
+        "last_updated": 1678810732,
+        "body": "I have one action (a `yaml` file) for deploying a docker image to Google Cloud\nRun.\n\nI would like to receive Slack or Email messages informing the build and push\nresults.\n\nHow could the message action be triggered after build action is completed?\n\nIs it possible to get the result of the build action?\n\n"
+    },
+    {
+        "title": "In a github actions workflow, is there a way to have multiple jobs reuse the same setup?",
+        "score": 134,
+        "link": "https://stackoverflow.com/questions/65242830/in-a-github-actions-workflow-is-there-a-way-to-have-multiple-jobs-reuse-the-sam",
+        "number_of_answers": 4,
+        "last_updated": 1710618313,
+        "body": "I recently hooked up my project with github actions for continuous\nintegration. I created two separate jobs: the first one checks if the code in\nthe pull request is accepted by our linter, and the second one checks if the\ncode passes the test suite. I like that having two jobs like this shows up as\ntwo separate checkmarks in the Github webpage for the pull request:\n\n[![enter image description\nhere](https://i.stack.imgur.com/9N2Gl.png)](https://i.stack.imgur.com/9N2Gl.png)\n\nThe problem I'm having now is that there is some **duplicated code in workflow\nYAML file** : the first 3 steps, which install Lua and Luarocks. Not only is\nit annoying to maintain, but it also **wastes CI minutes** by running the same\nactions twice. Is there a way to avoid this? So that the **setup code is only\nwritten in one place, and only runs once** when the workflow executes?\n\nBut I am confused what would be the proper way to proceed:\n\n  1. Should I create my own Github Action with the shared setup code?\n  2. Should I create a Docker image that already has Lua and Luarocks pre-installed?\n  3. Should I use a single job? Can I still have independent checkmarks for the linter and the test suite if they are steps of the same job?\n  4. Something else?\n\nHere is the current YAML file for my workflow:\n\n    \n    \n    name: Github Actions CI\n    \n    on: [ pull_request ]\n    \n    jobs:\n        lint:\n            name: Lint\n            runs-on: ubuntu-latest\n            steps:\n                - uses: actions/checkout@v2\n                - uses: leafo/gh-actions-lua@v8.0.0\n                - uses: leafo/gh-actions-luarocks@v4.0.0\n    \n                - run: luarocks install luacheck\n                - run: ./run-linter.sh\n    \n        test:\n            name: Test\n            runs-on: ubuntu-latest\n            steps:\n                - uses: actions/checkout@v2\n                - uses: leafo/gh-actions-lua@v8.0.0\n                - uses: leafo/gh-actions-luarocks@v4.0.0\n    \n                - run: luarocks install busted\n                - run: ./build-project.sh\n                - run: ./run-test-suite.sh\n    \n\nI tried searching for similar questions but couldn't find anything that\nexactly answered my question:\n\n  1. [Caching APT packages in GitHub Actions workflow](https://stackoverflow.com/questions/59269850/): I can't use this solution because I don't have a way to precisely specify all the versions of all the dependencies that I am using, so that they may be cached. I also don't mind if separate runs of the workflow are not cached. I'm more worried about the code duplication.\n  2. [Github actions share workspace/artifacts between jobs?](https://stackoverflow.com/questions/57498605/github-actions-share-workspace-artifacts-between-jobs) I don't want to have to manage uploading uploading artifacts to a separate service and then deleting them afterwards.\n  3. [Reuse portion of github action across jobs](https://stackoverflow.com/questions/59757355/reuse-portion-of-github-action-across-jobs): In that question the only difference between the jobs is a single variable, so accepted answer is to use a build matrix. But I don't think a build matrix would work as well in my case, where only the setup code is the same?\n\n"
+    },
+    {
+        "title": "GitHub Action workflow not running",
+        "score": 127,
+        "link": "https://stackoverflow.com/questions/61989951/github-action-workflow-not-running",
+        "number_of_answers": 28,
+        "last_updated": 1709459202,
+        "body": "I have a GitHub action workflow file @ myrepo/.github/workflows/Build\nWebpage.yml it contains this:\n\n    \n    \n    name: Webpage Build\n    \n    on:\n      push:\n        branches:\n          - webpage \n    \n    jobs:\n      build:\n        runs-on: ubuntu-latest\n        steps:\n        - uses: actions/checkout@v2\n        - name: setup node\n          uses: actions/setup-node@v2-beta\n          with:\n            node-version: '12'\n        - name: install deps and predeploy\n          run: |\n            npm ci\n            npm run predeploy\n        - name: Deploy \n          uses: JamesIves/github-pages-deploy-action@3.5.2\n          with:\n            GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}\n            BRANCH: gh-pages\n            FOLDER: build\n    \n\nWhen I push to the webpage branch nothing happens in the actions tab at all I\ncan't tell if I have a syntax error or if something is completely not set up\ncorrectly, I have in past on this repo had errors relating to syntax like\n`every step must define a 'uses' or 'run' key` which to me shows Github does\nrecognize the workflow\n\n"
+    },
+    {
+        "title": "GitHub Actions: how to target all branches EXCEPT master?",
+        "score": 126,
+        "link": "https://stackoverflow.com/questions/57699839/github-actions-how-to-target-all-branches-except-master",
+        "number_of_answers": 2,
+        "last_updated": 1702913658,
+        "body": "I want to be able to let an action run on any given branch except master. I am\naware that there is a prebuilt `filter` action, but I want the exact opposite.\n\nMore like GitLab's `except` keyword. Since this is not inside the official\ndocs, has anyone prepared a decent workaround?\n\nThank you very much.\n\n"
+    },
+    {
+        "title": "How do I use an env file with GitHub Actions?",
+        "score": 124,
+        "link": "https://stackoverflow.com/questions/60176044/how-do-i-use-an-env-file-with-github-actions",
+        "number_of_answers": 15,
+        "last_updated": 1710174189,
+        "body": "I have multiple environments (dev, qa, prod) and I'm using .env files to store\nsecrets etc... Now I'm switching to GitHub Actions, and I want to use my .env\nfiles and declare them into the `env` section of the github actions yml.\n\nBut from what I've seen so far, it seems that I can not set a file path and I\nhave to manually re-declare all variables.\n\nHow should I proceed as best practice?\n\n"
+    },
+    {
+        "title": "GitHub Actions: how can I run a workflow created on a non-&#39;master&#39; branch from the &#39;workflow_dispatch&#39; event?",
+        "score": 124,
+        "link": "https://stackoverflow.com/questions/63362126/github-actions-how-can-i-run-a-workflow-created-on-a-non-master-branch-from-t",
+        "number_of_answers": 7,
+        "last_updated": 1712665047,
+        "body": "For actions working on a third party repository, I would like to be able to\ncreate an action on a branch and execute it on the _workflow_dispatch_ event.\nI have not succeeded in doing this, but I have discovered the following:\n\n  * The Action tab will change the branch where it finds workflows and action code based on the branch relating to the last executed workflow. e.g. if some workflow is executed from the Action tab using the _Run Workflow_ button and the _Use Workflow From_ dropdown is set to some branch, Branch-A, then the contents of the _Workflows_ panel on the left hand side of the Actions tab will be taken from Branch-A's version of _.github/_.\n  * The _This workflow has a workflow_dispatch event trigger._ text does not change with the branch. It seems to be taken from _master_. Alternatively, it may be being taken from the last set of results. I have not tested for that because either way it is not helpful behaviour.\n\nThe workaround is the execute on a push event which is OK, but that seems out\nof kilter with GitHub's high standards of design.\n\nDoes the above sound a) about right and b) whichever way you look at it, not\noptimal behaviour? Or, is there a better approach to building and testing\nactions?\n\n"
+    },
+    {
+        "title": "GitHub Actions: Run step on specific OS",
+        "score": 124,
+        "link": "https://stackoverflow.com/questions/57946173/github-actions-run-step-on-specific-os",
+        "number_of_answers": 2,
+        "last_updated": 1687645974,
+        "body": "I'm using GitHub Actions to run a workflow on multiple operating systems.\n\nHowever, there is a specific step that I have to run only on Ubuntu:\n\n    \n    \n    runs-on: ${{ matrix.os }}\n    strategy:\n        matrix:\n            os: [ubuntu-latest, windows-latest, macos-latest]\n    steps:\n        - name: Setup Ubuntu\n          run : export DISPLAY=\"127.0.0.1:10.0\"\n          if: # --> What should be here? <--\n    \n\nHow can I run steps only on specific operating systems?\n\n"
+    },
+    {
+        "title": "Using output from a previous job in a new one in a GitHub Action",
+        "score": 123,
+        "link": "https://stackoverflow.com/questions/59175332/using-output-from-a-previous-job-in-a-new-one-in-a-github-action",
+        "number_of_answers": 7,
+        "last_updated": 1706262978,
+        "body": "For (mainly) pedagogical reasons, I'm trying to run this workflow in GitHub\nactions:\n\n    \n    \n    name: \"We \ud83c\udf94 Perl\"\n    on:\n      issues:\n        types: [opened, edited, milestoned]\n    \n    jobs:\n      seasonal_greetings:\n        runs-on: windows-latest\n        steps:\n          - name: Maybe greet\n            id: maybe-greet\n            env:\n              HEY: \"Hey you!\"\n              GREETING: \"Merry Xmas to you too!\"\n              BODY: ${{ github.event.issue.body }}\n            run: |\n              $output=(perl -e 'print ($ENV{BODY} =~ /Merry/)?$ENV{GREETING}:$ENV{HEY};')\n              Write-Output \"::set-output name=GREET::$output\"\n      produce_comment:\n        name: Respond to issue\n        runs-on: ubuntu-latest\n        steps:\n          - name: Dump job context\n            env:\n              JOB_CONTEXT: ${{ jobs.maybe-greet.steps.id }}\n            run: echo \"$JOB_CONTEXT\"\n    \n\nI need two different jobs, since they use different context (operating\nsystems), but I need to get the output of a step in the first job to the\nsecond job. I am trying with several combinations of the `jobs` context as\nfound [here](https://help.github.com/en/actions/automating-your-workflow-with-\ngithub-actions/workflow-syntax-for-github-actions#jobsjob_idif) but there does\nnot seem to be any way to do that. Apparently, `jobs` is just the name of a\nYAML variable that does not really have a context, and the context `job`\ncontains just the success or failure. Any idea?\n\n"
+    },
+    {
+        "title": "How to run multiple commands in one Github Actions Docker",
+        "score": 122,
+        "link": "https://stackoverflow.com/questions/56726429/how-to-run-multiple-commands-in-one-github-actions-docker",
+        "number_of_answers": 1,
+        "last_updated": 1591357121,
+        "body": "What is the right way for running multiple commands in one `action`?\n\n## For example:\n\nI want to run a python script as `action`. Before running this script I need\nto install the `requirements.txt`.\n\n### I can think of several options:\n\n  * Create a `Dockerfile` with the command `RUN pip install -r requirements.txt` in it.\n  * Use the `python:3` image, and run the `pip install -r requirements.txt` in the `entrypoint.sh` file before running the arguments from `args` in `main.workflow`.\n  * use both `pip install` and `python myscript.py` as `args`\n\n## Another example:\n\nI want to run a script that exists in my repository, then compare 2 files (its\noutput and a file that already exists).\n\nThis is a process that includes **two commands** , whereas in the first\nexample, the `pip install` command can be considered **a building command**\nrather than a test command.\n\n## the question:\n\nCan I create another Docker for another command, which will contain the output\nof the previous Docker?\n\nI'm looking for guidelines for the location of the command in `Dockerfile`, in\n`entrypoint` or in `args`.\n\n"
+    },
+    {
+        "title": "Clear cache in GitHub Actions",
+        "score": 120,
+        "link": "https://stackoverflow.com/questions/63521430/clear-cache-in-github-actions",
+        "number_of_answers": 11,
+        "last_updated": 1711987178,
+        "body": "I am working on an R package and using GitHub Action (GHA) as a Continuous\nIntegration (CI) provider. I cache R packages (dependencies) by using\n[`actions/cache`](https://github.com/actions/cache). And now I want to clear\nall cache. How can I do that?\n\n* * *\n\nA part of GHA Workflow I use:\n\n    \n    \n    on: push\n    \n    name: R-CMD-check\n    \n    jobs:\n      R-CMD-check:\n        runs-on: ${{ matrix.config.os }}\n    \n        name: ${{ matrix.config.os }} (${{ matrix.config.r }})\n    \n        strategy:\n          fail-fast: false\n          matrix:\n            config:\n              # - {os: windows-latest, r: 'devel'}\n              - {os: macOS-latest,   r: 'release'}\n    \n        env:\n          R_REMOTES_NO_ERRORS_FROM_WARNINGS: true\n          RSPM: ${{ matrix.config.rspm }}\n          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}\n    \n        steps:\n          - uses: actions/checkout@v2\n    \n          - uses: r-lib/actions/setup-r@master\n    \n          - name: Query dependencies\n            run: |\n              repos <- c(\"https://r-hyperspec.github.io/hySpc.pkgs/\", getOption(\"repos\"))\n              saveRDS(\"remotes::dev_package_deps(dependencies = TRUE)\", \".github/depends.Rds\", version = 2)\n              writeLines(sprintf(\"R-%i.%i\", getRversion()$major, getRversion()$minor), \".github/R-version\")\n            shell: Rscript {0}\n    \n          - name: Cache R packages\n            if: runner.os != 'Windows'\n            uses: actions/cache@v1\n            with:\n              path: ${{ env.R_LIBS_USER }}\n              key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}\n              restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-\n    \n          - name: Install dependencies\n            run:   remotes::install_deps(dependencies = TRUE)\n            shell: Rscript {0}\n    \n          - name: Session info\n            run: |\n              options(width = 100)\n              pkgs <- installed.packages()[, \"Package\"]\n              sessioninfo::session_info(pkgs, include_base = TRUE)\n            shell: Rscript {0}\n    \n\n"
+    },
+    {
+        "title": "How do I get the output of a specific step in GitHub Actions?",
+        "score": 111,
+        "link": "https://stackoverflow.com/questions/59191913/how-do-i-get-the-output-of-a-specific-step-in-github-actions",
+        "number_of_answers": 5,
+        "last_updated": 1702027915,
+        "body": "I have this GitHub Actions workflow which runs tests, but now I am integrating\nslack notification in it. I want to get the output of the `Run tests` step and\nsend it as a message in the slack step.\n\n    \n    \n      - name: Run tests\n        run: |\n          mix compile --warnings-as-errors\n          mix format --check-formatted\n          mix ecto.create\n          mix ecto.migrate\n          mix test\n        env:\n          MIX_ENV: test\n          PGHOST: localhost\n          PGUSER: postgres\n    \n      - name: Slack Notification\n        uses: rtCamp/action-slack-notify@master\n        env:\n          SLACK_MESSAGE: Run tests output\n          SLACK_TITLE: CI Test Suite\n          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}\n    \n\n"
+    },
+    {
+        "title": "Getting current branch and commit hash in GitHub action",
+        "score": 109,
+        "link": "https://stackoverflow.com/questions/58886293/getting-current-branch-and-commit-hash-in-github-action",
+        "number_of_answers": 8,
+        "last_updated": 1689332240,
+        "body": "I want to build a docker image using a GitHub action, migrating from TeamCity.\n\nIn the build script, I want to tag the image with a combination of branch and\ncommit, e.g. `master.ad959de`. Testing that locally, I get that information\nlike this:\n\n    \n    \n    git_branch=`git symbolic-ref --short HEAD`\n    git_hash=`git rev-parse --short HEAD`\n    docker_version=${git_branch}.${git_hash}\n    \n\nThis is the relevant part of the GitHub action:\n\n    \n    \n    name: CI\n    on: [push]\n    jobs:\n      build:\n        runs-on: ubuntu-latest\n        steps:\n        - uses: actions/checkout@v1\n    \n        - name: Create docker image\n          run: ./docker-build.sh  \n    \n    \n\nRunning that script in that GitHub action results in this error:\n\n    \n    \n    fatal: ref HEAD is not a symbolic ref\n    \n\nHow can I generate a tag like that inside a GitHub action?\n\n"
+    },
+    {
+        "title": "How do I use Docker with GitHub Actions?",
+        "score": 103,
+        "link": "https://stackoverflow.com/questions/57549439/how-do-i-use-docker-with-github-actions",
+        "number_of_answers": 2,
+        "last_updated": 1576012610,
+        "body": "When I create a GitHub Actions workflow file, the example YAML file contains\n`runs-on: ubuntu-latest`. [According to the\ndocs](https://help.github.com/en/articles/virtual-environments-for-github-\nactions#supported-virtual-environments), I only have the options between a\ncouple versions of Ubuntu, Windows Server and macOS X.\n\nI thought GitHub Actions runs inside Docker. How do I choose my Docker image?\n\n"
+    },
+    {
+        "title": "Trigger Github Actions only when PR is merged",
+        "score": 102,
+        "link": "https://stackoverflow.com/questions/60710209/trigger-github-actions-only-when-pr-is-merged",
+        "number_of_answers": 7,
+        "last_updated": 1673190351,
+        "body": "I have a github actions yaml file as follows:\n\n    \n    \n    name: Test deployment\n    on:\n      pull_request:\n        branches:\n        - master\n    \n    jobs:\n      deploy:\n        runs-on: ubuntu-18.04\n        steps:\n        - name: Random name\n          run: date\n    \n    \n\nWhen I raise a PR from a branch to `master` branch, `Github Action` gets\ntriggered. So, I updated my YAML to:\n\n    \n    \n    name: Test deployment\n    on:\n      pull_request:\n        types:\n        - closed\n        branches:\n        - master\n    \n    \n\nNow it is triggered when I merge the PR rather than while raising it. But it\nalso gets triggered when I close the PR without merging it.\n\nI found nothing like `merged` type in\n[docs](https://help.github.com/en/actions/reference/events-that-trigger-\nworkflows#pull-request-event-pull_request)\n\nEven the following syntax i tried does not work as expected:\n\n    \n    \n    jobs:\n      ...\n        if: github.event_name == 'pull_request' && github.event.action == 'closed'\n    \n\nCan anyone pls help me out here? Is it possible for me to check if the PR is\napproved by atleast one reviewer? (I can enable branch protection, but wanted\nto know if any option exists for doing it in github actions)\n\n"
+    },
+    {
+        "title": "&quot;Resource not accessible by integration&quot; on github post /repos/{owner}/{repo}/actions/runners/registration-token API",
+        "score": 101,
+        "link": "https://stackoverflow.com/questions/70435286/resource-not-accessible-by-integration-on-github-post-repos-owner-repo-ac",
+        "number_of_answers": 5,
+        "last_updated": 1693239976,
+        "body": "I am making a curl post request from my github workflow (action) to get\nregistration token for a self-hosted runner but I am receiving the following\nresponse:\n\n    \n    \n    {\n      \"message\": \"Resource not accessible by integration\",\n      \"documentation_url\": \"https://docs.github.com/rest/reference/actions#create-a-registration-token-for-a-repository\"\n    }\n    \n\nBelow is stripped version of my github workflow:\n\n    \n    \n    name: get-token\n    \n    \"on\":\n      push: { branches: [\"token\"] }\n    \n    jobs:\n      \n      print-token:\n        name: print-token\n        environment: dev\n        # needs: pre-pkr\n        runs-on: ubuntu-latest\n    \n        steps:\n          - name: Check out code\n            uses: actions/checkout@v2\n    \n          - name: Get registration token\n            id: getRegToken\n            run: |\n              curl -X POST -H \\\"Accept: application/vnd.github.v3+json\\\"  -H 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/myprofile/myrepo/actions/runners/registration-token\n    \n\nEventually I'd wanna pass this token to the ami I am creating with packer\nbuild command (next step). I tried above curl request with packer's shell\nprovisioner as well but same response. Unable to figure out if I have to allow\nsome permissions from github ui? Or how else can this be done? Thanks in\nadvance.\n\n"
+    },
+    {
+        "title": "Push to origin from GitHub action",
+        "score": 99,
+        "link": "https://stackoverflow.com/questions/57921401/push-to-origin-from-github-action",
+        "number_of_answers": 6,
+        "last_updated": 1705462299,
+        "body": "I'm trying to push to `origin` remote from GitHub action. The logic of my\naction is:\n\n  * handle `pull_request_review` events and filter by comment message\n  * checkout to master, merge PR branch, run some checks and push it to `origin`\n\nThe script is:\n\n    \n    \n    if [[ \"${GITHUB_EVENT_NAME}\" != \"pull_request_review\" ]]; then\n      echo \"unsupported event: ${GITHUB_EVENT_NAME}\"\n      exit 1\n    fi\n    \n    user=$(jq -r .review.user.login ${GITHUB_EVENT_PATH})\n    cmd=$(jq -r .review.body ${GITHUB_EVENT_PATH})\n    echo \"reviewer is ${user}, command is ${cmd}\"\n    \n    if [[ \"${cmd}\" == \"merge\" ]]; then\n      head=$(jq -r .pull_request.head.ref ${GITHUB_EVENT_PATH})\n      git config user.email test@test.com\n      git config user.name test\n      git checkout -B _tmp origin/${head}\n      git checkout -B master origin/master\n      git merge --no-ff _tmp\n      git push origin master\n    fi\n    \n\nI'm running this script from `alpine:3.10` Docker container:\n\n    \n    \n    FROM alpine:3.10\n    \n    LABEL \"com.github.actions.name\"=\"Hello world action\"\n    LABEL \"com.github.actions.icon\"=\"shield\"\n    LABEL \"com.github.actions.color\"=\"green\"\n    \n    WORKDIR /app\n    COPY action.sh action.sh\n    RUN apk --update add bash git jq\n    CMD [\"bash\", \"/app/action.sh\"]\n    \n\nFirst steps are working fine (checkout and merge), but action failed to push\nthe merge to `origin` because of the error:\n\n> \\+ git push origin master  \n>  fatal: could not read Username for '<https://github.com>': No such device\n> or address\n\nIt looks like GitHub-action Docker container is not configured to push to\nGitHub. How can I configure it? Is it possible to use some of the [env\nvariables](https://help.github.com/en/articles/virtual-environments-for-\ngithub-actions#environment-variables) provided by GitHub or maybe some mounted\nfiles (like in `/github/*` path)?\n\n"
+    },
+    {
+        "title": "How to cancel previous runs in the PR when you push new commits(update the current) in github-actions",
+        "score": 99,
+        "link": "https://stackoverflow.com/questions/66335225/how-to-cancel-previous-runs-in-the-pr-when-you-push-new-commitsupdate-the-curre",
+        "number_of_answers": 4,
+        "last_updated": 1653667745,
+        "body": "When I push my commits to a PR my tests are triggered for this commit. After\nthat, if I push additional commits to this PR, tests in Github Actions runs on\nboth commits.\n\nI need to cancel the previous run and run only on the most recent pushed\ncommit.\n\nHow can I configure my yaml file to achieve that?\n\n"
+    },
+    {
+        "title": "Trigger Github Action only on new tags?",
+        "score": 99,
+        "link": "https://stackoverflow.com/questions/61891328/trigger-github-action-only-on-new-tags",
+        "number_of_answers": 3,
+        "last_updated": 1709000328,
+        "body": "Is there a possibility to trigger a GitHub action only if a new version (which\ncomes with a new tag) is pushed? I don't want run them on every push into\nmaster, but I also want to avoid creating a release branch.\n\n"
+    },
+    {
+        "title": "Reuse portion of github action across jobs",
+        "score": 99,
+        "link": "https://stackoverflow.com/questions/59757355/reuse-portion-of-github-action-across-jobs",
+        "number_of_answers": 4,
+        "last_updated": 1709559638,
+        "body": "I have a workflow for CI in a monorepo, for this workflow two projects end up\nbeing built. The jobs run fine, however, I'm wondering if there is a way to\nremove the duplication in this workflow.yml file with the setting up of the\nrunner for the job. I have them split so they run in parallel as they do not\nrely on one another and to be faster to complete. It's a big time difference\nin 5 minutes vs. 10+ when waiting for the CI to finish.\n\n    \n    \n    jobs:\n      job1:\n        name: PT.W Build\n        runs-on: macos-latest\n        steps:\n          - name: Checkout Repo\n            uses: actions/checkout@v1\n    \n          - name: Setup SSH-Agent\n            uses: webfactory/ssh-agent@v0.2.0\n            with:\n              ssh-private-key: |\n                ${{ secrets.SSH_PRIVATE_KEY }}\n    \n          - name: Setup JDK 1.8\n            uses: actions/setup-java@v1\n            with:\n              java-version: 1.8\n    \n          - name: Setup Permobil-Client\n            run: |\n              echo no | npm i -g nativescript\n              tns usage-reporting disable\n              tns error-reporting disable\n              npm run setup.all\n    \n          - name: Build PT.W Android\n            run: |\n              cd apps/wear/pushtracker\n              tns build android --env.uglify\n    \n      job2:\n        name: SD.W Build\n        runs-on: macos-latest\n        steps:\n          - name: Checkout Repo\n            uses: actions/checkout@v1\n    \n          - name: Setup SSH-Agent\n            uses: webfactory/ssh-agent@v0.2.0\n            with:\n              ssh-private-key: |\n                ${{ secrets.SSH_PRIVATE_KEY }}\n    \n          - name: Setup JDK 1.8\n            uses: actions/setup-java@v1\n            with:\n              java-version: 1.8\n    \n          - name: Setup Permobil-Client\n            run: |\n              echo no | npm i -g nativescript\n              tns usage-reporting disable\n              tns error-reporting disable\n              npm run setup.all\n    \n          - name: Build SD.W Android\n            run: |\n              cd apps/wear/smartdrive\n              tns build android --env.uglify\n    \n\nYou can see here the jobs have almost an identical process, it's just the\nbuilding of the different apps themselves. I'm wondering if there is a way to\ntake the duplicate blocks in the jobs and create a way to only write that once\nand reuse it in both jobs.\n\n"
+    },
+    {
+        "title": "The unauthenticated git protocol on port 9418 is no longer supported",
+        "score": 95,
+        "link": "https://stackoverflow.com/questions/70663523/the-unauthenticated-git-protocol-on-port-9418-is-no-longer-supported",
+        "number_of_answers": 10,
+        "last_updated": 1651488784,
+        "body": "I have been using github actions for quite sometime but today my deployments\nstarted failing. Below is the error from github action logs\n\n    \n    \n    Command: git\n    Arguments: ls-remote --tags --heads git://github.com/adobe-webplatform/eve.git\n    Directory: /home/runner/work/stackstream-fe/stackstream-fe\n    Output:\n    fatal: remote error: \n      The unauthenticated git protocol on port 9418 is no longer supported.\n    \n\nUpon investigation, it appears that below section in my yml file is causing\nthe issue.\n\n    \n    \n        - name: Installing modules\n          run: yarn install\n    \n\nI have looked into [this change log](https://github.blog/2021-09-01-improving-\ngit-protocol-security-github) but can't seem to comprehend the issue.\n\nAdditional Details: Server: **EC2 Instance** Github actions steps:\n\n    \n    \n      steps:\n      - name: Checkout\n        uses: actions/checkout@v2\n    \n      - id: vars\n        run: |\n          if [ '${{ github.ref }}' == 'refs/heads/master' ]; then echo \"::set-output name=environment::prod_stackstream\" ; echo \"::set-output name=api-url::api\" ; elif [ '${{ github.ref }}' == 'refs/heads/staging' ]; then echo \"::set-output name=environment::staging_stackstream\"  ; echo \"::set-output name=api-url::stagingapi\" ; else echo \"::set-output name=environment::dev_stackstream\" ; echo \"::set-output name=api-url::devapi\" ; fi\n    \n      - uses: pCYSl5EDgo/cat@master\n        id: slack\n        with:\n          path: .github/workflows/slack.txt\n    \n      - name: Slack Start Notification\n        uses: 8398a7/action-slack@v3\n        env:\n          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}\n          ENVIRONMENT: '`${{ steps.vars.outputs.environment }}`'\n          COLOR: good\n          STATUS: '`Started`'\n        with:\n          status: custom\n          fields: workflow,job,commit,repo,ref,author,took\n          custom_payload: |\n            ${{ steps.slack.outputs.text }}\n    \n      - name: Installing modules\n        env:\n          REACT_APP_API_URL: 'https://${{ steps.vars.outputs.api-url }}mergestack.com/api/v1'\n        run: yarn install\n    \n      - name: Create Frontend Build\n        env:\n          REACT_APP_API_URL: 'https://${{ steps.vars.outputs.api-url }}mergestack.com/api/v1'\n        run: yarn build\n    \n      - name: Deploy to Frontend Server DEV\n        if: ${{ contains(github.ref, 'dev') }}\n        uses: easingthemes/ssh-deploy@v2.1.5\n        env:\n          SSH_PRIVATE_KEY: ${{ secrets.DEV_KEY }}\n          ARGS: '-rltgoDzvO --delete'\n          SOURCE: 'deploy/'\n          REMOTE_HOST: ${{ secrets.DEV_HOST }}\n          REMOTE_USER: plyfolio-dev\n          TARGET: '/home/plyfolio-dev/${{ steps.vars.outputs.environment }}/fe/deploy'\n    \n\n**package.json** file\n\n    \n    \n       {\n      \"name\": \"stackstream-fe\",\n      \"version\": \"1.0.0\",\n      \"authors\": [\n        \"fayyaznofal@gmail.com\"\n      ],\n      \"private\": true,\n      \"dependencies\": {\n        \"@fortawesome/fontawesome-svg-core\": \"^1.2.34\",\n        \"@fortawesome/free-solid-svg-icons\": \"^5.15.2\",\n        \"@fortawesome/react-fontawesome\": \"^0.1.14\",\n        \"@fullcalendar/bootstrap\": \"^5.5.0\",\n        \"@fullcalendar/core\": \"^5.5.0\",\n        \"@fullcalendar/daygrid\": \"^5.5.0\",\n        \"@fullcalendar/interaction\": \"^5.5.0\",\n        \"@fullcalendar/react\": \"^5.5.0\",\n        \"@lourenci/react-kanban\": \"^2.1.0\",\n        \"@redux-saga/simple-saga-monitor\": \"^1.1.2\",\n        \"@testing-library/jest-dom\": \"^5.11.9\",\n        \"@testing-library/react\": \"^11.2.3\",\n        \"@testing-library/user-event\": \"^12.6.0\",\n        \"@toast-ui/react-chart\": \"^1.0.2\",\n        \"@types/jest\": \"^26.0.14\",\n        \"@types/node\": \"^14.10.3\",\n        \"@types/react\": \"^16.9.49\",\n        \"@types/react-dom\": \"^16.9.8\",\n        \"@vtaits/react-color-picker\": \"^0.1.1\",\n        \"apexcharts\": \"^3.23.1\",\n        \"availity-reactstrap-validation\": \"^2.7.0\",\n        \"axios\": \"^0.21.1\",\n        \"axios-mock-adapter\": \"^1.19.0\",\n        \"axios-progress-bar\": \"^1.2.0\",\n        \"bootstrap\": \"^5.0.0-beta2\",\n        \"chart.js\": \"^2.9.4\",\n        \"chartist\": \"^0.11.4\",\n        \"classnames\": \"^2.2.6\",\n        \"components\": \"^0.1.0\",\n        \"dotenv\": \"^8.2.0\",\n        \"draft-js\": \"^0.11.7\",\n        \"echarts\": \"^4.9.0\",\n        \"echarts-for-react\": \"^2.0.16\",\n        \"firebase\": \"^8.2.3\",\n        \"google-maps-react\": \"^2.0.6\",\n        \"history\": \"^4.10.1\",\n        \"i\": \"^0.3.6\",\n        \"i18next\": \"^19.8.4\",\n        \"i18next-browser-languagedetector\": \"^6.0.1\",\n        \"jsonwebtoken\": \"^8.5.1\",\n        \"leaflet\": \"^1.7.1\",\n        \"lodash\": \"^4.17.21\",\n        \"lodash.clonedeep\": \"^4.5.0\",\n        \"lodash.get\": \"^4.4.2\",\n        \"metismenujs\": \"^1.2.1\",\n        \"mkdirp\": \"^1.0.4\",\n        \"moment\": \"2.29.1\",\n        \"moment-timezone\": \"^0.5.32\",\n        \"nouislider-react\": \"^3.3.9\",\n        \"npm\": \"^7.6.3\",\n        \"prop-types\": \"^15.7.2\",\n        \"query-string\": \"^6.14.0\",\n        \"react\": \"^16.13.1\",\n        \"react-apexcharts\": \"^1.3.7\",\n        \"react-auth-code-input\": \"^1.0.0\",\n        \"react-avatar\": \"^3.10.0\",\n        \"react-bootstrap\": \"^1.5.0\",\n        \"react-bootstrap-editable\": \"^0.8.2\",\n        \"react-bootstrap-sweetalert\": \"^5.2.0\",\n        \"react-bootstrap-table-next\": \"^4.0.3\",\n        \"react-bootstrap-table2-editor\": \"^1.4.0\",\n        \"react-bootstrap-table2-paginator\": \"^2.1.2\",\n        \"react-bootstrap-table2-toolkit\": \"^2.1.3\",\n        \"react-chartist\": \"^0.14.3\",\n        \"react-chartjs-2\": \"^2.11.1\",\n        \"react-color\": \"^2.19.3\",\n        \"react-confirm-alert\": \"^2.7.0\",\n        \"react-content-loader\": \"^6.0.1\",\n        \"react-countdown\": \"^2.3.1\",\n        \"react-countup\": \"^4.3.3\",\n        \"react-cropper\": \"^2.1.4\",\n        \"react-data-table-component\": \"^6.11.8\",\n        \"react-date-picker\": \"^8.0.6\",\n        \"react-datepicker\": \"^3.4.1\",\n        \"react-dom\": \"^16.13.1\",\n        \"react-draft-wysiwyg\": \"^1.14.5\",\n        \"react-drag-listview\": \"^0.1.8\",\n        \"react-drawer\": \"^1.3.4\",\n        \"react-dropzone\": \"^11.2.4\",\n        \"react-dual-listbox\": \"^2.0.0\",\n        \"react-facebook-login\": \"^4.1.1\",\n        \"react-flatpickr\": \"^3.10.6\",\n        \"react-google-login\": \"^5.2.2\",\n        \"react-hook-form\": \"^7.15.2\",\n        \"react-i18next\": \"^11.8.5\",\n        \"react-icons\": \"^4.2.0\",\n        \"react-image-lightbox\": \"^5.1.1\",\n        \"react-input-mask\": \"^2.0.4\",\n        \"react-jvectormap\": \"^0.0.16\",\n        \"react-leaflet\": \"^3.0.5\",\n        \"react-meta-tags\": \"^1.0.1\",\n        \"react-modal-video\": \"^1.2.6\",\n        \"react-notifications\": \"^1.7.2\",\n        \"react-number-format\": \"^4.7.3\",\n        \"react-perfect-scrollbar\": \"^1.5.8\",\n        \"react-rangeslider\": \"^2.2.0\",\n        \"react-rating\": \"^2.0.5\",\n        \"react-rating-tooltip\": \"^1.1.6\",\n        \"react-redux\": \"^7.2.1\",\n        \"react-responsive-carousel\": \"^3.2.11\",\n        \"react-router-dom\": \"^5.2.0\",\n        \"react-script\": \"^2.0.5\",\n        \"react-scripts\": \"3.4.3\",\n        \"react-select\": \"^4.3.1\",\n        \"react-sparklines\": \"^1.7.0\",\n        \"react-star-ratings\": \"^2.3.0\",\n        \"react-super-responsive-table\": \"^5.2.0\",\n        \"react-switch\": \"^6.0.0\",\n        \"react-table\": \"^7.6.3\",\n        \"react-toastify\": \"^7.0.3\",\n        \"react-toastr\": \"^3.0.0\",\n        \"react-twitter-auth\": \"0.0.13\",\n        \"reactstrap\": \"^8.8.1\",\n        \"recharts\": \"^2.0.8\",\n        \"redux\": \"^4.0.5\",\n        \"redux-saga\": \"^1.1.3\",\n        \"reselect\": \"^4.0.0\",\n        \"sass\": \"^1.37.5\",\n        \"simplebar-react\": \"^2.3.0\",\n        \"styled\": \"^1.0.0\",\n        \"styled-components\": \"^5.2.1\",\n        \"toastr\": \"^2.1.4\",\n        \"typescript\": \"^4.0.2\",\n        \"universal-cookie\": \"^4.0.4\"\n      },\n      \"devDependencies\": {\n        \"@typescript-eslint/eslint-plugin\": \"^2.27.0\",\n        \"@typescript-eslint/parser\": \"^2.27.0\",\n        \"@typescript-eslint/typescript-estree\": \"^4.15.2\",\n        \"eslint-config-prettier\": \"^6.10.1\",\n        \"eslint-plugin-prettier\": \"^3.1.2\",\n        \"husky\": \"^4.2.5\",\n        \"lint-staged\": \"^10.1.3\",\n        \"prettier\": \"^1.19.1\",\n        \"react-test-renderer\": \"^16.13.1\",\n        \"redux-devtools-extension\": \"^2.13.8\",\n        \"redux-mock-store\": \"^1.5.4\"\n      },\n      \"scripts\": {\n        \"start\": \"react-scripts start\",\n        \"build\": \"react-scripts build && mv build ./deploy/build\",\n        \"build-local\": \"react-scripts build\",\n        \"test\": \"react-scripts test\",\n        \"eject\": \"react-scripts eject\"\n      },\n      \"eslintConfig\": {\n        \"extends\": \"react-app\"\n      },\n      \"husky\": {\n        \"hooks\": {\n          \"pre-commit\": \"lint-staged\"\n        }\n      },\n      \"lint-staged\": {\n        \"*.{js,ts,tsx}\": [\n          \"eslint --fix\"\n        ]\n      },\n      \"browserslist\": {\n        \"production\": [\n          \">0.2%\",\n          \"not dead\",\n          \"not op_mini all\"\n        ],\n        \"development\": [\n          \"last 1 chrome version\",\n          \"last 1 firefox version\",\n          \"last 1 safari version\"\n        ]\n      }\n    }\n    \n\n**[package-\nlock.json](https://gist.github.com/nofalfayyaz/ae2ceeda8d61af19a2ab6c45f80822a7)**\n\n"
+    },
+    {
+        "title": "How can I run a GitHub Action from a branch other than &#39;master&#39;?",
+        "score": 94,
+        "link": "https://stackoverflow.com/questions/63480433/how-can-i-run-a-github-action-from-a-branch-other-than-master",
+        "number_of_answers": 5,
+        "last_updated": 1712662883,
+        "body": "I have a repository in GitHub and I want to create an Action to build a Docker\nimage and push it to the [Docker\nHub](https://en.wikipedia.org/wiki/Docker_\\(software\\)#Components). I know how\nto do it, but if I create the action in a branch other than _master_ , GitHub\ndoes not run it.\n\nThis is a known problem ([Workflow files only picked up from\nmaster?](https://github.community/t/workflow-files-only-picked-up-from-\nmaster/16129)).\n\nHow can I fix it?\n\n"
+    },
+    {
+        "title": "How to fail a job in Github Actions?",
+        "score": 93,
+        "link": "https://stackoverflow.com/questions/57903836/how-to-fail-a-job-in-github-actions",
+        "number_of_answers": 3,
+        "last_updated": 1666920850,
+        "body": "I'm developing a Github actions workflow. This workflow runs on Linux, Mac,\nand Windows.\n\nAs part of the workflow, I have to check whether 2 environment variables are\nequal. If they don't - fail the job.\n\nAs described [here](https://help.github.com/en/articles/contexts-and-\nexpression-syntax-for-github-actions#about-context-and-expressions), Github\nActions support `if:` condition:\n\n    \n    \n    steps:\n    - run: # How can I make a cross-platform failure here?\n      if: ${{ envA }} != ${{ envB }}\n    \n\nHow can I make the job fail if the above condition is true? In the beginning,\nI thought of a script, but there must be a more elegant way to fail a job.\n\n"
+    },
+    {
+        "title": "Get current date and time in GitHub workflows",
+        "score": 92,
+        "link": "https://stackoverflow.com/questions/60942067/get-current-date-and-time-in-github-workflows",
+        "number_of_answers": 6,
+        "last_updated": 1698463067,
+        "body": "I have a GitHub workflow for releasing nightly snapshots of the repository. It\nuses [the create-release action](https://github.com/actions/create-release).\nThis is how the workflow file looks right now:\n\n    \n    \n    name: Release Nightly Snapshot\n    \n    on:\n      schedule:\n      - cron: \"0 0 * * *\"\n    \n    jobs:\n      build:\n        name: Release Nightly Snapshot\n        runs-on: ubuntu-latest\n        steps:\n          - name: Checkout master Branch\n            uses: actions/checkout@v2\n            with:\n              ref: 'master'\n          - name: Create Release\n            id: nightly-snapshot\n            uses: actions/create-release@latest\n            env:\n              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}\n            with:\n              tag_name: 'nightly snapshot'\n              release_name: 'nightly snapshot'\n              draft: false\n              prerelease: false\n    \n\nI want `tag_name` and `release_name` to use the current date and time, instead\nof hard-coded values. However, I couldn't find any documentation on it. How\nshould I do it?\n\n"
+    },
+    {
+        "title": "Github Actions, how to share a calculated value between job steps?",
+        "score": 92,
+        "link": "https://stackoverflow.com/questions/57819539/github-actions-how-to-share-a-calculated-value-between-job-steps",
+        "number_of_answers": 2,
+        "last_updated": 1700070225,
+        "body": "Is there a DRY way to calculate and share a value in multiple job steps with\nGithub Actions?\n\nIn the below workflow yml file, **echo ${GITHUB_REF} | cut -d'/' -f3`-${GITHUB_SHA}** is repeated in multiple steps.\n    \n    \n    name: Test, Build and Deploy\n    on:\n      push:\n        branches:\n          - master\n    jobs:\n      build_and_push:\n        name: Build and Push\n        runs-on: ubuntu-latest\n        steps:\n          - name: Docker Build\n            uses: \"actions/docker/cli@master\"\n            with:\n              args: build . --file Dockerfile -t cflynnus/blog:`echo ${GITHUB_REF} | cut -d'/' -f3`-${GITHUB_SHA}\n          - name: Docker Tag Latest\n            uses: \"actions/docker/cli@master\"\n            with:\n              args: tag cflynnus/blog:`echo ${GITHUB_REF} | cut -d'/' -f3`-${GITHUB_SHA} cflynnus/blog:latest\n    \n\n"
+    },
+    {
+        "title": "Cloning private github repository within organisation in actions",
+        "score": 89,
+        "link": "https://stackoverflow.com/questions/57612428/cloning-private-github-repository-within-organisation-in-actions",
+        "number_of_answers": 9,
+        "last_updated": 1697653299,
+        "body": "I have 2 private GitHub repositories (say A and B) in the organization (say\nORG). Repository A has repository B in `requirements.txt`:\n\n    \n    \n    -e git+git@github.com:ORG/B.git#egg=B\n    \n\nAnd I have the following workflow for A (in `.github/workflows/test.yml`):\n\n    \n    \n    name: Python package\n    \n    on: push\n    \n    jobs:\n      build:\n    \n        runs-on: ubuntu-latest\n    \n        steps:\n        - uses: actions/checkout@v1\n    \n        - name: Install requirements\n          run: |\n            pip install -r requirements.txt\n    \n        - name: Test with pytest\n          run: |\n            pytest ./tests\n    \n\nAs B is private, it fails on installing it.\n\nIs it possible to install B while testing A in this workflow if they are in\nthe same organization? How?\n\n"
+    },
+    {
+        "title": "Create dependencies between jobs in GitHub Actions",
+        "score": 88,
+        "link": "https://stackoverflow.com/questions/63148639/create-dependencies-between-jobs-in-github-actions",
+        "number_of_answers": 2,
+        "last_updated": 1677993372,
+        "body": "I'm new to GitHub Actions, playing with various options to work out good\napproaches to CI/CD pipelines.\n\nInitially I had all my CI steps under one job, doing the following:\n\n  * checkout code from repo\n  * lint\n  * scan source for vulnerabilities\n  * build\n  * test\n  * create image\n  * scan image for vulnerabilities\n  * push to AWS ECR\n\nSome of those steps don't need to be done in sequence though; e.g. we could\nrun linting and source code vulnerability scanning in parallel with the build;\nsaving time (if we assume that those steps are going to pass).\n\ni.e. essentially I'd like my pipeline to do something like this:\n\n    \n    \n    job1 = {\n     - checkout code from repo #required per job, since each job runs on a different runner\n     - lint\n    }\n    job2 = {\n     - checkout code from repo\n     - scan source for vulnerabilities\n    }\n    job3 = {\n     - checkout code from repo\n     - build\n     - test\n     - create image\n     - scan image for vulnerabilities\n     - await job1 & job2\n     - push to AWS ECR\n    }\n    \n\nI have a couple of questions:\n\n  1. Is it possible to setup some `await jobN` rule within a job; i.e. to view the status of one job from another?\n  2. (only relevant if the answer to 1 is `Yes`): Is there any way to have the failure of one job immediately impact other jobs in the same workflow? i.e. If my linting job detects issues then I can immediately call this a fail, so would want the failure in job1 to immediately stop jobs 2 and 3 from consuming additional time, since they're no longer adding value.\n\n"
+    },
+    {
+        "title": "GitHub Actions - How to build project in sub-directory",
+        "score": 85,
+        "link": "https://stackoverflow.com/questions/57806624/github-actions-how-to-build-project-in-sub-directory",
+        "number_of_answers": 2,
+        "last_updated": 1647199494,
+        "body": "I'm using GitHub Actions to build my project but my Dart project is in a sub-\ndirectory in the repository. The Action script can't find my `pubspec.yaml`\nand get the dependencies.\n\nHow can I point my GitHub Action to look for the source code in a sub-\ndirectory within my repository?\n\n    \n    \n    . (root of my GitHub repository)\n    \u2514\u2500\u2500 dart_project\n        \u251c\u2500\u2500 pubspec.yaml   <-- Git Hub action must point to this sub-dir\n    \u2514\u2500\u2500 node_project\n        \u251c\u2500\u2500 packages.json\n    \n\nThis is the error I am getting:\n\n    \n    \n    Could not find a file named \"pubspec.yaml\" in \"/__w/<my_project_path>\".\n    ##[error]Process completed with exit code 66.\n    \n\nThis is the `dart.yml` file auto-generated by GitHub.\n\n    \n    \n    name: Dart CI\n    \n    on: [push]\n    \n    jobs:\n      build:\n    \n        runs-on: ubuntu-latest\n    \n        container:\n          image:  google/dart:latest\n    \n        steps:\n        - uses: actions/checkout@v1\n        - name: Install dependencies\n          run: pub get\n        - name: Run tests\n          run: pub run test\n    \n\n[![enter image description\nhere](https://i.stack.imgur.com/00jfS.png)](https://i.stack.imgur.com/00jfS.png)\n\n"
+    },
+    {
+        "title": "Difference between Github&#39;s &quot;Environment&quot; and &quot;Repository&quot; secrets?",
+        "score": 85,
+        "link": "https://stackoverflow.com/questions/65957197/difference-between-githubs-environment-and-repository-secrets",
+        "number_of_answers": 3,
+        "last_updated": 1688571556,
+        "body": "In the GitHub\n[documentation](https://docs.github.com/en/actions/reference/encrypted-\nsecrets#about-encrypted-secrets) it states that the precedence of secrets is\nfrom lowest to highest (`Environment` > `Repository` > `Organization`), it\nalso states that the `Organization` secrets are available for all repositories\nin the organization. But it doesn't state anything about `Environment` and\n`Repository` secrets.\n\nMy questions are:\n\n  1. What is the difference is between `Environment` and `Repository` secrets?\n  2. When should I use `Environment` secrets?\n  3. When should I use `Repository` secrets?\n\n"
+    },
+    {
+        "title": "How do I cache steps in GitHub actions?",
+        "score": 84,
+        "link": "https://stackoverflow.com/questions/55110729/how-do-i-cache-steps-in-github-actions",
+        "number_of_answers": 6,
+        "last_updated": 1710920972,
+        "body": "Say I have a GitHub actions workflow with 2 steps.\n\n  1. Download and compile my application's dependencies.\n  2. Compile and test my application\n\nMy dependencies rarely change and the compiled dependencies can be safely\ncached until I next change the lock-file that specifies their versions.\n\nIs a way to save the result of the first step so that in future workflow can\nskip over that step?\n\n"
+    },
+    {
+        "title": "Trigger a GitHub Action when another repository creates a new release",
+        "score": 84,
+        "link": "https://stackoverflow.com/questions/58465057/trigger-a-github-action-when-another-repository-creates-a-new-release",
+        "number_of_answers": 3,
+        "last_updated": 1693329636,
+        "body": "I'm trying to build a GitHub workflow that will be triggered when another\nrepository creates a new release.\n\nIn the documentation, there is the paragraph:\n[`on.event_name.types`](https://help.github.com/en/articles/workflow-syntax-\nfor-github-actions#onevent_nametypes) where `event_name` will be `release`.\n\nThe question is: Is there any way to refer to the `release` event of another\nrepository?\n\n"
+    },
+    {
+        "title": "How to get the short sha for the github workflow?",
+        "score": 83,
+        "link": "https://stackoverflow.com/questions/59810838/how-to-get-the-short-sha-for-the-github-workflow",
+        "number_of_answers": 6,
+        "last_updated": 1708004695,
+        "body": "I am creating a workflow in GitHub which creates and uses a docker image.\nTherefore I have started my workflow file with a global environment variable\nfor this docker image which is visible for all the jobs in my workflow:\n\n    \n    \n    name: continuous integration\n    on:\n      push:\n        branches:\n          - '**'\n    \n    env:\n      IMAGE: docker.pkg.github.com/${{ github.repository }}/jactor-persistence:${{ github.sha }}\n    \n\nI want to replace `${{ github.sha }}` with the short sha of the head commit,\nthe same as the result of the following command `git rev-parse --short HEAD`\n\nIs this possible?\n\n"
+    },
+    {
+        "title": "npm ci can only install packages with an existing package-lock.json or npm-shrinkwrap.json with lockfileVersion &gt;= 1",
+        "score": 82,
+        "link": "https://stackoverflow.com/questions/69984660/npm-ci-can-only-install-packages-with-an-existing-package-lock-json-or-npm-shrin",
+        "number_of_answers": 20,
+        "last_updated": 1704403372,
+        "body": "This is the issue that I am facing when running the command `npm ci` to\ninstall dependencies in my GitHub Action file.\n\nI am working on an expo managed app and using `GitHub Actions` as a CI for\ntriggering builds whenever I push my code to `developmemt` branch.\n\nHere's my build script:\n\n    \n    \n    name: EAS PIPELINE\n    on:\n      push:\n        branches:\n          - development\n      workflow_dispatch:\n    \n    jobs:\n      build:\n        name: Install and build\n        runs-on: ubuntu-latest\n        steps:\n          - name: Checkout\n            uses: actions/checkout@v2\n            with:\n              persist-credentials: false\n    \n          - name: Setup Node.js\n            uses: actions/setup-node@v1\n            with:\n              node-version: 14.x\n    \n          - name: Setup Expo\n            uses: expo/expo-github-action@v6\n            with:\n              expo-version: 4.x\n              token: ${{ secrets.EXPO_TOKEN }}\n              expo-cache: true\n    \n          - name: Install dependencies\n            run: npm ci\n    \n          - name: Build on EAS\n            run: EAS_BUILD_AUTOCOMMIT=${{1}} npx eas-cli build --platform all --non-interactive\n    \n\nHere's the issue that I am facing `Install dependencies` step.\n\n    \n    \n    Run npm ci\n      npm ci\n      shell: /usr/bin/bash -e {0}\n      env:\n        EXPO_TOKEN: ***\n    npm ERR! cipm can only install packages with an existing package-lock.json or npm-shrinkwrap.json with lockfileVersion >= 1. Run an install with npm@5 or later to generate it, then try again.\n    \n    npm ERR! A complete log of this run can be found in:\n    npm ERR!     /home/runner/.npm/_logs/2021-10-28T15_16_06_934Z-debug.log\n    Error: Process completed with exit code 1.\n    \n\n"
+    },
+    {
+        "title": "GitHub Actions: Does the IF have an ELSE?",
+        "score": 81,
+        "link": "https://stackoverflow.com/questions/60916931/github-actions-does-the-if-have-an-else",
+        "number_of_answers": 6,
+        "last_updated": 1712664365,
+        "body": "In GitHub Actions:\n\nI have an _if_ , but I still need to run some other thing if I'm in the _else_\ncase. Is there a clean way to do it or do I have to do another step with the\nsame condition at false?\n\n    \n    \n     - if: contains(['SNAPSHOT'],env.BUILD_VERSION)\n       name:IF\n       run: echo \":)\"\n     - if: false == contains(['SNAPSHOT'], env.BUILD_VERSION)\n       name: Else\n       run: echo \":(\"\n    \n\n"
+    },
+    {
+        "title": "Error &quot;Waiting for a runner to pick up this job&quot; using GitHub Actions",
+        "score": 77,
+        "link": "https://stackoverflow.com/questions/70959954/error-waiting-for-a-runner-to-pick-up-this-job-using-github-actions",
+        "number_of_answers": 11,
+        "last_updated": 1712429417,
+        "body": "When I use GitHub Actions with my config, there is a long waiting and it shows\n\"Waiting for a runner to pick up this job\".\n\nWhat does 'runner' mean? And how can I resolve the problem?\n\n"
+    },
+    {
+        "title": "How to force job to exit in GitHub Actions step",
+        "score": 77,
+        "link": "https://stackoverflow.com/questions/60589373/how-to-force-job-to-exit-in-github-actions-step",
+        "number_of_answers": 4,
+        "last_updated": 1705326491,
+        "body": "I want to exit a job if a specific condition is met:\n\n    \n    \n    jobs:\n      foo:\n        steps:\n          ...\n          - name: Early exit\n            run: exit_with_success # I want to know what command I should write here\n            if: true\n          - run: foo\n          - run: ...\n     ...\n    \n\nHow can I do this?\n\n"
+    },
+    {
+        "title": "How to get the commit message in GitHub Actions",
+        "score": 76,
+        "link": "https://stackoverflow.com/questions/63619329/how-to-get-the-commit-message-in-github-actions",
+        "number_of_answers": 10,
+        "last_updated": 1710994683,
+        "body": "I am building an action that does a build for a project that will go to\nNetlify. In the action, I can pass a deploy message. In that deploy message, I\nwant to pass in the commit message of the commit that triggered the build. I\nwas looking at documentation but could not find if this is possible.\n\n"
+    },
+    {
+        "title": "Can I have multiple GitHub Actions workflow files?",
+        "score": 74,
+        "link": "https://stackoverflow.com/questions/57115520/can-i-have-multiple-github-actions-workflow-files",
+        "number_of_answers": 3,
+        "last_updated": 1624543940,
+        "body": "Can I have multiple workflow files?\n\nI have a few repo's utilizing GitHub Actions and they work great! In my\nspecific use case, I auto-deploy to my dev environment on \"push,\" and I auto-\ndeploy to production on \"release.\" These are two separate workflows.\n\nI know I can have these two workflows in the same main.workflow file and that\nwould work just fine, but I would prefer to have them in separate workflow\nfiles completely. Would it be possible for example to have a dev.workflow\nfile, and a prod.workflow file?\n\nI have tried creating a dev.workflow and prod.workflow file, but they don't\nseem to be picked up by Actions. It appears a main.workflow file is required.\nIf that is the case, is there a way to source other workflow files into the\nmain.workflow?\n\n"
+    },
+    {
+        "title": "How can I extract secrets using GitHub Actions?",
+        "score": 74,
+        "link": "https://stackoverflow.com/questions/59481933/how-can-i-extract-secrets-using-github-actions",
+        "number_of_answers": 10,
+        "last_updated": 1712042227,
+        "body": "I have a fairly basic scenario. I made a dedicated ssh key for this purpose\nand added it to my repository secrets.\n\n  1. Code gets pushed to `master`\n\n  2. GitHub action uploads it to server using `ssh` by doing `echo \"${{ secrets.SSH_KEY }}\" > key`.\n\n  3. After that I can use this key to connect to my server e.g. `ssh -i key devops@myserver.com lsb_release -a`\n\nThe problem is that for some reason GitHub actions cannot write it to file, it\nwrites characters `***` instead of the actual secret value into the file.\nTherefore obviously I cannot connect to my server.\n\nHow can I connect with ssh using this secret? Is there a way to connect\nwithout using a file? Can someone who did this common scenario using GitHub\nactions shed some light?\n\n"
+    },
+    {
+        "title": "Run Github Actions when pull requests have a specific label",
+        "score": 73,
+        "link": "https://stackoverflow.com/questions/62325286/run-github-actions-when-pull-requests-have-a-specific-label",
+        "number_of_answers": 3,
+        "last_updated": 1676584316,
+        "body": "After reading the documentation of the [Events that trigger\nworkflows](https://help.github.com/en/actions/reference/events-that-trigger-\nworkflows#pull-request-event-pull_request), I wonder if it's possible to run a\nworkflow with a **given label name** , like RFR or WIP.\n\nI know we can run a workflow when the pull request is labeled, but there is\nnothing more for a specifc label name :\n\n    \n    \n    on:\n      pull_request:\n        types: [labeled]\n    \n\nHas anyone done this before ?\n\n"
+    },
+    {
+        "title": "Is there a way to get the project folder name only on a Github action?",
+        "score": 69,
+        "link": "https://stackoverflow.com/questions/58467939/is-there-a-way-to-get-the-project-folder-name-only-on-a-github-action",
+        "number_of_answers": 2,
+        "last_updated": 1670623061,
+        "body": "I can get `repoowner/repo-name` with `${{ github.repository }}` but I like to\nget just the `repo-name`.\n\nWhile I am at it.\n\nGitLab has a straight forward variable for this.\n\nHow do I get reference access env variables from the `.yaml` not inside\nscripts? Does `${{ $ENV_VAR }}` work? Probably not.\n\nIs there a way to remove or replace the slashes directly in the yaml?\n\n    \n    \n      build:\n        needs: test\n        name: Build release Zip\n        runs-on: ubuntu-latest\n        env:\n          DEPLOY_REF: ${{ github.sha }}\n          DEPLOY_REF_SHORT: ${{ github.sha }}\n          DEPLOY_ZIPFILE: ${{ github.workspace }}/build/zip/${{ github.repository }}-${{ github.sha }}.zip\n        steps:\n    \n\n"
+    },
+    {
+        "title": "Permission denied to github-actions[bot]",
+        "score": 69,
+        "link": "https://stackoverflow.com/questions/72851548/permission-denied-to-github-actionsbot",
+        "number_of_answers": 4,
+        "last_updated": 1708691315,
+        "body": "I'm using mkdocs to generate documents for my project,now I can't deploy those\ndocs to Github pages,it tell me:\n\n> remote: Permission to XXX.git denied to github-actions[bot]. fatal: unable\n> to access 'XXX': The requested URL returned error: 403\n\nThis is my [_`CI`_ config](https://paste.ubuntu.com/p/zyw2y8jW5M).\n\nAnd my secrets of the repository:(The two `GIT_ACTIONS_PUSH` are all my\npersonal access tokens.)\n\n![](https://i.stack.imgur.com/aRuOI.png)\n\nAnd if I start the _`CI`_ process manually, _`CI`_ will crash like\n[this](https://stackoverflow.com/questions/72848127/how-to-solve-invalid-\ndistribution-problem).\n\nHow can I solve it?\n\n"
+    },
+    {
+        "title": "How to auto-reject a pull request if tests are failing (Github actions)",
+        "score": 68,
+        "link": "https://stackoverflow.com/questions/58654530/how-to-auto-reject-a-pull-request-if-tests-are-failing-github-actions",
+        "number_of_answers": 2,
+        "last_updated": 1638416887,
+        "body": "I am doing `npm` test when pull requests are raised using Github actions.\n\n  * Now if tests fail,\n  * I would like to add a message,\n  * Or at least, reject the PR using actions.\n\nHow can I do this?\n\n"
+    },
+    {
+        "title": "Is there a way to push changes with a GitHub action?",
+        "score": 68,
+        "link": "https://stackoverflow.com/questions/55657835/is-there-a-way-to-push-changes-with-a-github-action",
+        "number_of_answers": 4,
+        "last_updated": 1709201114,
+        "body": "This question refers to this: <https://github.com/features/actions>\n\nI have written a GitHub action to build my code and create a production\nbundle. I'd like to have that included into my repository by committing the\nchanges to origin/master. This seems like an obvious feature for GitHub\nactions to have but I can't find it anywhere. How do I commit changes with a\nGitHub action and push them?\n\n"
+    },
+    {
+        "title": "How to version build artifacts using GitHub Actions?",
+        "score": 67,
+        "link": "https://stackoverflow.com/questions/54310050/how-to-version-build-artifacts-using-github-actions",
+        "number_of_answers": 7,
+        "last_updated": 1695749117,
+        "body": "My use case is I want to have a unique version number for artifacts per each\nbuild/run. With current tools like CircleCI, Travis, etc. there is a build\nnumber available which is basically a counter that always goes up. So, I can\ncreate version strings like `0.1.0-27`. This counter is increased each time\neven for the same commit.\n\nHow can I do something similar with GitHub Actions? Github actions only offer\nGITHUB_SHA and GITHUB_REF.\n\n"
+    },
+    {
+        "title": "How can I see my git secrets unencrypted?",
+        "score": 66,
+        "link": "https://stackoverflow.com/questions/63003669/how-can-i-see-my-git-secrets-unencrypted",
+        "number_of_answers": 9,
+        "last_updated": 1698790214,
+        "body": "I had some secrets in my code and upon learning about GitHub Actions I decided\nto save them in the repository's secret menu for later use in my pipeline.\n\nHowever, now I need to access these secrets to develop a new feature and I\ncan't. Every time I try to see the value it asks me to update the secrets.\nThere is no option to just \"see\" them.\n\nI don't want to update anything I just want to see their values.\n\nHow can I see the unencrypted values of my secrets in the project?\n\n"
+    },
+    {
+        "title": "How can I make a GitHub Workflow depend on the success of another workflow?",
+        "score": 66,
+        "link": "https://stackoverflow.com/questions/62367778/how-can-i-make-a-github-workflow-depend-on-the-success-of-another-workflow",
+        "number_of_answers": 0,
+        "last_updated": 1592102566,
+        "body": "I've made a new project on GitHub with two workflows:\n\n  * [One](https://github.com/pgxn/docker-pgxn-tools/blob/main/.github/workflows/ci.yml) to test the project\n  * And [another](https://github.com/pgxn/docker-pgxn-tools/blob/main/.github/workflows/publish.yml) to publish the resulting Docker image\n\nI'd like the second workflow to trigger only if the first one succeeds. Is\nthere a way to do that? Or would I need to create a single workflow file where\nthe second job depends on the first?\n\n"
+    },
+    {
+        "title": "Caching APT packages in GitHub Actions workflow",
+        "score": 61,
+        "link": "https://stackoverflow.com/questions/59269850/caching-apt-packages-in-github-actions-workflow",
+        "number_of_answers": 5,
+        "last_updated": 1680795499,
+        "body": "I use the following Github Actions workflow for my C project. The workflow\nfinishes in ~40 seconds, but more than half of that time is spent by\ninstalling the `valgrind` package and its dependencies.\n\nI believe caching could help me speed up the workflow. I do not mind waiting a\ncouple of extra seconds, but this just seems like a pointless waste of\nGitHub's resources.\n\n    \n    \n    name: C Workflow\n    \n    on: [push, pull_request]\n    \n    jobs:\n      build:\n        runs-on: ubuntu-latest\n    \n        steps:\n        - uses: actions/checkout@v1\n    \n        - name: make\n          run: make\n    \n        - name: valgrind\n          run: |\n            sudo apt-get install -y valgrind\n            valgrind -v --leak-check=full --show-leak-kinds=all ./bin\n    \n\nRunning `sudo apt-get install -y valgrind` installs the following packages:\n\n  * `gdb`\n  * `gdbserver`\n  * `libbabeltrace1`\n  * `libc6-dbg`\n  * `libipt1`\n  * `valgrind`\n\nI know Actions support caching of a specific directory (and there are already\nseveral answered SO questions and articles about this), but I am not sure\nwhere all the different packages installed by apt end up. I assume `/bin/` or\n`/usr/bin/` are not the only directories affected by installing packages.\n\n**Is there an elegant way to cache the installed system packages for future\nworkflow runs?**\n\n"
+    },
+    {
+        "title": "How to cache yarn packages in GitHub Actions",
+        "score": 59,
+        "link": "https://stackoverflow.com/questions/61010294/how-to-cache-yarn-packages-in-github-actions",
+        "number_of_answers": 4,
+        "last_updated": 1701071532,
+        "body": "I am using GitHub Actions to build my TypeScript project. Everytime I run\naction I am waiting 3 minutes for all dependencies to get installed.\n\nIs there way to cache yarn dependencies, so build time will be faster?\n\nI tried this:\n\n    \n    \n         - name: Get yarn cache directory path\n           id: yarn-cache-dir-path\n           run: echo \"::set-output name=dir::$(yarn cache dir)\"\n    \n         - uses: actions/cache@v1\n           id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)\n           with:\n             path: ${{ steps.yarn-cache-dir-path.outputs.dir }}\n             key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}\n             restore-keys: |\n               ${{ runner.os }}-yarn-\n    \n        - name: Install yarn\n          run: npm install -g yarn\n    \n        - name: Install project dependencies\n          run: yarn\n    \n\nbut build time is still same.\n\n"
+    },
+    {
+        "title": "How do I re-run Github Actions?",
+        "score": 58,
+        "link": "https://stackoverflow.com/questions/56435547/how-do-i-re-run-github-actions",
+        "number_of_answers": 6,
+        "last_updated": 1692239202,
+        "body": "I see this on the Github web UI:\n\n[![screenshot](https://i.stack.imgur.com/yeJEr.png)](https://i.stack.imgur.com/yeJEr.png)\n\nbut it's not clear to me whether the disabled re-runs are a result of my\n`.github/main.workflow` configuration, or inherited from the Github Actions\nservice.\n\nSample workflow below - I don't see anything obvious there that would disable\nre-runs.\n\n    \n    \n    workflow \"Test, Lint\" {\n      on = \"push\"\n      resolves = [\n        \"Test\",\n        \"Lint\",\n        \"Lint Format\"\n      ]\n    }\n    \n    action \"Install\" {\n      uses = \"actions/npm@master\"\n      args = \"install\"\n      secrets = [\"SECRET_TOKEN\"]\n    }\n    \n    action \"Test\" {\n      needs = \"Install\"\n      uses = \"actions/npm@master\"\n      args = \"test\"\n      secrets = [\"SECRET_TOKEN\"]\n    }\n    \n    action \"Lint\" {\n      needs = \"Install\"\n      uses = \"actions/npm@master\"\n      args = \"run lint\"\n      secrets = [\"SECRET_TOKEN\"]\n    }\n    \n    action \"Lint Format\" {\n      needs = \"Install\"\n      uses = \"actions/npm@master\"\n      args = \"run lint:format\"\n      secrets = [\"SECRET_TOKEN\"]\n    }\n    \n\n"
+    },
+    {
+        "title": "Github Action Status check missing from the list of checks in Protected branch settings",
+        "score": 57,
+        "link": "https://stackoverflow.com/questions/68554735/github-action-status-check-missing-from-the-list-of-checks-in-protected-branch-s",
+        "number_of_answers": 3,
+        "last_updated": 1710943706,
+        "body": "I have the following github action setup that triggers fine on creation of\nPull Request. But it does not show up in the status checks list of protected\nbranch (main). I'm not sure what I'm doing wrong.\n\n    \n    \n    name: Python application\n    \n    on:\n      pull_request:\n        branches: [ main ]\n    \n    jobs:\n      build:\n    \n        runs-on: ubuntu-latest\n    \n        steps:\n        - uses: actions/checkout@v1\n        - name: Set up Python 3.7\n          uses: actions/setup-python@v1\n          with:\n            python-version: 3.7\n        - name: Install dependencies\n          run: |\n            python -m pip install --upgrade pip\n        - name: Lint with flake8\n          run: |\n            pip install flake8\n            # stop the build if there are Python syntax errors or undefined names\n            flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics\n            # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide\n            flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics\n        - name: GitHub Action for pylint\n          uses: cclauss/GitHub-Action-for-pylint@0.7.0\n        - name: Github Action for pytest\n          run: python3 testing.py\n    \n\nI've also tried the same setting with:\n\n    \n    \n    on: [ pull_request ]\n    \n\nEdit: Screenshot of the check missing: [![enter image description\nhere](https://i.stack.imgur.com/bGX01.png)](https://i.stack.imgur.com/bGX01.png)\n\n"
+    },
+    {
+        "title": "Is there a way to continue on error while still getting correct feedback?",
+        "score": 57,
+        "link": "https://stackoverflow.com/questions/62045967/is-there-a-way-to-continue-on-error-while-still-getting-correct-feedback",
+        "number_of_answers": 4,
+        "last_updated": 1712326104,
+        "body": "I'm trying to find a way to achieve the following functionality: Whenever a\nstep fails, it will show that it failed (will provide correct feedback) but\nwill still continue to other steps.\n\nAt the moment, failure causes the step to stop:\n\n![Step's failure prevents next step from\nstarting](https://i.stack.imgur.com/eU00H.png)\n\nI've seen the most popular suggestion is to use continue-on-error, but that\nseems to make the step's conclusion 'Success', and will not show it failed\nunless you go into the logs.\n\n![Failed step appears to be successful](https://i.stack.imgur.com/gpA5k.png)\n\nIn the screenshot above, the \"Secrets\" step failed, and yet it appears to be\nsuccessful unless entering the logs.\n\nWhen reading [this thread](https://github.community/t/continue-on-error-allow-\nfailure-ui-indication/16773), I came to suspect this feature might not exist\nyet in GH actions.\n\nI've also tried using conditionals for each step, and/or for the job. For\nexample, I've tried: `if: ${{ success() }} || ${{ failure() }} `\\- this simply\ndid not provide the needed functionality, the step failed and the next step\ndid not start.\n\n`if: succeeded() || failed()` \\- took this syntax from the GitHub community\nthread above, but it generated a syntax error (which makes sense, since it\nisn't compatible with the syntax specified\n[here](https://help.github.com/en/actions/reference/context-and-expression-\nsyntax-for-github-actions)).\n\nTo conclude, I'm looking for a way to make steps that fail indicate they\nfailed, and still make the workflow continue to the next step.\n\n"
+    },
+    {
+        "title": "github actions: how to check if current push has new tag (is new release)?",
+        "score": 56,
+        "link": "https://stackoverflow.com/questions/58475748/github-actions-how-to-check-if-current-push-has-new-tag-is-new-release",
+        "number_of_answers": 3,
+        "last_updated": 1692694213,
+        "body": "\n    name: test-publish\n    \n    on: [push]\n    \n    jobs:\n      test:\n        strategy:\n          ...\n        steps:\n          ...\n    \n      publish:\n        needs: test\n        if: github.event_name == 'push' && github.ref???\n        steps:\n          ...  # eg: publish package to PyPI\n    \n\nWhat should I put in `jobs.publish.if` in order to check that this commit is\nnew release?\n\nIs this okay: `contains(github.ref, '/tags/')`?\n\nWhat will happen if I push code and tag at the same time?\n\n"
+    },
+    {
+        "title": "How to get the target branch of the GitHub pull request from an Actions?",
+        "score": 56,
+        "link": "https://stackoverflow.com/questions/62331829/how-to-get-the-target-branch-of-the-github-pull-request-from-an-actions",
+        "number_of_answers": 3,
+        "last_updated": 1678208725,
+        "body": "When an action is set on `pull_request` in Github Actions, how to get the\ntarget branch? The use case is to retrieve the PR- (and hopefully,\nbranch)-specific commits.\n\n"
+    },
+    {
+        "title": "How to get pull request number within GitHub Actions workflow",
+        "score": 55,
+        "link": "https://stackoverflow.com/questions/59077079/how-to-get-pull-request-number-within-github-actions-workflow",
+        "number_of_answers": 9,
+        "last_updated": 1709400071,
+        "body": "I want to access the Pull Request number in a Github Actions workflow. I can\naccess the `GITHUB_REF` environment variable that is available. Although on a\nPull Request action it has the value: `refs/pull/125/merge`. I need to extract\njust the `125`.\n\nI have found a similar post\n[here](https://stackoverflow.com/questions/58033366/how-to-get-current-branch-\nwithin-github-actions) that shows how to get the current branch using this\nvariable. Although in this case, what I am parsing is different and I have\nbeen unable to isolate the Pull Request number.\n\n  * I have tried using `{GITHUB_REF##\\*/}` which resolves to `merge`\n  * I have also tried `{GITHUB_REF#\\*/}` which resolves to `pull/125/merge`\n\nI only need the Pull Request number (which in my example is 125)\n\n"
+    },
+    {
+        "title": "Dynamically retrieve GitHub Actions secret",
+        "score": 54,
+        "link": "https://stackoverflow.com/questions/61255989/dynamically-retrieve-github-actions-secret",
+        "number_of_answers": 7,
+        "last_updated": 1687121661,
+        "body": "I'm trying to dynamically pull back a GitHub secret using GitHub Actions at\nruntime:\n\nLet's say I have two GitHub Secrets:\n\n  1. SECRET_ORANGES : \"This is an orange secret\"\n  2. SECRET_APPLES : \"This is an apple secret\"\n\nIn my GitHub Action, I have another env variable which will differ between\nbranches\n\n    \n    \n    env:\n      FRUIT_NAME: APPLES\n    \n\nEssentially I want to find a way to do some sort of variable substitution to\nget the correct secret. So in one of my child jobs, I want to do something\nlike:\n\n    \n    \n    env:\n      FRUIT_SECRET: {{ 'SECRET_' + env.FRUIT_NAME }}\n    \n\nI've tried the following approaches with no luck:\n\n    \n    \n    secrets['SECRET_$FRUIT_NAME'] }}\n    \n\nI even tried a simpler approach without concatenation just to try and get it\nworking\n\n    \n    \n    secrets['$FRUIT_NAME'] }}\n    \n\nand\n\n    \n    \n    {{ secrets.$FRUIT_NAME }}\n    \n    \n\nNone of the above worked.\n\nApologies if I have not explained this very well. I tried to keep my example\nas simple as possible.\n\nAnyone have any idea of how to achieve this?\n\nAlternatively, what I am trying to do is to store secrets on a per-branch\nbasis\n\nFor example:\n\nIn `customer1` code branch: `SECRET_CREDENTIAL=\"abc123\"`\n\nIn `customer2` code branch: `SECRET_CREDENTIAL=\"def456\"`\n\nThen I can access the correct value for `SECRET_CREDENTIAL` depending on which\nbranch I am in.\n\nThanks!\n\nUpdate: I'm getting a bit closer to what I am trying to achieve:\n\n    \n    \n    name: Test\n    \n    env:\n      CUSTOMER: CUSTOMER1\n    \n    jobs:\n      build:\n        runs-on: ubuntu-latest\n        env:\n          AWS_ACCESS_KEY_ID: ${{ env.CUSTOMER }}_AWS_ACCESS_KEY_ID\n        steps:\n        - uses: actions/checkout@v2\n        - run: |\n            AWS_ACCESS_KEY_ID=${{ secrets[env.AWS_ACCESS_KEY_ID] }}\n            echo \"AWS_ACCESS_KEY_ID = $AWS_ACCESS_KEY_ID\"\n    \n\n"
+    },
+    {
+        "title": "Github Actions: check steps status",
+        "score": 54,
+        "link": "https://stackoverflow.com/questions/57850553/github-actions-check-steps-status",
+        "number_of_answers": 5,
+        "last_updated": 1657871677,
+        "body": "I have in my job for CI some steps which can throw an error. I don't want\nrestart workflow on every step with error and want to go to the last step that\nchecks those steps and complete this job as fail. But I can't get status info\npreviously steps.\n\n    \n    \n    name: CI\n    on: [pull_request]\n    jobs:\n      myjob:\n        runs-on: ubuntu-latest\n        steps:\n          - name: Step 1\n            id: hello\n            run: <any> \n            continue-on-error: true\n          - name: Step 2\n            id: world\n            run: <any> \n            continue-on-error: true\n          - name: Check on failures\n            if: job.steps.hello.status == failure() || job.steps.world.status == failure()\n            run: exit 1\n    \n\nWhen I use next constructions in \"if\" or \"run\" then will get: steps -> {},\njob.steps -> null.\n\nHow can I get status information?\n\n"
+    },
+    {
+        "title": "How to connect to Postgres in GitHub Actions",
+        "score": 54,
+        "link": "https://stackoverflow.com/questions/57915791/how-to-connect-to-postgres-in-github-actions",
+        "number_of_answers": 3,
+        "last_updated": 1672918700,
+        "body": "I am trying GitHub Actions for CI with a Ruby on Rails application.\n\nMy setup is with VM, not running the Ruby build in a container.\n\nThis is my workflow yml. It runs all the way without errors until the step\n\"Setup Database\".\n\n    \n    \n    name: Rails CI\n    \n    on:\n      push:\n        branches:\n        - master\n      pull_request:\n        branches:\n        - master\n    \n    jobs:\n      build:\n    \n        runs-on: ubuntu-latest\n    \n        services:\n          postgres:\n            image: postgres:10.10\n            env:\n              POSTGRES_USER: postgres\n              POSTGRES_PASSWORD: postgres\n              POSTGRES_DB: db_test\n            ports:\n              - 5432/tcp\n            options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5\n          redis:\n            image: redis:latest\n            ports:\n              - 6379/tcp\n    \n        steps:\n        - uses: actions/checkout@v1\n    \n        - name: Set up ruby 2.5\n          uses: actions/setup-ruby@v1\n          with:\n            ruby-version: 2.5.5\n    \n        - name: Set up node 8.14\n          uses: actions/setup-node@v1\n          with:\n            node-version: '8.14'\n    \n        - name: Setup system dependencies\n          run: sudo apt-get install libpq-dev\n    \n        - name: Setup App Dependencies\n          run: |\n            gem install bundler -v 1.17.3 --no-document\n            bundle install --jobs 4 --retry 3\n            npm install\n            npm install -g yarn\n    \n        - name: Run rubocop\n          run: bundle exec rubocop\n    \n        - name: Run brakeman\n          run: bundle exec brakeman\n    \n        - name: Setup Database\n          env:\n            RAILS_ENV: test\n            POSTGRES_HOST: localhost\n            POSTGRES_USER: postgres\n            POSTGRES_PASSWORD: postgres\n            POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}\n          run: |\n            cp config/database.yml.ci config/database.yml\n            bundle exec rails db:create\n            bundle exec rails db:schema:load\n    \n        - name: Run rspec\n          env:\n            RAILS_ENV: test\n            REDIS_HOST: redis\n            REDIS_PORT: ${{ job.services.redis.ports[6379] }}\n            POSTGRES_HOST: localhost\n            POSTGRES_USER: postgres\n            POSTGRES_PASSWORD: postgres\n            POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}\n          run: bundle exec rspec --tag ~type:system\n    \n\nI am able to install ruby, node, the images, Postgres as a service, etc, and\nrun Rubocop and Brakeman. But when I try to set up the DB before running Rspec\nit says it cannot connect to the DB.\n\nAs far as I've been able to ascertain, the host is localhost when running the\nVM configuration as opposed to a container configuration.\n\nThis is the database.yml.ci that the \"Setup Database\" step copies to the\ndatabase.yml to be used by Rails.\n\n    \n    \n    test:\n      adapter: postgresql\n      encoding: unicode\n      database: db_test\n      pool: 5\n      username: <%= ENV['POSTGRES_USER'] %>\n      password: <%= ENV['POSTGRES_PASSWORD'] %>\n      host: <%= ENV['POSTGRES_HOST'] %>\n    \n\nI expected Postgres to be correctly set up and `bundle exec rails db:create`\nto create the database. However, it throws the following error:\n\n    \n    \n    rails aborted!\n    PG::ConnectionBad: could not connect to server: Connection refused\n        Is the server running on host \"localhost\" (127.0.0.1) and accepting\n        TCP/IP connections on port 5432?\n    \n\nI've tried all sorts of different configurations, but unfortunately, Actions\nis sort of knew and there doesn't seem to be a lot of material available\nonline.\n\nAny ideas on how to fix this?\n\n===========================\n\nEDIT:\n\nSo I was able to sort this out through trial and error. I ended up using a\ndocker image with a ruby and node container. This is the working\nconfiguration:\n\n    \n    \n    on:\n      push:\n        branches:\n        - master\n      pull_request:\n        branches:\n        - master\n        - development\n        - release\n    \n    jobs:\n      build:\n    \n        runs-on: ubuntu-latest\n    \n        container:\n          image: timbru31/ruby-node:latest\n    \n        services:\n          postgres:\n            image: postgres:11\n            env:\n              POSTGRES_USER: postgres\n              POSTGRES_PASSWORD: postgres\n              POSTGRES_DB: ci_db_test\n            ports:\n              - 5432:5432\n            options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5\n    \n        chrome:\n            image: selenium/standalone-chrome:latest\n            ports:\n              - 4444:4444\n    \n        steps:\n        - uses: actions/checkout@v1\n    \n        - name: Setup app dependencies\n          run: |\n            gem install bundler -v 1.17.3 --no-document\n            bundle install --jobs 4 --retry 3\n            npm install\n            npm install -g yarn\n    \n        - name: Run rubocop\n          run: bundle exec rubocop\n    \n        - name: Run brakeman\n          run: bundle exec brakeman\n    \n        - name: Setup database\n          env:\n            RAILS_ENV: test\n            POSTGRES_HOST: postgres\n            POSTGRES_USER: postgres\n            POSTGRES_PASSWORD: postgres\n            POSTGRES_DB: ci_db_test\n            POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}\n          run: |\n            cp config/database.yml.ci config/database.yml\n            bundle exec rails db:create\n            bundle exec rails db:schema:load\n    \n        - name: Run rspec\n          env:\n            RAILS_ENV: test\n            POSTGRES_HOST: postgres\n            POSTGRES_USER: postgres\n            POSTGRES_PASSWORD: postgres\n            POSTGRES_DB: ci_db_test\n            POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}\n            SELENIUM_URL: 'http://chrome:4444/wd/hub'\n          run: bundle exec rspec\n    \n\nAnd the CI DB configuration database.yml.ci\n\n    \n    \n    default: &default\n      adapter: postgresql\n      encoding: unicode\n      username: <%= ENV['POSTGRES_USER'] %>\n      password: <%= ENV['POSTGRES_PASSWORD'] %>\n      host: <%= ENV['POSTGRES_HOST'] %>\n      pool: 5\n      database: <%= ENV['POSTGRES_DB'] %>\n    \n    test:\n      <<: *default\n    \n\n"
+    },
+    {
+        "title": "How to pass the output of a bash command to Github Action parameter",
+        "score": 53,
+        "link": "https://stackoverflow.com/questions/61256824/how-to-pass-the-output-of-a-bash-command-to-github-action-parameter",
+        "number_of_answers": 3,
+        "last_updated": 1666980585,
+        "body": "I have a workflow where after a push to master I want to create a release and\nupload an asset to it.  \nI'm using `actions/create-release@v1` and `actions/upload-release-asset@v1`.\n\nI would like to pass the outputs of a bash commands to the action parameters.\nHowever I found out the syntax of \"$(command)\" does not work.\n\nHow can I pass the output of a bash command to an action's parameter.\n\nFor example I'd like to do something like this:\n\n    \n    \n    - name: Create Release\n      id: create_release\n      uses: actions/create-release@v1\n      env:\n        GITHUB_TOKEN: ${{ secrets.token }}\n      with:\n        tag_name: $(cat projectFile | grep -Po '(?<=Version>).*(?=</Version>)')\n    \n\n"
+    },
+    {
+        "title": "Only run GitHub Actions step if not a pull request",
+        "score": 53,
+        "link": "https://stackoverflow.com/questions/66205887/only-run-github-actions-step-if-not-a-pull-request",
+        "number_of_answers": 2,
+        "last_updated": 1668478380,
+        "body": "I have a workflow which needs to execute either on a push or a pull request\nwith the exception of the last step which pushes a package to NuGet (I don't\nwant this to occur on a pull request, even to master).\n\nHow can I prevent the Publish NuGet step from running if the workflow is\ntriggered from a pull request?\n\n    \n    \n    name: .NET Core\n    \n    on:\n      push:\n        branches: [ master ]\n      pull_request:\n        branches: [ master ]\n    \n    jobs:\n      build:\n    \n        runs-on: ubuntu-latest\n    \n        steps:\n        - uses: actions/checkout@v2\n        - name: Setup .NET Core\n          uses: actions/setup-dotnet@v1\n          with:\n            dotnet-version: 3.1.101\n        - name: Install dependencies\n          run: dotnet restore\n        - name: Build\n          run: dotnet build --configuration Release --no-restore\n        - name: Test\n          run: dotnet test --no-restore --verbosity normal\n        - name: Publish NuGet\n          uses: brandedoutcast/publish-nuget@v2.5.2\n          with:\n            PROJECT_FILE_PATH: \"Orleans.Sagas/Orleans.Sagas.csproj\"\n            NUGET_KEY: ${{secrets.NUGET_KEY}}\n    \n\n"
+    },
+    {
+        "title": "How do you trigger a push when a specific directory in a branch gets an update?",
+        "score": 52,
+        "link": "https://stackoverflow.com/questions/63460875/how-do-you-trigger-a-push-when-a-specific-directory-in-a-branch-gets-an-update",
+        "number_of_answers": 1,
+        "last_updated": 1681341648,
+        "body": "I want my workflow to trigger on a push only if there are changes made to a\nspecific directory. Is this possible, what am I missing? I tried doing\nsomething like what you see below, but it didn't fire the trigger.\n\n    \n    \n    name: ABC\n    \n    on:\n      push:\n        branches:  [master/my-directory]\n      pull_request:\n        branches: [ master ]\n    \n\n"
+    },
+    {
+        "title": "GitHub Actions run on push to all branches",
+        "score": 52,
+        "link": "https://stackoverflow.com/questions/64635032/github-actions-run-on-push-to-all-branches",
+        "number_of_answers": 2,
+        "last_updated": 1665501268,
+        "body": "It's [easy](https://docs.github.com/en/free-pro-\nteam@latest/actions/reference/workflow-syntax-for-github-actions#example-\nusing-a-list-of-events) to run a GitHub Action on any push or pull request:\n\n    \n    \n    # Triggers the workflow on push or pull request events\n    on: [push, pull_request]\n    \n\nBut what if I want to restrict runs to pull requests opened against specific\nbase refs, while allowing runs on all branches?\n\nI thought about this:\n\n    \n    \n    on:\n      push:\n        branches:\n          - \"*\"\n      pull_request:\n        branches:\n          - \"develop\"\n          - \"staging\"\n    \n\nBut it didn't work. I added this Action to a feature branch and GitHub didn't\npick it up.\n\nIs there anything wrong with my glob? Why doesn't '*' work?\n\n"
+    },
+    {
+        "title": "Share artifacts between workflows / Github Actions",
+        "score": 52,
+        "link": "https://stackoverflow.com/questions/60355925/share-artifacts-between-workflows-github-actions",
+        "number_of_answers": 8,
+        "last_updated": 1707767830,
+        "body": "I know that you can share artifacts between jobs of the same workflow...\n\nBut how can I share artifacts across different workflows?\n\n"
+    },
+    {
+        "title": "difference between &quot;run |&quot; and multiple runs in github actions",
+        "score": 52,
+        "link": "https://stackoverflow.com/questions/59529042/difference-between-run-and-multiple-runs-in-github-actions",
+        "number_of_answers": 2,
+        "last_updated": 1663327751,
+        "body": "what is the difference between\n\n    \n    \n    steps:\n      - name: npm install, build, and test\n        run: |\n          npm ci\n          npm run build --if-present\n          npm test\n    \n    \n\nand\n\n    \n    \n    steps:\n      - name: npm install, build, and test\n      - run: npm ci\n      - run: npm run build --if-present\n      - run: npm test\n    \n\nin github actions? I tried to read the\n[documentation](https://help.github.com/en/actions/automating-your-workflow-\nwith-github-actions/workflow-syntax-for-github-actions#jobsjob_idsteps) on\nsteps but it does not mention anything like that\n\n"
+    },
+    {
+        "title": "Repository Name as a GitHub Action environment variable?",
+        "score": 51,
+        "link": "https://stackoverflow.com/questions/62803531/repository-name-as-a-github-action-environment-variable",
+        "number_of_answers": 5,
+        "last_updated": 1676925493,
+        "body": "How would you get the repository name (not the user or organization) as an\nenvironment variable in GitHub Actions? I found `github.repository` but that\ncontains the owner as the first part like so: `owner/repo`.\n\n"
+    },
+    {
+        "title": "How to archive files in artifact for github workflow actions in order to fix this warning?",
+        "score": 49,
+        "link": "https://stackoverflow.com/questions/68470162/how-to-archive-files-in-artifact-for-github-workflow-actions-in-order-to-fix-thi",
+        "number_of_answers": 4,
+        "last_updated": 1678825383,
+        "body": "There are over 10,000 files in this artifact, consider creating an archive\nbefore upload to improve the upload performance.\n\n"
+    },
+    {
+        "title": "Deploy individual services from a monorepo using github actions",
+        "score": 49,
+        "link": "https://stackoverflow.com/questions/58136102/deploy-individual-services-from-a-monorepo-using-github-actions",
+        "number_of_answers": 5,
+        "last_updated": 1680369255,
+        "body": "I have around 10 individual micro-services which are mostly cloud functions\nfor various data processing jobs, which all live in a single github\nrepository.\n\nThe goal is to trigger the selective deployment of these service to Google\nCloud Functions, on push to a branch - when an individual function has been\nupdated.\n\nI must avoid the situation in which update of a single service causes the\ndeployment of all the cloud functions.\n\nMy current repository structure:\n\n    \n    \n    /repo\n    --/service_A\n    ----/function\n    ----/notebook\n    --/service_B\n    ----/function\n    ----/notebook\n    \n\nOn a side note, what are the pros/cons of using Github Actions VS Google Cloud\nBuild for such automation?\n\n"
+    },
+    {
+        "title": "Use environment variable in github action if",
+        "score": 49,
+        "link": "https://stackoverflow.com/questions/59882715/use-environment-variable-in-github-action-if",
+        "number_of_answers": 5,
+        "last_updated": 1681129152,
+        "body": "I'm trying to use an environment variable in an `if` condition in github\nactions like so:\n\n    \n    \n    name: Worfklow\n    on:\n      push\n    \n    jobs:\n      build:\n        runs-on: ubuntu-latest\n        steps:\n          - uses: actions/checkout@v1\n    \n          - name: EXIT step\n            if: $GITHUB_REF == 'specific-branch'\n            run: exit 1\n    \n    \n\nI want to exit if the current branch is equal to a specific branch.\n\nUnfortunately, the github actions console displays an error:\n\n    \n    \n    Unexpected symbol: '$GITHUB_REF'\n    \n\nI can use `$GITHUB_REF` in a `run:` (where it contains the current branch),\nbut not in an `if:`. What am I doing wrong?\n\n"
+    },
+    {
+        "title": "How to push nuget package in GitHub actions",
+        "score": 49,
+        "link": "https://stackoverflow.com/questions/57889719/how-to-push-nuget-package-in-github-actions",
+        "number_of_answers": 7,
+        "last_updated": 1641586090,
+        "body": "I am trying to use GitHub actions to generate a NuGet package from my project\nand push it to the (private) GitHub registry.\n\nMy script ([NAME] fields redacted):\n\n    \n    \n    name: Update NuGet\n    \n    on: [push]\n    \n    jobs:\n      build:\n        runs-on: ubuntu-latest\n    \n        name: Update NuGet \n        steps:\n          - uses: actions/checkout@master\n          - uses: actions/setup-dotnet@v1\n            with:\n              dotnet-version: '2.2.105'\n          - name: Package Release\n            run: |  \n              cd [SOLUTION_FOLDER]\n              dotnet pack -c Release -o out\n          - name: Publish Nuget to GitHub registry\n            run: dotnet nuget push ./[SOLUTION_FOLDER]/[PROJECT_FOLDER]/out/$(ls ./[SOLUTION_FOLDER]/[PROJECT_FOLDER]/out) -s https://nuget.pkg.github.com/[USERNAME]/index.json -k ${GITHUB_TOKEN}  \n            env:\n              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} \n    \n\nLog output:\n\n    \n    \n    info : Pushing [PROJECT_FOLDER].3.4.23.nupkg to 'https://nuget.pkg.github.com/[USERNAME]'...\n    info :   PUT https://nuget.pkg.github.com/[USERNAME]/\n    info : An error was encountered when fetching 'PUT https://nuget.pkg.github.com/[USERNAME]/'. The request will now be retried.\n    info : An error occurred while sending the request.\n    info :   The server returned an invalid or unrecognized response.\n    info :   PUT https://nuget.pkg.github.com/[USERNAME]/\n    info : An error was encountered when fetching 'PUT https://nuget.pkg.github.com/[USERNAME]/'. The request will now be retried.\n    info : An error occurred while sending the request.\n    info :   The server returned an invalid or unrecognized response.\n    info :   PUT https://nuget.pkg.github.com/[USERNAME]/\n    error: An error occurred while sending the request.\n    error:   The server returned an invalid or unrecognized response.\n    ##[error]Process completed with exit code 1.\n    \n\nThis is the coresponding GitHub issue (with a workaround option):\n<https://github.com/NuGet/Home/issues/8580>\n\n"
+    },
+    {
+        "title": "Github actions - how to deploy to remote server using SSH",
+        "score": 48,
+        "link": "https://stackoverflow.com/questions/60477061/github-actions-how-to-deploy-to-remote-server-using-ssh",
+        "number_of_answers": 5,
+        "last_updated": 1707869920,
+        "body": "I've a staging server on DO.\n\nI want to build & deploy my node app to it.\n\n    \n    \n    name: Build & Deploy\n    on:\n      push:\n        tags:\n          - 'v1.*.0'\n    jobs:\n      build:\n        runs-on: ubuntu-latest\n        steps:\n          - uses: actions/checkout@v2\n          - name: Create SSH key\n            run: |\n              mkdir -p ~/.ssh/\n              echo \"$DO_GITHUB_PRIVATE_KEY\" > ../github_do.key\n              sudo chmod 600 ../github_do.key\n              ssh-keyscan -H ${{secrets.DEPLOY_SERVER}} > ~/.ssh/known_hosts\n            shell: bash\n            env:\n              DO_GITHUB_PRIVATE_KEY: ${{secrets.DO_GITHUB_PRIVATE_KEY}}\n          - uses: actions/setup-node@v1\n            with:\n              node-version: 12.x\n          - name: Install Packages\n            run: yarn install --frozen-lockfile\n          - name: Build artifacts\n            env:\n              DEPLOY_SSH_KEY_PATH: ${{ github.workspace }}/../github_do.key\n            run: |\n              yarn shipit production fast-deploy\n    \n\nWhat i've done is to generate a new SSH private & public keys.\n\nThe **private** key I've saved inside `DO_GITHUB_PRIVATE_KEY` github secret.\n\nThe **public** key I've added to `authorized_keys` on my staging server.\n\nWhen the action is triggered, it fails on:\n\n    \n    \n    @ v***.256.0\n    Create release path \"/home/***/***/releases/2020-03-0***-v***.256.0\"\n    Running \"mkdir -p /home/***/***/releases/2020-03-0***-v***.256.0\" on host \"***\".\n    @***-err ***@***: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).\n    'fast-deploy:updateRemote' errored after ***.32 s\n    Error: Command failed: ssh -i /home/runner/work/***/***/../github_do.key ***@*** \"mkdir -p /home/***/***/releases/2020-03-0***-v***.256.0\"\n    \n\n"
+    },
+    {
+        "title": "Manual workflow triggers in Github Actions",
+        "score": 48,
+        "link": "https://stackoverflow.com/questions/58933155/manual-workflow-triggers-in-github-actions",
+        "number_of_answers": 7,
+        "last_updated": 1628881519,
+        "body": "I am setting up Github Actions for a project repository.\n\nThe workflow consists of the following steps:\n\n  * Building a docker image \n  * Pushing the image to a container registry\n  * Rollout a Kubernetes deployment. \n\n* * *\n\nHowever, I have two different Kubernetes deployments: one for development, and\none for production. Hence, I have also two Github Action workflows.\n\nThe Github Action workflow for development is triggered everytime that a\ncommit is pushed:\n\n    \n    \n    on:\n      push:\n        branches:\n        - master\n    \n\nBut I don't want that for my production workflow. I would need a manual\ntrigger, like a _Send to production_ button. I didn't see anything close to\nthat in the docs.\n\n* * *\n\n**_Is there a way to trigger a workflow manually in Github Actions?_**\n\n**_How can I split my development and my production workflows to achieve what\nI want, either on Github Actions, Docker or Kubernetes?_**\n\n"
+    },
+    {
+        "title": "Github actions, schedule operation on branch",
+        "score": 48,
+        "link": "https://stackoverflow.com/questions/58798886/github-actions-schedule-operation-on-branch",
+        "number_of_answers": 1,
+        "last_updated": 1709787384,
+        "body": "I am trying to configure a github workflow, I have managed to configure it on\npush event. However what if I need it to run on after a time period has\npassed?\n\nWhat I have understood from the\n[documentation](https://help.github.com/en/actions/automating-your-workflow-\nwith-github-actions/configuring-a-workflow) is that it can be achieved using a\nschedule.\n\n    \n    \n    name: Release Management\n    \n    on: \n      schedule:\n       - cron: \"*/5 * * * *\"\n    \n\nHow do I specify the branch that the action will run on ?\n\nMy end goal is to automate releases.\n\n"
+    },
+    {
+        "title": "What is the difference between GitHub actions/checkout@v3 and v2?",
+        "score": 48,
+        "link": "https://stackoverflow.com/questions/73473617/what-is-the-difference-between-github-actions-checkoutv3-and-v2",
+        "number_of_answers": 1,
+        "last_updated": 1677811201,
+        "body": "When using [GitHub Actions](https://docs.github.com/en/actions/learn-github-\nactions/understanding-github-actions), what is the difference between\n`actions/checkout@v2` and `actions/checkout@v3`? Is there any reason to use v2\nover v3?\n\n"
+    },
+    {
+        "title": "How to skip GitHub Actions job on push event?",
+        "score": 47,
+        "link": "https://stackoverflow.com/questions/59759921/how-to-skip-github-actions-job-on-push-event",
+        "number_of_answers": 4,
+        "last_updated": 1652979709,
+        "body": "With Travis CI, we can skip the build for a particular commit with adding a\nsuffix to a commit. This is described at [Travis CI](https://docs.travis-\nci.com/user/customizing-the-build/#skipping-a-build). I find this feature\npractical when I only edit `README.md` which is not code-related and the pre-\nflight build doesn't need to be triggered.\n\n    \n    \n    [skip ci]\n    \n\nHow do I skip the jobs trigged `on: push` events using GitHub Actions?\n\n    \n    \n    name: Maven Build\n    on: [push]\n    \n    jobs:\n      build:\n    \n        runs-on: ubuntu-latest\n    \n        steps:\n        - name: Check-out project\n          uses: actions/checkout@v1\n        - name: Set up JDK 11.0.3\n          uses: actions/setup-java@v1\n          with:\n            java-version: 11.0.3\n        - name: Build with Maven\n          run: mvn -B package --file pom.xml\n    \n\n* * *\n\n**Answers summary** :\n\nBig thanks to all the answerers providing various ways to achieve it. I bet\neverybody would need something a little bit different regarding to the origin\nof their problem and the CI approach. Here are the answers listed for a quick\nnavigation:\n\n  * Skip CI on `readme.md` file: <https://stackoverflow.com/a/61876395/3764965>\n  * Skip CI on `[skip ci]` as a new GitHub feature: \n    * <https://stackoverflow.com/a/66156840/3764965> (answer here)\n    * <https://stackoverflow.com/a/66114678/3764965> (answer in another question)\n  * Skip CI on `[skip ci]` message by parsing (customizable solution): \n    * <https://stackoverflow.com/a/59775665/3764965>\n  * Allow CI per specific branch: <https://stackoverflow.com/a/61876395/3764965>\n\nAll the answers deserve upvote! If you _like_ my question, you should _double-\nlike_ the answers.\n\n"
+    },
+    {
+        "title": "Using an array of values to repeat a step in GitHub Actions workflow",
+        "score": 47,
+        "link": "https://stackoverflow.com/questions/59180385/using-an-array-of-values-to-repeat-a-step-in-github-actions-workflow",
+        "number_of_answers": 2,
+        "last_updated": 1705065964,
+        "body": "I am trying to create a GitHub Actions workflow which would collect specific\npaths changed in last commit and run a step for each of collected paths, if\nany.\n\nCurrently, in my workflow I'm creating an array of paths, but I'm not sure how\nto proceed with my array:\n\n    \n    \n    name: Test\n    \n    on:\n      push\n    \n    jobs:\n      test:\n        runs-on: ubuntu-latest\n        steps:\n          - uses: actions/checkout@v1\n    \n          # This step will create \"an array\" of strings, e.g. \"path1 path2 path3\"\n          - name: array\n            id: arr\n            run: |\n              arr=()\n              for i in \"$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})\"\n              do\n                if [[ $i == *\"path1\"* ]]; then\n                  arr+=(\"path1\")\n                fi\n                if [[ $i == *\"path2\"* ]]; then\n                  arr+=(\"path2\")\n                fi\n              done\n              echo ::set-output name=arr::${arr[@]}\n    \n          # How to run this step by iterating the `${{ steps.arr.outputs.arr }}`?\n          - name: reviewdog-lint\n            uses: reviewdog/action-eslint@v1\n            with:\n              github_token: ${{ secrets.GITHUB_TOKEN }}\n              reporter: github-pr-review\n              eslint_flags: 'my_project/some_folder/${{ SINGLE_PATH }}/'  # `SINGLE_PATH` would be a path from the array\n    \n\nIs something like this even possible in the first place? If not, what would be\nrecommended way to loop through some values and use them as arguments in other\nworkflow steps?\n\n"
+    },
+    {
+        "title": "Github action works on push but not scheduled",
+        "score": 47,
+        "link": "https://stackoverflow.com/questions/59560214/github-action-works-on-push-but-not-scheduled",
+        "number_of_answers": 3,
+        "last_updated": 1698525326,
+        "body": "I am running the example of javascript github actions and it works just fine\nwhen I have\n\n> on: [push]\n\nbut not when I have\n\n    \n    \n    on:\n      schedule:\n        - cron:  '*/5 * * * *'\n    \n\nI expect the github action to run every 5 minutes but it doesn't seem to run\nat all.\n\nHere is the rest of my code for reference\n\n_.github/worflows/main.yml_\n\n    \n    \n    on:\n      schedule:\n        - cron:  '*/5 * * * *'\n    \n    jobs:\n      hello_world_job:\n        runs-on: ubuntu-latest\n        name: A job to say hello\n        steps:\n        - name: Hello world action step\n          id: hello\n          uses: StephenVNelson/website/@3-experiment-with-actions\n          with:\n            who-to-greet: 'Mona the Octocat'\n        # Use the output from the `hello` step\n        - name: Get the output time\n          run: echo \"The time was ${{ steps.hello.outputs.time }}\"\n    \n\n_./action.yml_\n\n    \n    \n    name: 'Hello World'\n    description: 'Greet someone and record the time'\n    inputs:\n      who-to-greet:  # id of input\n        description: 'Who to greet'\n        required: true\n        default: 'World'\n    outputs:\n      time: # id of output\n        description: 'The time we greeted you'\n    runs:\n      using: 'node12'\n      main: './github-actions/main.js'\n    \n\n_./github-actions/main.js_\n\n    \n    \n    const core = require('@actions/core');\n    const github = require('@actions/github');\n    \n    try {\n      // `who-to-greet` input defined in action metadata file\n      const nameToGreet = core.getInput('who-to-greet');\n      console.log(`Hello ${nameToGreet}!`);\n      const time = (new Date()).toTimeString();\n      core.setOutput(\"time\", time);\n      // Get the JSON webhook payload for the event that triggered the workflow\n      const payload = JSON.stringify(github.context.payload, undefined, 2)\n      console.log(`The event payload: ${payload}`);\n    } catch (error) {\n      core.setFailed(error.message);\n    }\n    \n\n"
+    },
+    {
+        "title": "Invoke GitHub Actions workflow manually and pass parameters",
+        "score": 45,
+        "link": "https://stackoverflow.com/questions/62736315/invoke-github-actions-workflow-manually-and-pass-parameters",
+        "number_of_answers": 3,
+        "last_updated": 1608625621,
+        "body": "I want to pass some dynamic parameters and invoke my GitHub Actions workflow\nmanually (ideally via some API). Is this possible?\n\n"
+    },
+    {
+        "title": "How to fix or avoid Error: Unable to process file command &#39;output&#39; successfully?",
+        "score": 45,
+        "link": "https://stackoverflow.com/questions/74137120/how-to-fix-or-avoid-error-unable-to-process-file-command-output-successfully",
+        "number_of_answers": 6,
+        "last_updated": 1706004508,
+        "body": "Recently github [has announced\nchange](https://github.blog/changelog/2022-10-11-github-actions-deprecating-\nsave-state-and-set-output-commands/) that `echo \"::set-output name=x::y\"`\ncommand is deprecated and should be replaced by `echo \"x=y\" >> $GITHUB_OUTPUT`\n\nThe previous command was able to process multilined value of `b` while the new\napproach fails with the folllowing errors\n\n    \n    \n    Error: Unable to process file command 'output' successfully.\n    Error: Invalid format\n    \n\nIn my script, I populate a variable `message` with a message text that should\nbe sent to slack. I need output variables to pass that text to the next job\nstep which performs the send operation.\n\n    \n    \n    message=\"Coverage: $(cat coverage.txt). Covered: $(cat covered.txt). Uncovered: $(cat uncovered.txt). Coverage required: $(cat coverageRequires.csv)\"\n          \n    \n\nThe last part of message includes context of a `csv` file which has multiple\nlines\n\nWhile the `set-output` command was able to process such multilined parameters\n\n    \n    \n    echo \"::set-output name=text::$message\"\n    \n\nthe new version fails\n\n    \n    \n    echo \"text=$message\" >> $GITHUB_OUTPUT\n    \n\nWhat can be done to fix or avoid this error?\n\n"
+    },
+    {
+        "title": "GitHub actions: default branch variable",
+        "score": 44,
+        "link": "https://stackoverflow.com/questions/64781462/github-actions-default-branch-variable",
+        "number_of_answers": 9,
+        "last_updated": 1704760930,
+        "body": "Is there any smart way to determine the default branch in GitHub actions?\n\nNow I need to write something like:\n\n    \n    \n    on:\n      push:\n        branches:\n          - master\n    \n\nis there a way to write something like the code below?\n\n    \n    \n    on:\n      push:\n        branches:\n          - $default-branch\n    \n\nI tried to google but found nothing\n\n"
+    },
+    {
+        "title": "Dropdown for GitHub Workflows input parameters",
+        "score": 44,
+        "link": "https://stackoverflow.com/questions/69296314/dropdown-for-github-workflows-input-parameters",
+        "number_of_answers": 1,
+        "last_updated": 1656659192,
+        "body": "I want to create a dropdown list for my GitHub Action Input parameter. This\nshould help in selecting a value from the dropdown just like how the option is\nthere to select the branches.\n\n"
+    },
+    {
+        "title": "Is it possible to not run github action for readme updates?",
+        "score": 44,
+        "link": "https://stackoverflow.com/questions/62968897/is-it-possible-to-not-run-github-action-for-readme-updates",
+        "number_of_answers": 2,
+        "last_updated": 1645646365,
+        "body": "I have the following action on Github actions that automatically packs and\ndeploy a package to nuget.org every time a PR gets merged into master.\n\n    \n    \n    name: Nuget Deploy\n    \n    on:\n      push:\n        branches: [ master ]\n    \n    jobs:\n      build:\n    \n        runs-on: windows-latest\n    \n        steps:\n        - uses: actions/checkout@v2\n        - name: Setup .NET Core\n          uses: actions/setup-dotnet@v1\n          with:\n            dotnet-version: 3.1.101\n        - name: Generate Nuget package\n          run: dotnet pack\n          working-directory: DateOverride\n        - name: Deploy to nuget.org\n          run: dotnet nuget push *.nupkg -k ${{ secrets.NUGET_DEPLOY_KEY }} -s https://api.nuget.org/v3/index.json\n          working-directory: DateOverride/DateOverride/bin/Debug\n    \n\nBut I would like that it was not run if my update is only a `README.md`\nupdate, is it possible to do so?\n\n"
+    },
+    {
+        "title": "GitHub Action - Define Workflow Level Environment Variable Between Jobs",
+        "score": 44,
+        "link": "https://stackoverflow.com/questions/63467662/github-action-define-workflow-level-environment-variable-between-jobs",
+        "number_of_answers": 4,
+        "last_updated": 1712780615,
+        "body": "I'd like to define and set environment variable between jobs inside my Github\nActions Workflow. The workflow below is what I've tried but unfortunately the\nenvironment variable **GIT_PR_SHA_SHORT** and **E2E_GIT_PR_SHA** not working.\n\nIs it possible?\n\n    \n    \n    name: Git Pull Request Workflow\n    \n    on:\n      workflow_dispatch:\n      pull_request:\n        branches:\n          - master\n    \n    env:\n      GIT_PR_SHA: ${{github.event.pull_request.head.sha}}\n      GIT_PR_SHA_SHORT: \"${{ env.GIT_PR_SHA:0:10 }}\"\n      ENV_NAME: test\n      E2E_GIT_PR_SHA: \"${{ env.ENV_NAME }}-${{ env.GIT_PR_SHA_SHORT }}\"\n    \n    jobs:\n      first-job:\n        name: Build Docker Image\n        runs-on: ubuntu-latest\n    \n        steps:\n        - name: First Echo Step\n          run: |\n                echo \"GIT_PR_SHA_SHORT = ${GIT_PR_SHA_SHORT}\"\n                echo \"E2E_GIT_PR_SHA = ${E2E_GIT_PR_SHA}\"\n    \n      second-job:\n        name: Build Docker Image\n        runs-on: ubuntu-latest\n    \n        steps:\n        - name: Second Echo Step\n          run: |\n                echo \"GIT_PR_SHA_SHORT = ${GIT_PR_SHA_SHORT}\"\n                echo \"E2E_GIT_PR_SHA = ${E2E_GIT_PR_SHA}\"\n    \n\n"
+    },
+    {
+        "title": "How to set environment variable in node.js process when deploying with github action",
+        "score": 44,
+        "link": "https://stackoverflow.com/questions/61117865/how-to-set-environment-variable-in-node-js-process-when-deploying-with-github-ac",
+        "number_of_answers": 3,
+        "last_updated": 1649259091,
+        "body": "I am trying to build an CI pipeline for my node.js server using github\nactions.\n\nI just need to solve one issue. I need to set environment variable, so that my\nnode.js server can access the env variable via `process.env`\n\nBelow is the github action workflow file.\n\n    \n    \n    name: Build and Deploy to GKE\n    \n    on:\n      pull_request:\n        branches:\n          - master\n    \n    # Environment variables available to all jobs and steps in this workflow\n    env:\n      ENGINE_API_KEY: ${{ secrets.ENGINE_API_KEY }}\n    \n    jobs:\n      setup-build-publish-deploy:\n        name: Setup, Build, Publish, and Deploy\n        runs-on: ubuntu-latest\n        steps:\n          - name: Checkout\n            uses: actions/checkout@v2\n    \n          - name: Apollo Schema Update\n            env:\n              ENGINE_API_KEY: ${{ secrets.ENGINE_API_KEY }}\n            run: |\n              sudo npm install\n              sudo npm install -g apollo\n              sudo npm run dev &\n              sleep 3\n              sudo apollo service:push --serviceURL=http://auth-cluster-ip-service --serviceName=auth --tag=master --endpoint=http://localhost:3051\n    \n    \n\nI have tried declaring environment variable both workflow level and job's\nlevel, but when I `console.log(process.env.ENGINE_API_KEY)`, it returns\n`undefined`.\n\nI also tried `ENGINE_API_KEY=$ENGINE_API_KEY npm run dev &` instead of `npm\nrun dev &`. This works on my macbook, but with github action, it still returns\n`undefined`.\n\n(I did store ENGINE_API_KEY in settings -> secret. worked fine for other\nvariables)\n\n"
+    },
+    {
+        "title": "What is the use of &quot;actions/checkout&quot; in GitHub Actions?",
+        "score": 44,
+        "link": "https://stackoverflow.com/questions/67131269/what-is-the-use-of-actions-checkout-in-github-actions",
+        "number_of_answers": 2,
+        "last_updated": 1710866385,
+        "body": "I saw a lot of uses of :\n\n    \n    \n    jobs:\n      myjob:\n        steps:\n          - name: checkout\n            uses: \"actions/checkout@something\"\n          - ...\n    \n\nBut i can not find what is the purpose of the line :\n\n    \n    \n    uses : \"actions/checkout@something\"\n    \n\nIs it similar to this ?\n\n    \n    \n     run: git checkout something   \n    \n\n"
+    },
+    {
+        "title": "How do I make a GitHub Action matrix element conditional?",
+        "score": 43,
+        "link": "https://stackoverflow.com/questions/65384420/how-do-i-make-a-github-action-matrix-element-conditional",
+        "number_of_answers": 5,
+        "last_updated": 1709161435,
+        "body": "I have a workflow that uses `'strategy' = 'matrix'` along with a list of\nspecific configurations to build.\n\nHere is my workflow file:\n\n    \n    \n    #\n    # build-N-test-v2.1-Dev and build-N-test-v2.1-Release are nearly\n    # identical, but a few tests are commented out (to not needlessly stress CI system)\n    # for v2.1-Dev builds\n    #\n    # NOTE: I've tried many tricks - none which seem to work - to get this working on one file with one\n    # workflow and tests\n    #     https://github.community/t/what-is-the-correct-if-condition-syntax-for-checking-matrix-os-version/16221\n    #     https://github.community/t/how-to-conditionally-include-exclude-items-in-matrix-eg-based-on-branch/16853\n    #\n    # but none seem to work\n    #\n    \n    name: build-N-test-v2.1-Dev\n    \n    on:\n      push:\n        branches:\n          - v2.1-Dev\n          #- v2.1-Release\n      workflow_dispatch:\n        inputs:\n          ignored:\n            description: \"ignored\"\n            required: false\n            default: \"\"\n    \n    ## NB: JOBS section IDENTICAL between v2.1-Dev and 2.1-Release files EXCEPT that on v2.1-Dev file\n    ## comment out all entries marked with includeInDevBranchBuilds: false\n    jobs:\n      build-n-test-Linux:\n        runs-on: ${{ matrix.runs_on }}\n        strategy:\n          #\n          # Configuration notes\n          #   o --debug-symbols false to reduce build disk size (and we aren't debugging anyhow) in many debug configurations\n          #\n          matrix:\n            include:\n              # ## SADLY: Container operations are only supported on Linux runners\n              # - displayTargetName: windows-DBG\n              #   os: windows\n              #   compiler: g++-8\n              #   runs_on: windows-latest\n              #   container_image: sophistsolutionsinc/stroika-buildvm-windows-cygwin-vs2k19\n              #   cpp_version: c++17\n              #   config_name: Debug\n              #   extra_config_args: --apply-default-debug-flags --trace2file enable\n    \n              ## centos 8\n              - displayTargetName: centos-8\n                os: unix\n                compiler: g++\n                runs_on: ubuntu-latest\n                container_image: sophistsolutionsinc/stroika-buildvm-centos-8-small\n                cpp_version: c++17\n                config_name: Release\n                extra_config_args: --apply-default-release-flags --trace2file enable\n                includeInDevBranchBuilds: true\n    \n              ## ubuntu 18.04\n              - displayTargetName: ubuntu-18.04-g++-8 (Debug)\n                os: unix\n                compiler: g++-8\n                runs_on: ubuntu-latest\n                container_image: sophistsolutionsinc/stroika-buildvm-ubuntu1804-regression-tests\n                cpp_version: c++17\n                config_name: Debug\n                extra_config_args: --apply-default-debug-flags --trace2file enable --debug-symbols false\n                includeInDevBranchBuilds: true\n    \n              - displayTargetName: ubuntu-18.04-cross-compile-raspberrypi (Debug)\n                os: unix\n                compiler: g++-8\n                runs_on: ubuntu-latest\n                container_image: sophistsolutionsinc/stroika-buildvm-ubuntu1804-regression-tests\n                cpp_version: c++17\n                config_name: Debug\n                extra_config_args: --apply-default-release-flags --trace2file enable --compiler-driver arm-linux-gnueabihf-g++-8 --cross-compiling true\n                includeInDevBranchBuilds: true\n    \n              # ubuntu 20.04\n              # - displayTargetName: ubuntu-20.04-g++-9 (Debug)\n              #   os: unix\n              #   compiler: g++-9\n              #   runs_on: ubuntu-latest\n              #   container_image: sophistsolutionsinc/stroika-buildvm-ubuntu2004-regression-tests\n              #   cpp_version: c++17\n              #   config_name: Debug\n              #   extra_config_args: --apply-default-debug-flags --trace2file enable --debug-symbols false\n              #   includeInDevBranchBuilds: false\n    \n              # - displayTargetName: ubuntu-20.04-g++-10 (Debug)\n              #   os: unix\n              #   compiler: g++-10\n              #   runs_on: ubuntu-latest\n              #   container_image: sophistsolutionsinc/stroika-buildvm-ubuntu2004-regression-tests\n              #   cpp_version: c++17\n              #   config_name: Debug\n              #   extra_config_args: --apply-default-debug-flags --trace2file enable --debug-symbols false\n              #   includeInDevBranchBuilds: false\n    \n              - displayTargetName: ubuntu-20.04-g++-10\n                os: unix\n                compiler: g++-10\n                runs_on: ubuntu-latest\n                container_image: sophistsolutionsinc/stroika-buildvm-ubuntu2004-regression-tests\n                cpp_version: c++17\n                config_name: Release\n                extra_config_args: --apply-default-release-flags --trace2file enable\n                includeInDevBranchBuilds: true\n    \n              # - displayTargetName: ubuntu-20.04-g++-10-c++2a\n              #   os: unix\n              #   compiler: g++-10\n              #   runs_on: ubuntu-latest\n              #   container_image: sophistsolutionsinc/stroika-buildvm-ubuntu2004-regression-tests\n              #   cpp_version: c++2a\n              #   config_name: Release\n              #   extra_config_args: --apply-default-release-flags --trace2file enable\n              #   includeInDevBranchBuilds: false\n    \n              # - displayTargetName: ubuntu-20.04-clang++-10\n              #   os: unix\n              #   compiler: clang++-10\n              #   runs_on: ubuntu-latest\n              #   container_image: sophistsolutionsinc/stroika-buildvm-ubuntu2004-regression-tests\n              #   cpp_version: c++17\n              #   config_name: Release\n              #   extra_config_args: --apply-default-release-flags --trace2file enable\n              #   includeInDevBranchBuilds: false\n    \n        ### ATTEMPT TO COMPRESS 2 workflow files into one, but so far not working\n        ### SEE\n        ### https://stackoverflow.com/questions/65384420/how-to-make-a-github-action-matrix-element-conditional/65385385#65385385\n        ###\n        #if: github.ref == 'refs/heads/v2.1-Release' || matrix.includeInDevBranchBuilds\n        env:\n          # vm has 2 virtual CPUs, but 8GB ram, so jobs=5 (empirical), and QUICK_BUILD avoids some internal testing\n          MAKEFLAGS: \"--jobs=3 QUICK_BUILD=1\"\n        container: ${{ matrix.container_image }}\n        steps:\n          - uses: actions/checkout@v2\n          - name: Build System Info\n            if: ${{ matrix.os=='unix' }}\n            run: |\n              lsb_release -d 2>/dev/null || true\n              echo \"CWD=\" `pwd`\n              echo \"nproc=\" `nproc`\n              grep \"model name\" /proc/cpuinfo | head -1\n              grep processor /proc/cpuinfo | wc -l\n              grep MemTotal /proc/meminfo\n              df -h\n          - name: Build System Info (Windows)\n            if: ${{ matrix.os=='windows' }}\n            run: |\n              echo \"CWD=\" `pwd`\n              df -h\n          - name: Configure ${{ matrix.config_name }}\n            run: |\n              ./configure ${{ matrix.config_name }} --compiler-driver ${{ matrix.compiler }} ${{ matrix.extra_config_args }} --cppstd-version ${{ matrix.cpp_version }}\n              cat ConfigurationFiles/${{ matrix.config_name }}.xml\n          # Break out third-party-components to do clean so we dont run out of disk space, and break out TPC AND library\n          # to show the summary time for each part\n          - name: Make third-party-components\n            run: |\n              make third-party-components\n              make clean\n          - name: Make libraries\n            run: make libraries\n          - name: Make all\n            run: make all\n          - name: Run Tests\n            run: make run-tests\n          - name: Archive Samples Results\n            uses: actions/upload-artifact@v2\n            with:\n              name: Sample apps (${{ matrix.displayTargetName }})\n              path: |\n                Builds/${{ matrix.config_name }}/Samples-*\n          - name: Archive Log Results\n            uses: actions/upload-artifact@v2\n            with:\n              name: Log Data (${{ matrix.displayTargetName }})\n              path: |\n                Builds/${{ matrix.config_name }}/PerformanceDump.txt\n                /tmp/Trace*.txt\n    \n      build-n-test-MacOS:\n        runs-on: ${{ matrix.runs_on }}\n        strategy:\n          matrix:\n            # Add to extra_config_args for build speed: --Xerces no --OpenSSL no --lzma no --boost no\n            include:\n              - displayTargetName: MacOS-Debug\n                os: macos-10.15\n                runs_on: macos-10.15\n                config_name: Debug\n                extra_config_args: --apply-default-debug-flags --trace2file enable\n                includeInDevBranchBuilds: true\n              # - displayTargetName: MacOS\n              #   os: macos-10.15\n              #   runs_on: macos-10.15\n              #   config_name: Release\n              #   extra_config_args: --apply-default-release-flags --trace2file enable\n              #   includeInDevBranchBuilds: false\n        env:\n          # vm has 2 virtual CPUs, but 8GB ram, so jobs=5 (empirical), and QUICK_BUILD avoids some internal testing\n          MAKEFLAGS: \"--jobs=3 QUICK_BUILD=1\"\n        steps:\n          - uses: actions/checkout@v2\n          - name: Build System Info\n            run: |\n              echo \"CWD: `pwd`\"\n              df -h\n              system_profiler SPSoftwareDataType\n              sw_vers\n          # If we had docker ability, most of these would be built into a docker file\n          - name: Install Basic Build requirements\n            run: |\n              brew install gnu-sed\n              brew install p7zip\n              brew install automake\n              make install-realpath\n          - name: Configure\n            run: |\n              ./configure ${{ matrix.config_name }} ${{ matrix.extra_config_args }}\n              cat ConfigurationFiles/${{ matrix.config_name }}.xml\n          - name: Build third-party-components\n            run: |\n              make third-party-components\n              make clean\n          - name: Build Library\n            run: |\n              make libraries\n          - name: Build All\n            run: |\n              make all\n          - name: Run-Tests\n            run: |\n              make run-tests\n          - name: Workaround GitHub-Actions-MacOS Issue with env.TMPDIR\n            run: |\n              mkdir /tmp/LOGS-ARCHIVE\n              cp $TMPDIR/Trace*.txt /tmp/LOGS-ARCHIVE\n          - name: DEBUG Workaround GitHub-Actions-MacOS Issue with env.TMPDIR\n            run: |\n              echo \"TMPDIR=$TMPDIR\"\n              echo \"TMPDIR using ENV.TMPDIR=${{ env.TMPDIR }}\"\n              # Just the echo line above shows empty, and then the ls line causes exit 1/failure\n              #ls -l ${{ env.TMPDIR }}/Trace*.txt\n              #if this gets fixed, then lose Workaround GitHub-Actions-MacOS, and directly reference ${{ env.TMPDIR }}/Trace*.txt in Archive Log Results\n          - name: Build System Info\n            run: |\n              df -h\n          - name: Archive Log Results\n            uses: actions/upload-artifact@v2\n            with:\n              name: Log Results (${{ matrix.displayTargetName }})\n              path: |\n                Builds/${{ matrix.config_name }}/PerformanceDump.txt\n                /tmp/LOGS-ARCHIVE\n                #${{ env.TMPDIR }}/Trace*.txt\n          - name: Archive Sample Results\n            uses: actions/upload-artifact@v2\n            with:\n              name: Samples (${{ matrix.displayTargetName }})\n              path: |\n                Builds/${{ matrix.config_name }}/Samples-*\n    \n      build-n-test-Windows:\n        runs-on: ${{ matrix.runs_on }}\n        strategy:\n          matrix:\n            # Add to extra_config_args for build speed: --Xerces no --OpenSSL no --lzma no --boost no\n            include:\n              - displayTargetName: windows-x86-Debug\n                os: windows\n                runs_on: windows-latest\n                container_image: sophistsolutionsinc/stroika-buildvm-windows-cygwin-vs2k19\n                config_name: Debug\n                extra_config_args: --arch x86 --apply-default-debug-flags --trace2file enable\n                includeInDevBranchBuilds: true\n              # - displayTargetName: windows-x86-Release\n              #   os: windows\n              #   runs_on: windows-latest\n              #   container_image: sophistsolutionsinc/stroika-buildvm-windows-cygwin-vs2k19\n              #   config_name: Release\n              #   extra_config_args: --arch x86 --apply-default-release-flags --trace2file enable\n              #   includeInDevBranchBuilds: false\n              # - displayTargetName: windows-x86_64-Debug\n              #   os: windows\n              #   runs_on: windows-latest\n              #   container_image: sophistsolutionsinc/stroika-buildvm-windows-cygwin-vs2k19\n              #   config_name: Debug\n              #   extra_config_args: --arch x86_64 --apply-default-debug-flags --trace2file enable\n              #   includeInDevBranchBuilds: false\n              # - displayTargetName: windows-x86_64-Release\n              #   os: windows\n              #   runs_on: windows-latest\n              #   container_image: sophistsolutionsinc/stroika-buildvm-windows-cygwin-vs2k19\n              #   config_name: Release\n              #   extra_config_args: --arch x86 --apply-default-release-flags --trace2file enable\n              #   includeInDevBranchBuilds: false\n        env:\n          # vm has 2 virtual CPUs, but 8GB ram, so jobs=5 (empirical), and QUICK_BUILD avoids some internal testing\n          MAKEFLAGS: \"--jobs=3 QUICK_BUILD=1\"\n          ARTIFACTS_DIR: \"c:/Artifacts/\"\n        steps:\n          - uses: actions/checkout@v2\n          # https://stackoverflow.com/questions/58033366/how-to-get-current-branch-within-github-actions\n          - name: Extract branch name\n            shell: bash\n            run: echo \"##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})\"\n            id: extract_branch\n          - name: Build System Info\n            shell: \"bash\"\n            run: |\n              echo \"CWD: `pwd`\"\n              df -h\n              systeminfo\n              echo NUMBER_OF_PROCESSORS=$NUMBER_OF_PROCESSORS\n          - name: docker pull ${{ matrix.container_image }}\n            run: docker pull ${{ matrix.container_image }}\n          - name: Start docker build environment\n            run: |\n              docker run --tty --memory 5G --cpus 2 --storage-opt 'size=50GB' --detach --name buildContainer ${{ matrix.container_image }}\n          - name: Print Info about docker system\n            shell: \"bash\"\n            run: |\n              docker ps -a\n              docker exec buildContainer systeminfo\n              docker exec buildContainer df -h\n          - name: Git Checkout\n            shell: \"bash\"\n            run: |\n              docker exec buildContainer sh -c \"git clone https://github.com/SophistSolutions/Stroika.git && cd Stroika && git checkout ${{ steps.extract_branch.outputs.branch }}\"\n          - name: Configure\n            shell: \"bash\"\n            run: |\n              docker exec --workdir c:/Stroika buildContainer sh -c \"./configure ${{ matrix.config_name }} ${{ matrix.extra_config_args }}\"\n              docker exec --workdir c:/Stroika buildContainer cat ConfigurationFiles/${{ matrix.config_name }}.xml\n          - name: Build\n            shell: \"bash\"\n            run: |\n              docker exec --workdir c:/Stroika --env MAKEFLAGS=\"$MAKEFLAGS\" buildContainer make all\n          - name: Run-Tests\n            shell: \"bash\"\n            run: |\n              docker exec --workdir c:/Stroika --env MAKEFLAGS=\"$MAKEFLAGS\" buildContainer make run-tests\n          - name: Build System Info\n            shell: \"bash\"\n            run: |\n              df -h\n              docker exec buildContainer df -h\n          - name: Copy Build Artifacts\n            shell: \"bash\"\n            # due to flaws in docker (windows must stop) - and cp no wildcards\n            run: |\n              docker exec --workdir c:/Stroika buildContainer bash -c 'mkdir TRACE_LOGS && cp $TEMP/Trace*.txt TRACE_LOGS/'\n              docker stop buildContainer\n              docker cp buildContainer:Stroika/Builds/${{ matrix.config_name }}/ $ARTIFACTS_DIR 2> /dev/null\n              docker cp buildContainer:Stroika/TRACE_LOGS $ARTIFACTS_DIR 2> /dev/null\n              rm -rf $ARTIFACTS_DIR/{ThirdPartyComponents,Tests,*.lib}\n          - name: Archive Log Results\n            uses: actions/upload-artifact@v2\n            with:\n              name: Log Results (${{ matrix.displayTargetName }})\n              path: |\n                ${{ env.ARTIFACTS_DIR }}PerformanceDump.txt\n                ${{ env.ARTIFACTS_DIR }}TRACE_LOGS\n          - name: Archive Sample Results\n            uses: actions/upload-artifact@v2\n            with:\n              name: Samples (${{ matrix.displayTargetName }})\n              path: |\n                ${{ env.ARTIFACTS_DIR }}Samples-*\n    \n\nHowever, I'd like to **only** build some of the configurations **only** when\nthe branch is `v2.1-Release`. That is - for the most part - just build one or\ntwo configurations but build a bunch more on release.\n\nI've accomplished this by cloning the script (workflow) and renaming a few\nthings and commenting things out, but it would be nice if the mechanism worked\nwith matrix elements.\n\nI realize there is an `if` feature that can be added to each step, but that\nwould create tons of jobs with disabled steps. What I want is to not spin up\nthose jobs at all for each matrix element that has the `if` part evaluates\nfalse.\n\n"
+    }
+]

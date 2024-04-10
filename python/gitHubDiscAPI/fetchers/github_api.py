@@ -48,7 +48,7 @@ def main():
 
     discussions = fetch_github_discussions(token)
     if discussions:
-        with open("data/main.json", "w") as json_file:
+        with open("../data/main.json", "w") as json_file:
             json.dump(discussions, json_file, indent=4)
         print("GitHub Actions discussions saved to main.json")
     else:

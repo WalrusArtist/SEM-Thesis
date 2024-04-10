@@ -1,20 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import json
-from openai import OpenAI
 import re
-
-# client = OpenAI()
-
-# completion = client.chat.completions.create(
-#   model="gpt-3.5-turbo",
-#   messages=[
-#     {"role": "system", "content": "You are a poetic assistant, skilled in explaining complex programming concepts with creative flair."},
-#     {"role": "user", "content": "Compose a poem that explains the concept of recursion in programming."}
-#   ]
-# )
-
-# print(completion.choices[0].message)
 
 def scrape_github_discussions(url_template, pages):
     discussions = []
@@ -108,7 +95,7 @@ def main():
 
     discussions = scrape_github_discussions(url_template, pages)
     
-    with open("data/scraper.json", "w") as json_file:
+    with open("../data/github_scraper.json", "w") as json_file:
         json.dump(discussions, json_file, indent=4)
     
     print("GitHub discussions saved to scraper.json.")
