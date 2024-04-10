@@ -8,7 +8,7 @@ g = Github(github_token)
 
 repositories = []
 
-with open('data/repoListAuto.txt', 'r') as file:
+with open('../data/repoListAuto.txt', 'r') as file:
     repositories = [line.strip() for line in file.readlines()]
 
 print(repositories)
@@ -73,7 +73,7 @@ def main():
         repoDict = parse_workflow_files(workflows, repo)
         repoListStat.append(repoDict)
     
-    with open("data/repoListStat.json", "w") as json_file:
+    with open("../data/repoListStat.json", "w") as json_file:
         json.dump(repoListStat, json_file, indent=4)
     
 if __name__ == "__main__":
