@@ -1,8 +1,9 @@
 import os
 from github import Github, GithubException
 import json
+import requests
 
-github_token = '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'
+github_token = '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'
 
 g = Github(github_token)
 
@@ -11,7 +12,7 @@ repositories = []
 with open('../data/repoListAuto.txt', 'r') as file:
     repositories = [line.strip() for line in file.readlines()]
 
-print(repositories)
+#print(repositories)
 
 def fetch_workflow_files(repository):
     try:
@@ -36,6 +37,17 @@ def fetch_workflow_files(repository):
             print('SKIPPING: Failed processing info for repository: ', repository)
     return workflows
 
+
+def check_action_exists(action_name):
+    url = f"https://github.com/marketplace/actions/{action_name}"
+
+    response = requests.get(url)
+    print(response)
+    if response.status_code == 200:
+        return True
+    return False
+
+
 def parse_workflow_files(workflows, repo):
     repoDict = {}
     repoDict[repo] = {}
@@ -44,12 +56,18 @@ def parse_workflow_files(workflows, repo):
     unique_lines = set()
 
     for workflow in workflows:
-        print(f"Processing workflow file: {workflow.path}")
+        #print(f"Processing workflow file: {workflow.path}")
         workflow_content = workflow.decoded_content.decode("utf-8")
         lines = workflow_content.split('\n')
 
         for line in lines:
-            if "uses:" in line:
+            if "uses:" in line and '@' in line:
+                line = line.replace("uses:","").replace(' ','')
+                action_name  = line.split('/')[1].split('@')[0]
+
+                isMarketplace = check_action_exists(action_name)
+                print('is actions from marketplace? : ', isMarketplace)
+
                 line = line.replace(" ", "")
                 if line.startswith("-"):
                     line = line[1:]
@@ -68,12 +86,12 @@ def parse_workflow_files(workflows, repo):
 def main():
     repoListStat = []
     for repo in repositories:
-        print(f"Fetching workflows for repository: {repo}")
+        #print(f"Fetching workflows for repository: {repo}")
         workflows = fetch_workflow_files(repo)
         repoDict = parse_workflow_files(workflows, repo)
         repoListStat.append(repoDict)
     
-    with open("../data/repoListStat.json", "w") as json_file:
+    with open("../data/repo_parser.json", "w") as json_file:
         json.dump(repoListStat, json_file, indent=4)
     
 if __name__ == "__main__":
