@@ -10,7 +10,7 @@ def fetch_stackoverflow_questions():
         'sort': 'votes',
         'order': 'desc',
         'pagesize': 100,
-        'key': 'afokvFZneYSK5X4okTNnow((',
+        'key': '',
         'filter' : '!1wfr1kDm8B(B(if9ZFM52Ds8J8OshqW*3XmEhyzoC7VRF4CJ4yw5tcZQq4izwVqbUwv'
     }
     
