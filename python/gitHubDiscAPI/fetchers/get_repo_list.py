@@ -1,6 +1,6 @@
 from github import Github
 
-g = Github('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')
+g = Github('')
 
 # Search for public repositories using GitHub Actions
 repositories = g.search_repositories(query="is:public actions")

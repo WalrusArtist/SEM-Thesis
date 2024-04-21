@@ -5,11 +5,11 @@ with open('../data/scraper.json', 'r') as file:
     post_data = json.load(file)
 
 # Obsolescence
-obsolescence_terms = ["Outdated", "Legacy", "Deprecat", "Phasing out", "Obsolete", "Unmaintained"]
+obsolescence_terms = ["Outdate", "Legacy", "deprecat", "Phasing out", "Obsolete", "Unmaintain"]
 obsolescence_terms_lower = [term.lower() for term in obsolescence_terms]
 
 # Dependency issues
-dependency_issues_terms = ["Dependency"," conflict", "mismatch", "Package", "Version", "Dependency problem", "Incompatible dependenc"]
+dependency_issues_terms = ["Dependency", "conflict", "mismatch", "Package", "Version", "Dependency problem", "Incompatible dependenc"]
 dependency_issues_terms_lower = [term.lower() for term in dependency_issues_terms]
 
 # Breaking changes
@@ -28,6 +28,7 @@ found_security_vulnerabilities = []
 for item in post_data:
     for term in obsolescence_terms:
         if term.lower() in item['body'].lower():
+            dict = {'link' : item['link', ]}
             found_obsolescence.append(term)
 
     for term in dependency_issues_terms:

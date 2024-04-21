@@ -3,7 +3,7 @@ from github import Github, GithubException
 import json
 import requests
 
-github_token = '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'
+github_token = ''
 
 g = Github(github_token)
 
