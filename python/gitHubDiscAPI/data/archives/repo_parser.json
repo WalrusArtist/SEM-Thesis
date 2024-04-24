@@ -1110,9 +1110,9 @@
                 "setup-msbuild": true,
                 "setup-nuget": false,
                 "ReusableWorkflow": false,
-                "ring-deploy-db-template.yaml-LOCAL": false,
-                "ring-deploy-api-template.yaml-LOCAL": false,
-                "ring-deploy-db+api-template.yaml-LOCAL": false,
+                "ring-deploy-db-template-LOCAL": false,
+                "ring-deploy-api-template-LOCAL": false,
+                "ring-deploy-db+api-template-LOCAL": false,
                 "labeler": true,
                 "create-release": true
             }
@@ -10228,8 +10228,8 @@
             "localActions": 2,
             "marketplaceActions": 0,
             "actions": {
-                "terraform_valida_modulo.yaml\"-LOCAL": false,
-                "terraform.yaml\"-LOCAL": false
+                "terraform_valida_modulo-LOCAL": false,
+                "terraform-LOCAL": false
             }
         }
     },
