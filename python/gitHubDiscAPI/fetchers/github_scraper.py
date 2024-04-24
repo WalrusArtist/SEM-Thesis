@@ -7,6 +7,12 @@ def scrape_github_discussions(url_template, pages):
     discussions = []
     upvotes     = []
 
+    # These titles are announcements made by GitHub. We avoid em
+    avoid_titles = ["Actions FAQs", "Public Beta Feedback - Actions streaming logs with backscroll", 
+                    "GitHub-hosted runners: Double the power for open source", 
+                    "Feedback Requested: Actions Usage Metrics", 
+                    "Take Action this April! [Actions Check-in]"]
+
     for page in range(1, pages + 1):
         print('page: ', page)
         url = url_template.format(page)
@@ -34,6 +40,13 @@ def scrape_github_discussions(url_template, pages):
                     discussion_links = disc_soup.find_all('td', class_='d-block color-fg-default comment-body markdown-body js-comment-body')
                     buttons = disc_soup.find_all('button', attrs={'name': 'input[content]'})
                     commentCount = disc_soup.find_all('h2', attrs={'id': 'discussion-comment-count'})
+                    tag_elements = disc_soup.find_all('span', class_="css-truncate css-truncate-target")
+
+                    print("Procession post: ", disc_url)
+
+                    tags = []
+                    for tag_element in tag_elements:
+                        tags.append(tag_element.text.replace(' ',''))
 
                     commentsAmount = 0
                     repliesAmount = 0
@@ -77,12 +90,16 @@ def scrape_github_discussions(url_template, pages):
                     'title': link.text.strip(),
                     'url': disc_url,
                     'upvotes': upvotes[i]['upvotes'],
+                    'tags': tags,
                     'rections' : aggregated_reactions,
                     'replies': repliesAmount,
                     'comments': commentsAmount,
                     'body': aggregated_p
                 }
-                discussions.append(discussion)
+                if discussion['title'] not in avoid_titles:
+                    discussions.append(discussion)
+                    with open("../data/github_scraper.json", "w") as json_file:
+                        json.dump(discussions, json_file, indent=4)
                 i += 1
         else:
             print(f"Failed to fetch page {page}: {response.status_code}")

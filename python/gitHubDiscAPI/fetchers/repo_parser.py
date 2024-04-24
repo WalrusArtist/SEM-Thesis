@@ -64,7 +64,7 @@ def parse_workflow_files(workflows, repo):
                 if line.startswith('-'):
                     line = line[1:]
 
-                action_name = line.replace('./.github','').replace('.yml','')
+                action_name = line.replace('./.github','').replace('.yml','').replace('.yml','')
                 action_name = action_name.split('/')[-1] + '-LOCAL'
                 if action_name not in unique_actions:
                     unique_actions.add(action_name)
@@ -78,16 +78,16 @@ def parse_workflow_files(workflows, repo):
                 if len(action_name) > 1:
                     action_name = action_name[1].split('@')[0]
 
-                if action_name not in unique_actions:
-                    unique_actions.add(action_name)
-                    isMarketplace = check_action_exists(action_name)
+                    if action_name not in unique_actions:
+                        unique_actions.add(action_name)
+                        isMarketplace = check_action_exists(action_name)
 
-                    if not isMarketplace:
-                        repoDict[repo]['localActions'] += 1
-                    else:
-                        repoDict[repo]['marketplaceActions'] += 1
+                        if not isMarketplace:
+                            repoDict[repo]['localActions'] += 1
+                        else:
+                            repoDict[repo]['marketplaceActions'] += 1
 
-                    repoDict[repo]['actions'][action_name] = isMarketplace
+                        repoDict[repo]['actions'][action_name] = isMarketplace
 
 
     return repoDict
