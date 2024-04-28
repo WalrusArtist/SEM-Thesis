@@ -42,6 +42,7 @@ for item in post_data:
         if term.lower() in item['body'].lower():
             found_security_vulnerabilities.append(term)
 
+print(len(post_data[0]))
 print('found_obsolescence: ', len(found_obsolescence))
 print('found_dependency_issues: ',        len(found_dependency_issues))
 print('found_breaking_changes: ',         len(found_breaking_changes))

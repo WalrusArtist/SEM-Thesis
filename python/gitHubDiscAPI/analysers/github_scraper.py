@@ -1,7 +1,7 @@
 import json
 
 post_data = {}
-with open('../data/scraper.json', 'r') as file:
+with open('../data/github_scraper.json', 'r') as file:
     post_data = json.load(file)
 
 # Obsolescence
@@ -28,7 +28,7 @@ found_security_vulnerabilities = []
 for item in post_data:
     for term in obsolescence_terms:
         if term.lower() in item['body'].lower():
-            dict = {'link' : item['link', ]}
+            #dict = {'link' : item['link', ]}
             found_obsolescence.append(term)
 
     for term in dependency_issues_terms:
@@ -42,6 +42,8 @@ for item in post_data:
     for term in security_vulnerabilities_terms:
         if term.lower() in item['body'].lower():
             found_security_vulnerabilities.append(term)
+
+print(len(post_data))
 
 print('found_obsolescence: ', len(found_obsolescence))
 print('found_dependency_issues: ',        len(found_dependency_issues))
