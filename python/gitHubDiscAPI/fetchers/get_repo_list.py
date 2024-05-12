@@ -11,7 +11,7 @@ for repo in repositories:
     print(repo.full_name)
     repos.append(repo.full_name)
 
-with open('../data/repoListAuto.txt', 'w') as file:
+with open('../data/repoListAuto1.txt', 'w') as file:
     for item in repos:
         file.write(item + '\n')
 print(repos)
