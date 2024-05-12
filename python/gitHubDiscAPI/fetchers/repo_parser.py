@@ -65,7 +65,7 @@ def parse_workflow_files(workflows, repoDict, unique_actions, repo):
     return repoDict
 
 
-def construct_repo_data(workflows, repo, size, languages):
+def construct_repo_data(workflows, repo, size, languages, contributor_count, created_at):
     repoDict = {}
     repoDict[repo] = {}
     repoDict[repo]['localActions'] = 0
@@ -74,11 +74,13 @@ def construct_repo_data(workflows, repo, size, languages):
     repoDict[repo]['actions'] = {}
     repoDict[repo]['size'] =  size
     repoDict[repo]['languages'] = languages
+    repoDict[repo]['created_at'] = created_at
     repoDict = parse_workflow_files(workflows, repoDict, unique_actions, repo)
+    repoDict[repo]['contributor_count'] = contributor_count
     return repoDict
 
 
-def fetch_workflows_size_languages(repository):
+def fetch_repo_data(repository):
     try:
         repo = g.get_repo(repository)
     except GithubException as e:
@@ -90,9 +92,13 @@ def fetch_workflows_size_languages(repository):
     workflows = []
     size = 0
     languages = []
+    contributor_count = 0
+    created_at = 0
     try:
         size = repo.size
         languages = repo.get_languages()
+        contributor_count = repo.get_contributors().totalCount
+        created_at = repo.created_at
         for content in repo.get_contents(".github/workflows", ref="main"):
             if content.type == "file" and content.name.endswith(".yml"):
                 workflows.append(content)
@@ -100,26 +106,28 @@ def fetch_workflows_size_languages(repository):
         try:
             size = repo.size
             languages = repo.get_languages()
+            contributor_count = repo.get_contributors().totalCount
+            created_at = repo.created_at
             for content in repo.get_contents(".github/workflows", ref="master"):
                 if content.type == "file" and content.name.endswith(".yml"):
                     workflows.append(content)
         except:
             print('SKIPPING: Failed processing repository: ', repository)
-    return workflows, size, languages
+    return workflows, size, languages, contributor_count, created_at
 
 
 def main():
     repoListStat = []
     for repo in repositories:
         print(f"Processing repository: {repo}")
-        workflows, size, languages = fetch_workflows_size_languages(repo)
-        repoDict = construct_repo_data(workflows, repo, size, languages)
+        workflows, size, languages, contributor_count, created_at = fetch_repo_data(repo)
+        repoDict = construct_repo_data(workflows, repo, size, languages, contributor_count, created_at)
         repoListStat.append(repoDict)
-        with open("../data/repo_parser.json", "w") as json_file:
-            json.dump(repoListStat, json_file, indent=4)
+        with open("../data/repo_parser1.json", "w") as json_file:
+            json.dump(repoListStat, json_file, indent=4, default=str)
 
-    with open("../data/repo_parser.json", "w") as json_file:
-        json.dump(repoListStat, json_file, indent=4)
+    with open("../data/repo_parser1.json", "w") as json_file:
+        json.dump(repoListStat, json_file, indent=4, default=str)
     
 
 if __name__ == "__main__":
