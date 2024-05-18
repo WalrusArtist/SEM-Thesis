@@ -152,7 +152,25 @@ Appendix A contains the questions from our survey.\\
 
         \subsubsection{\textbf{Data Analysis}}
 
-            In our data analysis approach, we will employ repository mining techniques to analyze patterns and trends in StackOverflow posts, GitHub Discussions threads, and repository data obtained through APIs and database queries. Quantitative analysis will encompass descriptive statistics such as mean and visualization methods including histograms and scatter plots. Moreover, in Mining Software Repositories (MSR), we will extract and analyze metrics such as code churn and complexity. We may also explore the application of machine learning methods, with detailed descriptions provided to ensure transparency and repeatability. Overall, our approach aims to provide a comprehensive understanding of the challenges in the GHA ecosystem parallel to other software ecosystems.\\
+            In our data analysis approach, we employed repository mining techniques to analyze patterns and trends in StackOverflow posts, GitHub Discussions threads, and repository data obtained through APIs and database queries. Quantitative analysis encompassed descriptive statistics such as visualization methods including heatmaps. For qualitative analysis, our first step was to compile issues from other existing literature and group them into four themes: i) Obsolescence, ii) Dependency issues, iii) Breaking changes, and iv) Security vulnerabilities. Our collected dataset through MSR was already grouped into these themes during data collection where the data was filtered based on the synonyms appearning in the discussion or stackoverflow threads. However, there were cases when we had to map the same issue to more than one theme. The reason behind this overlapping is because of the close relation and dependency between these themes. For instance, there might be an issue related to security that is a consequence of depending on outdated software packages; in this case the same issue can be grouped to each of these themes 'Obsolescence', 'Dependency Issues', and 'Security vulnerabilities'. \\
+In our second step of our qualitative analysis, we utilized open coding to divide our collected issues in each theme to identify further relevant sub-themes which captures more than one synonym and labelled the issues using a list of synonym terms that appears on the sub-themes. We found that the posts that contain more than one term from the synonyms were more relevant to the theme. Then, we utilized axial coding to find patterns and relation between the themes. For instance, if a specific issue from a particular theme is also relevant to other themes,  we added the related theme to the list of synonyms labelling the relation between one or two themes. Our thematic coding is visually presented in Table 1.\\
+In summary, our qualitative analysis contained four main themes labelled with the keywords  'Obsolescence', 'Dependency Issues', and 'Security vulnerabilities' and smaller sub-themes labelled with a list of synonyms and related themes. An example of such a list would be $['Outdated', 'Legacy', 'Dependency Issues' ]$. Overall, our approach aimed to provide a comprehensive understanding of the challenges in the GHA ecosystem parallel to other software ecosystems.\\
+\begin{tabular}{|c|c|}
+  \hline
+  \textbf{Main themes} & \textbf{Sub-themes} \\
+  \hline
+  \hline
+    Security Vulnerabilities & Cell 2  \\
+  \hline
+   Dependency changes & Cell 6 \\
+  \hline
+  \hline
+   Obsolescence & Cell 6 \\
+  \hline
+  \hline
+   Breaking Changes & Cell 6 \\
+  \hline
+\end{tabular}
 
         These methods ensure a systematic approach to address each research question effectively.\\
 
@@ -214,12 +232,64 @@ This section presents the results of our data collection and analysis.
 
 The survey has received 8 responses until now and based on the answers we can see that developers prefer to use locally maintained Actions. Our scripts shows the total number of each type of Actions used in all the collected repositories and posts related to each type of Action are collected. These data will be analysed starting from Sprint 5.
 
-For RQ2, we have successfully collected all the posts and questions, from GitHub Discussions and Stackoverflow respectively, that mentions our target keywords. These data data will be analysed starting from Sprint 5
+For RQ2, we have found three of four themes that have issues from GHA that can be mapped to issues from other ecosystems. The theme that showed the highest number of mapped issue in GHA was 'Security Vulnerability'. Following this theme were the themes 'Dependency changes' and 'Obsolescence'  that had almost the same number of mapped issue. However, our reasearch work didn't find similar issues in GHA that can be mapped for the theme 'Breaking changes'. Figure 3 and 4 shows a heatmap of the issues found in each of the themes in GitHub Discussions and Stackoverflow before mapping the data. Figure 5 and 6 shows a heatmap of the issues found in each of the themes  in GitHub Discussions and Stackoverflow after mapping the data.
+
+
+
+\subsection{Security Vulnerability}
+\begin{tabular}{|c|c|}
+  \hline
+  \textbf{Other Ecosystems} & \textbf{GHA} \\
+  \hline
+  \hline
+    Cell 1 & Cell 2  \\
+  \hline
+    Cell 3 & Cell 6 \\
+  \hline
+ 
+\end{tabular}
+\subsection{Obsolescence}
+\begin{tabular}{|c|c|}
+  \hline
+  \textbf{Other Ecosystems} & \textbf{GHA} \\
+  \hline
+  \hline
+    Cell 1 & Cell 2  \\
+  \hline
+    Cell 2 & Cell 6 \\
+  \hline
+
+\end{tabular}
+\subsection{Dependency changes}
+\begin{tabular}{|c|c|}
+  \hline
+  \textbf{Other Ecosystems} & \textbf{GHA} \\
+  \hline
+  \hline
+    Cell 1 & Cell 2  \\
+  \hline
+   Cell 3 & Cell 6 \\
+  \hline
+
+\end{tabular}
+\subsection{Breaking changes}
+\begin{tabular}{|c|c|}
+  \hline
+  \textbf{Other Ecosystems} & \textbf{GHA} \\
+  \hline
+  \hline
+    Cell 1 & Cell 2  \\
+  \hline
+   Cell 3& Cell 6 \\
+  \hline
+\end{tabular}
 							    	      %%%DISCUSSION%%%
 
-\section{Discussion}
+\section{Conclusion}
 	
 In this section, we discuss the results in conjunction with relevant literature.
+
+\section{Future work}
 							    %%% ACKNOWLEDGEMENT %%%
 
 \section{Acknowledgement}
@@ -229,27 +299,8 @@ In this section, we discuss the results in conjunction with relevant literature.
 							           %%% APPENDICES%%%
 
 \section{Appendices}
-\subsection{Survey Questionnaire}
-\begin{enumerate}
-    \item What is your level of programming experience? (likert scale)
-    \item How familiar are you with GitHub Actions? (likert scale)
-    \item How frequently do you use GitHub Actions in your development workflow? (likert scale)
-    \item Have you utilized locally maintained Actions within your repositories/organizations? (multiple choice)
-    \item How frequently do you or your organization utilize locally maintained Actions in development workflows? (likert scale)
-    \item Have you utilized Actions available on the GitHub marketplace? (multiple choice)
-    \item How frequently do you or your organization utilize Actions from the GitHub Marketplace in development workflows? (likert scale)
-    \item Which type of action do you or your organization primarily utilize? (multiple choice)
-    \item What do you believe is the underlying reason for choosing the aforementioned type of action? (open answer)
-    \item What factors do you or your organization consider when deciding to use locally maintained Actions? (open answer)
-    \item What factors do you or your organization consider when deciding to use Actions from the GitHub marketplace? (open answer)
-    \item Rank the following factors based on their importance in your decision-making process: Documentation and Support, Trust and, Reliability, Community Reviews and Ratings, Customizability and Flexibility, Integration with other tools and services, Cost or Pricing, Security and Compliance, Performance and Speed
-    \item What challenges or limitations have you encountered when using locally maintained Actions? (open answer)
-    \item What challenges or limitations have you encountered when using Actions from the GitHub marketplace? (open answer)
-    \item What improvements or enhancements would you like to see in locally maintained Actions? (open answer)
-    \item What improvements or enhancements would you like to see in Actions available on the GitHub marketplace? (open answer)
-\end{enumerate} 
-                                                                             %%% REFERENCES %%%
 
+                                                                             %%% REFERENCES %%%
 \bibliographystyle{unsrt}
 \bibliography{references}
 
