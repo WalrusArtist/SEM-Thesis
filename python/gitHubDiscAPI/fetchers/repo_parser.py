@@ -7,7 +7,7 @@ github_token = ''
 g = Github(github_token)
 repositories = []
 
-with open('../data/repoListAuto.txt', 'r') as file:
+with open('../data/bigRepos.txt', 'r') as file:
     repositories = [line.strip() for line in file.readlines()]
 
 
@@ -123,10 +123,10 @@ def main():
         workflows, size, languages, contributor_count, created_at = fetch_repo_data(repo)
         repoDict = construct_repo_data(workflows, repo, size, languages, contributor_count, created_at)
         repoListStat.append(repoDict)
-        with open("../data/repo_parser1.json", "w") as json_file:
+        with open("../data/repo_parserBIG.json", "w") as json_file:
             json.dump(repoListStat, json_file, indent=4, default=str)
 
-    with open("../data/repo_parser1.json", "w") as json_file:
+    with open("../data/repo_parserBIG.json", "w") as json_file:
         json.dump(repoListStat, json_file, indent=4, default=str)
     
 

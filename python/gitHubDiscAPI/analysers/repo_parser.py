@@ -7,21 +7,21 @@ from datetime import datetime
 import sys
 
 # Args
-remove_outlier = "--remove_outlier" in sys.argv
-invert_graph   = "--invert_graph" in sys.argv
+remove_outlier = "--remove-out" in sys.argv
+invert_graph   = "--invert" in sys.argv
 verbose        = "--verbose" in sys.argv
-normal_dist    = "--normal-dist" in sys.argv
+normal_dist    = "--normal" in sys.argv
 help = "--help" in sys.argv
 
 if help:
-    print("   --remove_outlier       Removes outliers from lower 10\% upper 90%")
-    print("   --invert_graph         Inverts the x and y axis")
-    print("   --verbose              Verbosity")
-    print("   --normal-dist          Gives you standard normal distributions on local actions")
+    print("   --remove-out   Removes outliers from lower 10\% upper 90%")
+    print("   --invert       Inverts the x and y axis")
+    print("   --verbose      Verbosity")
+    print("   --normal       Gives you standard normal distributions on local actions")
     exit()
 
 parsed_repo_data = {}
-with open('../data/repo_parser.json', 'r') as file:
+with open('../data/repo_parserDone.json', 'r') as file:
     parsed_repo_data = json.load(file)
 
 print("Repo count: ",len(parsed_repo_data))
@@ -30,12 +30,12 @@ def min_max_values():
     sizes = np.array([item[1]['size'] for item in parsed_repo_data])
     print('Max size: ', max(sizes))
 
-def sort_and_plot(myDict, xVariableName, yVariableName, lineLabel, x_label, y_label, inverted=False, remove_outliers=False):
+def sort_and_plot(myDict, xVariableName='', yVariableName='', lineLabel='', x_label='', y_label='', inverted=False, remove_outliers=False):
 
     if remove_outliers:
         sizes = [value[yVariableName] for value in myDict.values()]
-        Q1 = np.percentile(sizes, 10)
-        Q3 = np.percentile(sizes, 90)
+        Q1 = np.percentile(sizes, 20)
+        Q3 = np.percentile(sizes, 80)
         IQR = Q3 - Q1
         multiplier = 1.5
         lower_threshold = Q1 - multiplier * IQR
@@ -54,11 +54,12 @@ def sort_and_plot(myDict, xVariableName, yVariableName, lineLabel, x_label, y_la
 
     sorted_data = sorted(myDict.items(), key=lambda x: x[1][xVariableName])
     x_data = np.array([item[1][xVariableName] for item in sorted_data])
-    y_data = np.array([item[1][yVariableName] for item in sorted_data])
+    if not normal_dist:
+        y_data = np.array([item[1][yVariableName] for item in sorted_data])
+    print('filtered count: ', len(x_data))
 
     if normal_dist:
         mu, sigma = 0, 1  # mean and standard deviation
-        data = np.random.normal(mu, sigma, 1000)  # generate 1000 data points from a normal distribution
         plt.hist(x_data, bins=30, density=True, alpha=0.6, color='g')  # histogram with 30 bins
         xmin, xmax = plt.xlim()
         x = np.linspace(xmin, xmax, 100)
@@ -128,9 +129,10 @@ def size_to_local_actions():
         marketplaceActions = item[repo_name]['marketplaceActions']
         size = item[repo_name]['size']
         totalActions = localActions + marketplaceActions
-        if totalActions > 0:
+        if localActions > 0:
             size_to_local_actions[repo_name] = {}
             size_to_local_actions[repo_name]['localActionsCount'] = localActions
+            size_to_local_actions[repo_name]['marketActionsCount'] = marketplaceActions
             size_to_local_actions[repo_name]['localActionsPercentage'] = localActions / totalActions
             size_to_local_actions[repo_name]['size'] = size
             size_to_local_actions[repo_name]['localActionsUsedCount'] = 0
@@ -152,9 +154,10 @@ def contributor_to_local_actions():
         marketplaceActions = item[repo_name]['marketplaceActions']
         totalActions = localActions + marketplaceActions
         contributor_count = item[repo_name]['contributor_count']
-        if totalActions > 0:
+        if localActions > 0:
             contributor_to_local_actions[repo_name] = {}
             contributor_to_local_actions[repo_name]['localActionsCount'] = localActions
+            contributor_to_local_actions[repo_name]['marketActionsCount'] = marketplaceActions
             contributor_to_local_actions[repo_name]['localActionsPercentage'] = localActions / totalActions
             contributor_to_local_actions[repo_name]['contributor_count'] = contributor_count
             contributor_to_local_actions[repo_name]['localActionsUsedCount'] = 0
@@ -175,9 +178,10 @@ def created_to_local_actions():
         marketplaceActions = item[repo_name]['marketplaceActions']
         created_at = item[repo_name]['created_at']
         totalActions = localActions + marketplaceActions
-        if totalActions > 0:
+        if localActions > 0:
             created_to_local_actions[repo_name] = {}
             created_to_local_actions[repo_name]['localActionsCount'] = localActions
+            created_to_local_actions[repo_name]['marketActionsCount'] = marketplaceActions
             created_to_local_actions[repo_name]['localActionsPercentage'] = localActions / totalActions
             created_to_local_actions[repo_name]['created_at'] =  int(datetime.strptime(created_at, "%Y-%m-%d %H:%M:%S%z").timestamp())
             created_to_local_actions[repo_name]['localActionsUsedCount'] = 0
@@ -198,11 +202,13 @@ def languages_to_local_actions():
         marketplaceActions = item[repo_name]['marketplaceActions']
         languages = item[repo_name]['languages']
         totalActions = localActions + marketplaceActions
-        if totalActions > 0:
+        if localActions > 0:
             languages_to_local_actions[repo_name] = {}
             languages_to_local_actions[repo_name]['localActionsCount'] = localActions
+            languages_to_local_actions[repo_name]['marketActionsCount'] = marketplaceActions
             languages_to_local_actions[repo_name]['localActionsPercentage'] = localActions / totalActions
             languages_to_local_actions[repo_name]['languagesCount'] = len(languages)
+            languages_to_local_actions[repo_name]['codeSize'] = sum(languages.values())
             languages_to_local_actions[repo_name]['localActionsUsedCount'] = 0
             languages_to_local_actions[repo_name]['marketplaceActionsUsedCount'] = 0
             for action in item[repo_name]['actions'].values():
@@ -232,40 +238,53 @@ def main():
     calculate_percentage_actions()
     get_total_actions_times_used()
 
+    if normal_dist:
+        size_to_local_actions_dict = size_to_local_actions()
+        sort_and_plot(myDict=size_to_local_actions_dict, 
+            xVariableName='localActionsCount')
+        sort_and_plot(myDict=size_to_local_actions_dict, 
+            xVariableName='localActionsPercentage')
+        sort_and_plot(myDict=size_to_local_actions_dict, 
+            xVariableName='localActionsUsedCount')
+        sort_and_plot(myDict=size_to_local_actions_dict, 
+            xVariableName='localActionsUsedPercentage')
+        exit()
+
+
     # SIZE
     size_to_local_actions_dict = size_to_local_actions()
     sort_and_plot(myDict=size_to_local_actions_dict, 
                   xVariableName='localActionsCount', 
                   yVariableName='size', 
                   lineLabel='size against local actions', 
-                  x_label='Amount of Local Actions', 
+                  x_label='Number of Local Actions', 
                   y_label='Repository Size',
                   inverted=invert_graph,
                   remove_outliers=remove_outlier)
-    sort_and_plot(myDict=size_to_local_actions_dict, 
-                  xVariableName='localActionsPercentage', 
-                  yVariableName='size', 
-                  lineLabel='size against local actions', 
-                  x_label='Percentage of Local Actions', 
-                  y_label='Repository Size',
-                  inverted=invert_graph,
-                  remove_outliers=remove_outlier)
+    # sort_and_plot(myDict=size_to_local_actions_dict, 
+    #               xVariableName='localActionsPercentage', 
+    #               yVariableName='size', 
+    #               lineLabel='size against local actions', 
+    #               x_label='Percentage of Local Actions', 
+    #               y_label='Repository Size',
+    #               inverted=invert_graph,
+    #               remove_outliers=remove_outlier)
     sort_and_plot(myDict=size_to_local_actions_dict, 
                 xVariableName='localActionsUsedCount', 
                 yVariableName='size', 
                 lineLabel='size against local actions Used', 
-                x_label='Amount of Local Actions Used', 
+                x_label='Number of Local Actions Used', 
                 y_label='Repository Size',
                 inverted=invert_graph,
                 remove_outliers=remove_outlier)
-    sort_and_plot(myDict=size_to_local_actions_dict, 
-                xVariableName='localActionsUsedPercentage', 
-                yVariableName='size', 
-                lineLabel='size against local actions Used', 
-                x_label='Percentage of Local Actions Used', 
-                y_label='Repository Size',
-                inverted=invert_graph,
-                remove_outliers=remove_outlier)
+    # sort_and_plot(myDict=size_to_local_actions_dict, 
+    #             xVariableName='localActionsUsedPercentage', 
+    #             yVariableName='size', 
+    #             lineLabel='size against local actions Used', 
+    #             x_label='Percentage of Local Actions Used', 
+    #             y_label='Repository Size',
+    #             inverted=invert_graph,
+    #             remove_outliers=remove_outlier)
     
     # CONTRIBUTORS
     contributor_to_local_actions_dict = contributor_to_local_actions()
@@ -273,34 +292,34 @@ def main():
                   xVariableName='localActionsCount', 
                   yVariableName='contributor_count', 
                   lineLabel='contributor against local actions', 
-                  x_label='Amount of Local Actions', 
-                  y_label='Amount of Contributors',
+                  x_label='Number of Local Actions', 
+                  y_label='Number of Contributors',
                   inverted=invert_graph,
                   remove_outliers=remove_outlier)
-    sort_and_plot(myDict=contributor_to_local_actions_dict, 
-                  xVariableName='localActionsPercentage', 
-                  yVariableName='contributor_count', 
-                  lineLabel='Contributors against local actions', 
-                  x_label='Percentage of Local Actions', 
-                  y_label='Amount of contributors',
-                  inverted=invert_graph,
-                  remove_outliers=remove_outlier)
+    # sort_and_plot(myDict=contributor_to_local_actions_dict, 
+    #               xVariableName='localActionsPercentage', 
+    #               yVariableName='contributor_count', 
+    #               lineLabel='Contributors against local actions', 
+    #               x_label='Percentage of Local Actions', 
+    #               y_label='Number of contributors',
+    #               inverted=invert_graph,
+    #               remove_outliers=remove_outlier)
     sort_and_plot(myDict=contributor_to_local_actions_dict, 
                   xVariableName='localActionsUsedCount', 
                   yVariableName='contributor_count', 
                   lineLabel='Contributors against local actions used', 
-                  x_label='Amount of Local Actions used', 
-                  y_label='Amount of contributors',
+                  x_label='Number of Local Actions used', 
+                  y_label='Number of contributors',
                   inverted=invert_graph,
                   remove_outliers=remove_outlier)
-    sort_and_plot(myDict=contributor_to_local_actions_dict, 
-                  xVariableName='localActionsUsedPercentage', 
-                  yVariableName='contributor_count', 
-                  lineLabel='Contributors against local actions used', 
-                  x_label='Percentage of Local Actions used', 
-                  y_label='Amount of contributors',
-                  inverted=invert_graph,
-                  remove_outliers=remove_outlier)
+    # sort_and_plot(myDict=contributor_to_local_actions_dict, 
+    #               xVariableName='localActionsUsedPercentage', 
+    #               yVariableName='contributor_count', 
+    #               lineLabel='Contributors against local actions used', 
+    #               x_label='Percentage of Local Actions used', 
+    #               y_label='Number of contributors',
+    #               inverted=invert_graph,
+    #               remove_outliers=remove_outlier)
     
     # CREATED AT
     created_to_local_actions_dict = created_to_local_actions()
@@ -308,67 +327,84 @@ def main():
                   xVariableName='localActionsCount', 
                   yVariableName='created_at', 
                   lineLabel='Repo created against local actions', 
-                  x_label='Amount of Local Actions', 
+                  x_label='Number of Local Actions', 
                   y_label='Repo created (Unix Epoch)',
                   inverted=invert_graph,
                   remove_outliers=remove_outlier)
-    sort_and_plot(myDict=created_to_local_actions_dict, 
-                  xVariableName='localActionsPercentage', 
-                  yVariableName='created_at', 
-                  lineLabel='Repo created against local actions percentage', 
-                  x_label='Percentage of Local Actions', 
-                  y_label='Repo created (Unix Epoch)',
-                  inverted=invert_graph,
-                  remove_outliers=remove_outlier)
+    # sort_and_plot(myDict=created_to_local_actions_dict, 
+    #               xVariableName='localActionsPercentage', 
+    #               yVariableName='created_at', 
+    #               lineLabel='Repo created against local actions percentage', 
+    #               x_label='Percentage of Local Actions', 
+    #               y_label='Repo created (Unix Epoch)',
+    #               inverted=invert_graph,
+    #               remove_outliers=remove_outlier)
     sort_and_plot(myDict=created_to_local_actions_dict, 
                   xVariableName='localActionsUsedCount', 
                   yVariableName='created_at', 
                   lineLabel='Repo created against local actions used', 
-                  x_label='Amount of Local Actions Used', 
+                  x_label='Number of Local Actions Used', 
                   y_label='Repo created (Unix Epoch)',
                   inverted=invert_graph,
                   remove_outliers=remove_outlier)
-    sort_and_plot(myDict=created_to_local_actions_dict, 
-                  xVariableName='localActionsUsedPercentage', 
-                  yVariableName='created_at', 
-                  lineLabel='Repo created against local actions used percentage', 
-                  x_label='Percentage of Local Actions Used', 
-                  y_label='Repo created (Unix Epoch)',
-                  inverted=invert_graph,
-                  remove_outliers=remove_outlier)
+    # sort_and_plot(myDict=created_to_local_actions_dict, 
+    #               xVariableName='localActionsUsedPercentage', 
+    #               yVariableName='created_at', 
+    #               lineLabel='Repo created against local actions used percentage', 
+    #               x_label='Percentage of Local Actions Used', 
+    #               y_label='Repo created (Unix Epoch)',
+    #               inverted=invert_graph,
+    #               remove_outliers=remove_outlier)
     
     # Languages
     languages_to_local_actions_dict = languages_to_local_actions()
     sort_and_plot(myDict=languages_to_local_actions_dict, 
                   xVariableName='localActionsCount', 
                   yVariableName='languagesCount', 
-                  lineLabel='Amount of languages against local actions', 
-                  x_label='Amount of Local Actions', 
-                  y_label='Amount of languages ',
+                  lineLabel='Number of languages against local actions', 
+                  x_label='Number of Local Actions', 
+                  y_label='Number of different languages',
                   inverted=invert_graph,
                   remove_outliers=remove_outlier)
-    sort_and_plot(myDict=languages_to_local_actions_dict, 
-                  xVariableName='localActionsPercentage', 
-                  yVariableName='languagesCount', 
-                  lineLabel='Amount of languages  against local actions percentage', 
-                  x_label='Percentage of Local Actions', 
-                  y_label='Amount of languages',
-                  inverted=invert_graph)
+    # sort_and_plot(myDict=languages_to_local_actions_dict, 
+    #               xVariableName='localActionsPercentage', 
+    #               yVariableName='languagesCount', 
+    #               lineLabel='Number of languages  against local actions percentage', 
+    #               x_label='Percentage of Local Actions', 
+    #               y_label='Number of languages',
+    #               inverted=invert_graph)
     sort_and_plot(myDict=languages_to_local_actions_dict, 
                   xVariableName='localActionsUsedCount', 
                   yVariableName='languagesCount', 
-                  lineLabel='Amount of languages against local actions used', 
-                  x_label='Amount of Local Actions Used', 
-                  y_label='Amount of languages',
+                  lineLabel='Number of languages against local actions used', 
+                  x_label='Number of Local Actions Used', 
+                  y_label='Number of different languages',
+                  inverted=invert_graph,
+                  remove_outliers=remove_outlier)
+    # sort_and_plot(myDict=languages_to_local_actions_dict, 
+    #               xVariableName='localActionsUsedPercentage', 
+    #               yVariableName='languagesCount', 
+    #               lineLabel='Number of languages against local actions used percentage', 
+    #               x_label='Percentage of Local Actions Used', 
+    #               y_label='Number of languages ',
+    #               inverted=invert_graph,
+    #               remove_outliers=remove_outlier)
+
+    sort_and_plot(myDict=languages_to_local_actions_dict, 
+                  xVariableName='localActionsCount', 
+                  yVariableName='codeSize', 
+                  lineLabel='Number of languages against local actions', 
+                  x_label='Number of Local Actions', 
+                  y_label='Bytes of code',
                   inverted=invert_graph,
                   remove_outliers=remove_outlier)
     sort_and_plot(myDict=languages_to_local_actions_dict, 
-                  xVariableName='localActionsUsedPercentage', 
-                  yVariableName='languagesCount', 
-                  lineLabel='Amount of languages against local actions used percentage', 
-                  x_label='Percentage of Local Actions Used', 
-                  y_label='Amount of languages ',
-                  inverted=invert_graph,
-                  remove_outliers=remove_outlier)
+                xVariableName='localActionsUsedCount', 
+                yVariableName='codeSize', 
+                lineLabel='Number of languages against local actions used', 
+                x_label='Number of Local Actions Used', 
+                y_label='Bytes of code',
+                inverted=invert_graph,
+                remove_outliers=remove_outlier)
 
 main()
