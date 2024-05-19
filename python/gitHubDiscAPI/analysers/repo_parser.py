@@ -26,7 +26,7 @@ if help:
     exit()
 
 parsed_repo_data = {}
-with open('../data/repo_parserDone.json', 'r') as file:
+with open('../data/repo_parserExtendedCleaned1.json', 'r') as file:
     parsed_repo_data = json.load(file)
 
 print("Repo count: ",len(parsed_repo_data))
@@ -111,10 +111,12 @@ def sort_and_plot(myDict, xVariableName='', yVariableName='', lineLabel='', x_la
     plt.grid(True)
     plt.scatter(x_data, y_data, alpha=0.5, s=20)
     if save_graph:
-        folder_path = 'graphs'
+        folder_path = f'graphs/{labelFix}'
         if not os.path.exists(folder_path):
             os.makedirs(folder_path)
         file_path = os.path.join(folder_path, f"{labelFix}_{xVariableName}_{yVariableName}.png")
+        if remove_outlier:
+            file_path = os.path.join(folder_path, f"mid_range_{labelFix}_{xVariableName}_{yVariableName}.png")
         plt.savefig(file_path)
     else:
         plt.show()
@@ -136,7 +138,7 @@ def get_total_actions_times_used():
         size_used_dict[repo_name]['total_total_used'] = 0
         action_dict = item[repo_name]['actions']
         for action in action_dict.values():
-            if action['isMarketplace'] is True:
+            if action['isMarketplace'] is False:
                 total_local_times_used += action['times_used']
                 size_used_dict[repo_name]['total_local_used'] += action['times_used']
                 size_used_dict[repo_name]['total_total_used'] += action['times_used']
@@ -158,7 +160,10 @@ def size_to_local_actions():
         marketplaceActions = item[repo_name]['marketplaceActions']
         size = item[repo_name]['size']
         totalActions = localActions + marketplaceActions
-        if localActions > 0 and size > 0:
+        actionCondition = localActions
+        if do_market:
+            actionCondition = marketplaceActions
+        if actionCondition > 0 and size > 0:
             size_to_local_actions[repo_name] = {}
             size_to_local_actions[repo_name]['localActionsCount'] = localActions
             size_to_local_actions[repo_name]['marketActionsCount'] = marketplaceActions
@@ -183,7 +188,10 @@ def contributor_to_local_actions():
         marketplaceActions = item[repo_name]['marketplaceActions']
         totalActions = localActions + marketplaceActions
         contributor_count = item[repo_name]['contributor_count']
-        if localActions > 0 and contributor_count > 0:
+        actionCondition = localActions
+        if do_market:
+            actionCondition = marketplaceActions
+        if actionCondition > 0 and contributor_count > 0:
             contributor_to_local_actions[repo_name] = {}
             contributor_to_local_actions[repo_name]['localActionsCount'] = localActions
             contributor_to_local_actions[repo_name]['marketActionsCount'] = marketplaceActions
@@ -207,7 +215,10 @@ def created_to_local_actions():
         marketplaceActions = item[repo_name]['marketplaceActions']
         created_at = item[repo_name]['created_at']
         totalActions = localActions + marketplaceActions
-        if localActions > 0:
+        actionCondition = localActions
+        if do_market:
+            actionCondition = marketplaceActions
+        if actionCondition > 0:
             created_to_local_actions[repo_name] = {}
             created_to_local_actions[repo_name]['localActionsCount'] = localActions
             created_to_local_actions[repo_name]['marketActionsCount'] = marketplaceActions
@@ -231,7 +242,10 @@ def languages_to_local_actions():
         marketplaceActions = item[repo_name]['marketplaceActions']
         languages = item[repo_name]['languages']
         totalActions = localActions + marketplaceActions
-        if localActions > 0:
+        actionCondition = localActions
+        if do_market:
+            actionCondition = marketplaceActions
+        if actionCondition > 0:
             languages_to_local_actions[repo_name] = {}
             languages_to_local_actions[repo_name]['localActionsCount'] = localActions
             languages_to_local_actions[repo_name]['marketActionsCount'] = marketplaceActions
@@ -247,6 +261,43 @@ def languages_to_local_actions():
                     languages_to_local_actions[repo_name]['marketplaceActionsUsedCount'] += action['times_used']
             languages_to_local_actions[repo_name]['localActionsUsedPercentage'] = languages_to_local_actions[repo_name]['localActionsUsedCount'] / (languages_to_local_actions[repo_name]['localActionsUsedCount'] + languages_to_local_actions[repo_name]['marketplaceActionsUsedCount'])
     return languages_to_local_actions
+
+def owners_with_local():
+    parsed_repo_data = {}
+    owners = set()
+    local_per_owner = {}
+    with open('../data/repo_parserExtendedCleaned.json', 'r') as file:
+        parsed_repo_data = json.load(file)
+    for item in parsed_repo_data:
+        repo_name = list(item.keys())[0]
+        for action in item[repo_name]['actions']:
+            sameOwner = False
+            repoOwner = repo_name.split('/')[0]
+            actionOwner = item[repo_name]['actions'][action]['line'].split('/')[0]
+            ismarket = item[repo_name]['actions'][action]['isMarketplace']
+            if repoOwner == actionOwner:
+                sameOwner = True
+            ismarket = item[repo_name]['actions'][action]['isMarketplace']
+            if sameOwner is not ismarket:
+                owners.add(repoOwner)
+
+    local_owner_count_map = {}
+    for owner in owners:
+        local_owner_count = 0
+        for item in parsed_repo_data:
+            repo_name = list(item.keys())[0]
+            if owner == repo_name.split('/')[0] and item[repo_name]['localActions'] > 0:
+                local_owner_count += item[repo_name]['localActions']
+        local_owner_count_map[owner] = local_owner_count
+
+    local_owner_count_map = dict(sorted(local_owner_count_map.items(), key=lambda item: item[1], reverse=True))    
+    with open("../data/local_owner_count_map.json", "w") as json_file:
+        json.dump(local_owner_count_map, json_file, indent=4, default=str)
+    print(owners)
+
+
+                
+
 
 def calculate_percentage_actions():
     total_actions = 0
@@ -266,6 +317,7 @@ def main():
     #min_max_values()
     calculate_percentage_actions()
     get_total_actions_times_used()
+    owners_with_local()
 
     if normal_dist:
         size_to_local_actions_dict = size_to_local_actions()

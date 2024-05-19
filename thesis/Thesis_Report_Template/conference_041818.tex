@@ -51,7 +51,7 @@ gusmaroka@student.gu.se}
 
     Both Saroar et al. \cite{saroar2023developers} and Decan et al. \cite{decan2022use} observed that many repositories still prefer to use locally maintained Actions within their repositories, despite the availability of numerous open-source and reusable Actions on the GitHub Marketplace. However, these studies do not investigate the exact factors or make comparisons between the two types of Actions that contribute to developers' preferences. We selected RQ1 to distinguish the problems faced between locally maintained and Marketplace Actions and reach a conclusion. Additionally, some workflows utilize both types of actions, and understanding which types are more commonly locally maintained can provide valuable insights into the decision-making process for designing and developing workflows. \\
 
- \textbf{RQ2: In what ways do the key issues encountered in GitHub Actions (GHA) parallel those found in other software ecosystems?}\\
+ \textbf{RQ2: In what ways do the key issues encountered in GHA parallel those found in other software ecosystems?}\\
 
     This research question is inspired by the concerns raised by Decan \cite{decan2022use}, as previously mentioned. The objective is to compile a list of current issues prevalent in reusable software libraries distributed via package managers and draw parallels with our research findings. This comparative analysis aims to determine whether these concerns are indeed applicable to the GHA ecosystem. If similarities are found, it will aid in identifying effective solutions previously implemented in other ecosystems to address these issues. Subsequently, these solutions can be adapted for the GHA ecosystem to prevent the escalation of such problems in the future.
 
@@ -82,7 +82,7 @@ gusmaroka@student.gu.se}
 
         According to Koishybayev et al. \cite{koishybayev2022characterizing}, one example of a similar attack using the GHA ecosystem is to perform deployments based on the attacker’s code by triggering a misconfigured workflow through a new pull request. Since GHA consists of many open-source reusable Actions, workflow and GHA developers need to be extra careful on choosing what packages they depend on for building jobs. It is a good practice to depend on first-party packages and packages from trustworthy maintainers \cite{zimmermann2019small}. \\
 
-        Saroar et al. \cite{saroar2023developers} mentions that even though the GHA platform provides a marketplace for sharing and reusing open-source Actions, there are still many repositories that prefer to maintain their own GitHub Actions locally within their repositories. The survey analysis conducted by the authors revealed some challenges GitHub users face using the Marketplace where 7 out of 25 participants found it difficult to search for products and hard to check product quality (see Figure 2). Saroar et al. \cite{saroar2023developers} quotes one of the participants from the survey: \\
+        Saroar et al. \cite{saroar2023developers} mentions that even though the GHA platform provides a marketplace for sharing and reusing open-source Actions, there are still many repositories that prefer to maintain their own GHA locally within their repositories. The survey analysis conducted by the authors revealed some challenges GitHub users face using the Marketplace where 7 out of 25 participants found it difficult to search for products and hard to check product quality (see Figure 2). Saroar et al. \cite{saroar2023developers} quotes one of the participants from the survey: \\
 
 \textit{"Marketplace does not provide an effective way to filter and sort based on quality, version, contributions, etc."}\\
 
@@ -105,53 +105,49 @@ gusmaroka@student.gu.se}
     In this section, we describe the research questions we are trying to answer and the research strategies which will be implemented to facilitate our explorative study. Additionally, we would like to emphasize that we are employing a mixed method study, utilising different data collection and analysis methods that will be described and motivated after each research question. Finally, we identify and explain the limitations relevant to our research.
 
     \subsection{Research questions and methodology}
-
-
-        \textbf{RQ1: What factors developers to rely on locally maintained Actions within their repositories, as opposed to utilising Actions available on the GitHub marketplace?}\\
-
-        \textbf{Research Method:}  Repository Mining\\
-            
-        This research question is answered by measuring similar characteristics of GitHub repositories that utilise GHA. And how these characteristics can correlate with the usage of Local Actions. By quantitatively measuring the size, number of contributors, number of programming languages used, etc. We can make an argument for whether or not the preference for using Local Actions can be tied to project size, complexity, team size, etc.
+        \textbf{RQ1: What factors developers to rely on locally maintained Actions within their repositories, as opposed to utilising Actions available on the GitHub marketplace?}
         \\
 
-        \subsubsection{\textbf{Data Collection}}
-	  The study utilizes python scripts\footnote{https://github.com/WalrusArtist/SEM-Thesis/tree/kardo/python} to collect and store repositories using GitHub Actions. Workflow files are fetched from all the stored GitHub repositories using the GitHub API.  The workflow files are then parsed, with each line iterated, to search for the $uses:$ keyword and check whether the reference of the Action matches that of a Marketplace Action or a Local Action. To distinguish between the patterns, we check whether the Action reference matches the pattern $./.github*$. If it does, we determine that it is a Local Action. Similarly, for Marketplace Actions we check whether the Action reference contains the symbol $@$. If it does, we can determine that it is a Marketplace Action. \\ However, an important note here is that developers may have references of Actions that are locally maintained, but kept in other repositories. In this case, an $@$ symbol is present. To fully determine if an Action is indeed from the Marketplace and not from another repository, we applied a step to parse out the Action name, and verify that the Action with the given name exists on the GitHub Marketplace through the GitHub API. \\ Depending on the results, we count the total number of locally maintained actions and GHAs from the marketplace across 4483 repositories to reach a conclusion.\\
+        \textbf{Research Method:}  Repository Mining \\
+          This research question is answered by measuring similar characteristics of GitHub repositories that utilise GHA. And how these characteristics can correlate with the usage of locally maintained Actions (Local Actions). By quantitatively measuring the following characteristics, we can make an argument for whether or not the preference for using Local Actions can be tied to project size, project complexity, organization, and team size. \\
+          \begin{itemize}
+            \item \textbf{Repository size:} Repository size in bytes. This includes all files such as source code, artifacts, documentation, data, etc.
+            \item \textbf{Number of contributors:} How many developers have contributed to the repository. May indicate the size of the team working on the project.
+            \item	\textbf{Number of programming languages used:} How many types of programming langugaes used within the project. May indicate a higher complexity of the project.
+            \item \textbf{Date of repository creation:} Date of creation. May indicate trends and cultral shifts.\\
+            \item \textbf{Size of source code:} Only the amount of source code available in bytes. May also indicate a higher complexity of the project. \\
+          \end{itemize}
+          
+          \subsubsection{\textbf{Data Collection}}
+            The study utilizes python scripts\footnote{https://github.com/WalrusArtist/SEM-Thesis/tree/kardo/python} to collect and store repositories using GHA. Workflow files are fetched from all the stored GitHub repositories using the GitHub API.  The workflow files are then parsed, with each line iterated, to search for the $uses:$ keyword and check whether the reference of the Action matches that of a Marketplace Action or a Local Action. To distinguish between the patterns, we check whether the Action reference matches the pattern $/.github*$ or $*.yml$ or $*.yaml$. If it does, we determine that it is a Local Action, due to the reason that Local Actions are called from a file path that reside within the $/.github*$ folder or end with the file extention $*.yml$ or $*.yaml$.
+            \\ Similarly, for Marketplace Actions we check whether the Action reference contains the symbol $@$. If it does, we can determine that it is a Marketplace Action. \\ However, an important note here is that developers and organizations may have references of Actions that are locally maintained by themselves, but the Actions are kept in other repositories. In this case, an $@$ symbol is also present. To fully determine if an Action is indeed from not locally maintained, we have applied a step to verify that the owner of the repository and the owner of the Action do not match. The owner verification step can help with the accuracy of the measurement, because in certain cases the pattern in which the Action is called can be nuanced and can lead to false positives in measuring the amount of Marketplace Actions\\ 
+            To avoid redundancy, whenever an Action name is parsed out, that record is saved into a set with an attribute called $times.used$. If the same action is referenced elsewhere in Workflow, we increase $times.used$ by one data point. The $times.used$ attribute can allow us to measure the resuability of an Action within a repository workflow.\\
 
-	The survey targets audiences who are active GitHub users engaged in software development and GHA. The survey will be distributed through platforms such as Reddit, Stack Overflow, Discord channels, and GitHub repositories, etc. The designed questionnaire collects demographic information, usage patterns of GHA, and factors influencing the selection of actions. Our goal was to collect responses from at least 25-30 participants. The questionnaire was designed according to the following criteria:\\
- \begin{itemize}
-	\item Questions are clear and unambiguous.
-	\item Questions are relevant to our research question.
-	\item Questions are designed to be neutral and free of biases.
-	\item Questions are specific and focused on a single topic.
-	\item The survey was pilot-tested before administration.\\
- \end{itemize}
-Appendix A contains the questions from our survey.\\
-        \subsubsection{\textbf{Data Analysis}}
-            In the analysis phase, the intent is to utilize both descriptive and inferential statistical techniques to rigorously scrutinize the survey data.  This entails establishing specific criteria for analysis, including the definition of metrics such as the frequency of marketplace action usage, rationales underlying action selection, and the perceived advantages and disadvantages associated with these selections. Moreover, the evaluation process will involve a meticulous examination of emerging trends and the identification of factors shaping distribution patterns.\\
+          \subsubsection{\textbf{Data Analysis}}
+            In the analysis we have taken a quantitative approach to measure the correlations between repository characteristics and the number of Actions. In order to ensure an accurate understanding of what factors are correlated to relying on Local Actions more, the same quantitative analysis has been conducted for both Local and Marketplace Actions. We have used the Spearman correlation coefficient (PCC) method to measure the correlations coefficient of each of the repository characteristics alongside the number of Local and Marketplace Actions available and referenced. We have then compared the results of these measurements to indicate if the preference for selecting Local Actions increases more than Marketplace Actions alongside any of the repository characteristics. \\
+            Owner based frequency measurement for the amount of Local Actions available per owner can also help with determining whether big organizations lean more towards developing in-house Actions. For this analysis we have aggregated the results of Local Actions available per repository and gategorized it per owner. The results from this analysis can indicate whether bigger organizations have a higher frequency in utilizing Local Actions more.
 
         \textbf{RQ2: In what ways do the key issues encountered in GHA parallel those found in other software ecosystems?}\\
 
-        \textbf{Research Method:} Repository Mining\\
+            \textbf{Research Method:} Repository Mining\\
+            We are already aware of the problems encountered in other ecosystems. Our goal is to identify similar challenges and/or issues within the GHA ecosystem and evaluate the impact of these problems.\\
+            To address RQ2, we plan to carry out repository mining. Through repository mining, we can collect vast amounts of data from relevant software repositories using GHA. We can also automate the process of mining data by developing scripts\footnote{https://github.com/WalrusArtist/SEM-Thesis/tree/kardo/python}  and easing the process of going through multiple repositories \cite{chaturvedi2013tools}.\\
 
-        We are already aware of the problems encountered in other ecosystems. Our goal is to identify similar challenges and/or issues within the GHA ecosystem and evaluate the impact of these problems.\\
+            \subsubsection{\textbf{Data Collection}}
+                Repository mining is conducted by utilizing APIs and database queries to collect relevant data from Stack Overflow, GitHub Discussions, and other pertinent repositories. To collect data from GitHub discussions, we utilize GraphQL API  in our scripts\footnote{https://github.com/WalrusArtist/SEM-Thesis/tree/kardo/python} to extract and store relevant discussion posts in JSON format. Particularly, we search for all the discussion posts that contain the query string $GitHub Actions$ . Then, the scripts target the following keywords and their synonyms to gather posts that may contain the following relevant problems: \\
 
-       To address RQ2, we plan to carry out repository mining. Through repository mining, we can collect vast amounts of data from relevant software repositories using GHA. We can also automate the process of mining data by developing scripts\footnote{https://github.com/WalrusArtist/SEM-Thesis/tree/kardo/python}  and easing the process of going through multiple repositories \cite{chaturvedi2013tools}.\\
+              \begin{itemize}
+                \item \textbf{Obsolescence:} Outdated, Legacy, Deprecat, Phasing out, Obsolete, Unmaintained
+                \item \textbf{Dependency issues:} Dependency, conflict, mismatch, Package, Version, Dependency problem, Incompatible dependenc
+                \item	\textbf{Breaking changes:} version, incompatible, API changes, Breaking updates, Breaking modifications, Breaking alterations, Disruptive changes
+                        \item \textbf{Security vulnerabilities:} security, Security flaws, Security risk, Vulnerabilities, Exploit, loopholes, Attack\\
+              \end{itemize}
+                A similar approach is used to collect questions from Stackoverflow using the Stackoverflow API. Our scripts searches for all the questions that are tagged $GitHub-Actions$ and then targets the aforementioned issues and their synonyms. The discussion posts and questions will be analyzed manually, and conclusions about the problems will be drawn.\\
 
-        \subsubsection{\textbf{Data Collection}}
-            Repository mining is conducted by utilizing APIs and database queries to collect relevant data from Stack Overflow, GitHub Discussions, and other pertinent repositories. To collect data from GitHub discussions, we utilize GraphQL API  in our scripts\footnote{https://github.com/WalrusArtist/SEM-Thesis/tree/kardo/python} to extract and store relevant discussion posts in JSON format. Particularly, we search for all the discussion posts that contain the query string $GitHub Actions$ . Then, the scripts target the following keywords and their synonyms to gather posts that may contain the following relevant problems: \\
-\begin{itemize}
-	\item \textbf{Obsolescence:} Outdated, Legacy, Deprecat, Phasing out, Obsolete, Unmaintained
-	\item \textbf{Dependency issues:} Dependency, conflict, mismatch, Package, Version, Dependency problem, Incompatible dependenc
-	\item	\textbf{Breaking changes:} version, incompatible, API changes, Breaking updates, Breaking modifications, Breaking alterations, Disruptive changes
-          \item \textbf{Security vulnerabilities:} security, Security flaws, Security risk, Vulnerabilities, Exploit, loopholes, Attack\\
-\end{itemize}
-	A similar approach is used to collect questions from Stackoverflow using the Stackoverflow API. Our scripts searches for all the questions that are tagged $GitHub-Actions$ and then targets the aforementioned issues and their synonyms. The discussion posts and questions will be analyzed manually, and conclusions about the problems will be drawn.\\
-
-        \subsubsection{\textbf{Data Analysis}}
-
-            In our data analysis approach, we employed repository mining techniques to analyze patterns and trends in StackOverflow posts, GitHub Discussions threads, and repository data obtained through APIs and database queries. Quantitative analysis encompassed descriptive statistics such as visualization methods including heatmaps. For qualitative analysis, our first step was to compile issues from other existing literature and group them into four themes: i) Obsolescence, ii) Dependency issues, iii) Breaking changes, and iv) Security vulnerabilities. Our collected dataset through MSR was already grouped into these themes during data collection where the data was filtered based on the synonyms appearning in the discussion or stackoverflow threads. However, there were cases when we had to map the same issue to more than one theme. The reason behind this overlapping is because of the close relation and dependency between these themes. For instance, there might be an issue related to security that is a consequence of depending on outdated software packages; in this case the same issue can be grouped to each of these themes 'Obsolescence', 'Dependency Issues', and 'Security vulnerabilities'. \\
-In our second step of our qualitative analysis, we utilized open coding to divide our collected issues in each theme to identify further relevant sub-themes which captures more than one synonym and labelled the issues using a list of synonym terms that appears on the sub-themes. We found that the posts that contain more than one term from the synonyms were more relevant to the theme. Then, we utilized axial coding to find patterns and relation between the themes. For instance, if a specific issue from a particular theme is also relevant to other themes,  we added the related theme to the list of synonyms labelling the relation between one or two themes. Our thematic coding is visually presented in Table 1.\\
-In summary, our qualitative analysis contained four main themes labelled with the keywords  'Obsolescence', 'Dependency Issues', and 'Security vulnerabilities' and smaller sub-themes labelled with a list of synonyms and related themes. An example of such a list would be $['Outdated', 'Legacy', 'Dependency Issues' ]$. Overall, our approach aimed to provide a comprehensive understanding of the challenges in the GHA ecosystem parallel to other software ecosystems.\\
+            \subsubsection{\textbf{Data Analysis}}
+                In our data analysis approach, we employed repository mining techniques to analyze patterns and trends in StackOverflow posts, GitHub Discussions threads, and repository data obtained through APIs and database queries. Quantitative analysis encompassed descriptive statistics such as visualization methods including heatmaps. For qualitative analysis, our first step was to compile issues from other existing literature and group them into four themes: i) Obsolescence, ii) Dependency issues, iii) Breaking changes, and iv) Security vulnerabilities. Our collected dataset through MSR was already grouped into these themes during data collection where the data was filtered based on the synonyms appearning in the discussion or stackoverflow threads. However, there were cases when we had to map the same issue to more than one theme. The reason behind this overlapping is because of the close relation and dependency between these themes. For instance, there might be an issue related to security that is a consequence of depending on outdated software packages; in this case the same issue can be grouped to each of these themes 'Obsolescence', 'Dependency Issues', and 'Security vulnerabilities'. \\
+                In our second step of our qualitative analysis, we utilized open coding to divide our collected issues in each theme to identify further relevant sub-themes which captures more than one synonym and labelled the issues using a list of synonym terms that appears on the sub-themes. We found that the posts that contain more than one term from the synonyms were more relevant to the theme. Then, we utilized axial coding to find patterns and relation between the themes. For instance, if a specific issue from a particular theme is also relevant to other themes,  we added the related theme to the list of synonyms labelling the relation between one or two themes. Our thematic coding is visually presented in Table 1.\\
+                In summary, our qualitative analysis contained four main themes labelled with the keywords  'Obsolescence', 'Dependency Issues', and 'Security vulnerabilities' and smaller sub-themes labelled with a list of synonyms and related themes. An example of such a list would be $['Outdated', 'Legacy', 'Dependency Issues' ]$. Overall, our approach aimed to provide a comprehensive understanding of the challenges in the GHA ecosystem parallel to other software ecosystems.\\
 \begin{tabular}{|c|c|}
   \hline
   \textbf{Main themes} & \textbf{Sub-themes} \\
@@ -215,7 +211,7 @@ In summary, our qualitative analysis contained four main themes labelled with th
         In this section, we discuss the limitations and threats to
         validity and how we can mitigate them.\\
 
-        \textbf{External Validity:} Since our repository mining procedure is supposed to collect data from diverse GitHub repositories with different implementation of workflows, programming languages and size of the project, the results we obtain might differ depending on these factors and our findings can’t be generalized for all types of GitHub projects. However, it is possible to group the projects based on their size, programming language, etc. After grouping the projects, we could try to analyse data from each group and identify a common trend between the results to generalize our findings.\\
+        \textbf{External Validity:} Since our repository mining procedure is supposed to collect data from diverse GitHub repositories with different implementation of workflows, programming languages and size of the project, the results we obtain might differ depending on these factors and our findings can not be generalized for all types of GitHub projects. However, it is possible to group the projects based on their size, programming language, etc. After grouping the projects, we could try to analyse data from each group and identify a common trend between the results to generalize our findings.\\
 
 	\textbf{Construct Validity:} The questionnaire, we are planning to use as our survey instrumentation, might have errors or inconsistencies. The formulated questions might be unclear, ambiguous and/or irrelevant. We could address this risk by adhering to a well-defined criterion for formulating questionnaires. Additionally, we could conduct pilot testing to validate our survey instrument.\\
 
@@ -224,73 +220,74 @@ In summary, our qualitative analysis contained four main themes labelled with th
 							    	      %%%RESULTS%%%
 
 \section{Results}
-    This section presents the results of our data collection and analysis.
-    The survey has received 8 responses until now and based on the answers we can see that developers prefer to use locally maintained Actions. Our scripts shows the total number of each type of Actions used in all the collected repositories and posts related to each type of Action are collected. These data will be analysed starting from Sprint 5.
-    For RQ2, we have successfully collected all the posts and questions, from GitHub Discussions and Stackoverflow respectively, that mentions our target keywords. These data data will be analysed starting from Sprint 5.
-    \\
 
-    For RQ1, after collecting data across 4483 GitHub repositories that were on the top one-thousand list of popular repositories for the years throughout 2020, 2021, 2022, 2023 and 2024, we applied a filter to dismiss repositories that did not use any Actions. The number of repositries reduced to 1587. \\ 
-    In these repositories, Marketplace Actions consisted of 49.30\% of the total Actions, while the remaining 50.70\% consisted of Local Actions. Although, when analysing the number of times each Action was referenced in other parts of the workflow, we found that 60.39\% of the references were from Local Actions and the remaining 39.61\% were from Marketplace Actions. This indicates that Local Actions were more resued than Marketplace Actions. 
-    \\
+  \subsection{RQ1}
+      For RQ1, after collecting data across 4166 GitHub repositories that were on the top one-thousand list of popular repositories for the years throughout 2020, 2021, 2022, 2023 and 2024, we applied a filter to dismiss repositories that did not use any Actions. The number of repositries reduced to 1754. \\ 
+      In these repositories, Marketplace Actions consisted of 92.64\% of the total Actions, while the remaining 7.36\% consisted of Local Actions. And when analysing the number of times each Action was referenced in other parts of the workflow, we found that the result was quite similar with 92.62\% for Marketplace Actions and 7.38\% for Local Actions. 
+      \\
+      Data on number of different programming languages, repository size, number of contributors, date of repository creation and bytes of source code were also collected in order to see if there were any correlations between these repository attributes and the amount of Marketplace or Local Actions used or referenced.
+      The following subsections demonstrates the results of the correlations, categorized as Marketplace Actions and Local Actions. Later on, a comparison the results of the categories are presented. The number of elements in set $N$ is denoted by $|N|$, similarly for set $M$. \\
 
-    Data on number of different programming languages, repository size, number of contributors, date of repository creation and bytes of source code were also collected in order to see if there were any correlations between these repository attributes and the amount of Marketplace or Local Actions used or referenced.\\
-    Using the Spearman correlation coefficient (SCC) method for this purpose, we found that no strong correlations were found, but there were two moderate correlations between the the number of programming languages and the number of Local Actions were available and referenced. \\
-    It's important to mention that when measuring the SCC, we removed outliers from the lower and upper 20\% of repositories that contained very low or very high numbers of Local Actions available and referenced. The effort for removing the outliers was to avoid skewed results. \\
+      
 
-    Number of programming languages used in a repository and the number of Local Actions had a SCC of 0.42. Similarly, the number of programming languages used and the number of times Local Actions were referenced within different parts of the workflow had a SCC of 0.41.
+  \subsection{RQ2}
+    For RQ2, we have found three of four themes that have issues from GHA that can be mapped to issues from other ecosystems. The theme that showed the highest number of mapped issue in GHA was 'Security Vulnerability'. Following this theme were the themes 'Dependency changes' and 'Obsolescence'  that had almost the same number of mapped issue. However, our reasearch work did not find similar issues in GHA that can be mapped for the theme 'Breaking changes'. Figure 3 and 4 shows a heatmap of the issues found in each of the themes in GitHub Discussions and Stackoverflow before mapping the data. Figure 5 and 6 shows a heatmap of the issues found in each of the themes  in GitHub Discussions and Stackoverflow after mapping the data.
 
-
-For RQ2, we have found three of four themes that have issues from GHA that can be mapped to issues from other ecosystems. The theme that showed the highest number of mapped issue in GHA was 'Security Vulnerability'. Following this theme were the themes 'Dependency changes' and 'Obsolescence'  that had almost the same number of mapped issue. However, our reasearch work didn't find similar issues in GHA that can be mapped for the theme 'Breaking changes'. Figure 3 and 4 shows a heatmap of the issues found in each of the themes in GitHub Discussions and Stackoverflow before mapping the data. Figure 5 and 6 shows a heatmap of the issues found in each of the themes  in GitHub Discussions and Stackoverflow after mapping the data.
-
-
-
-\subsection{Security Vulnerability}
-\begin{tabular}{|c|c|}
-  \hline
-  \textbf{Other Ecosystems} & \textbf{GHA} \\
-  \hline
-  \hline
-    Cell 1 & Cell 2  \\
-  \hline
-    Cell 3 & Cell 6 \\
-  \hline
- 
-\end{tabular}
-\subsection{Obsolescence}
-\begin{tabular}{|c|c|}
-  \hline
-  \textbf{Other Ecosystems} & \textbf{GHA} \\
-  \hline
-  \hline
-    Cell 1 & Cell 2  \\
-  \hline
-    Cell 2 & Cell 6 \\
-  \hline
-
-\end{tabular}
-\subsection{Dependency changes}
-\begin{tabular}{|c|c|}
-  \hline
-  \textbf{Other Ecosystems} & \textbf{GHA} \\
-  \hline
-  \hline
-    Cell 1 & Cell 2  \\
-  \hline
-   Cell 3 & Cell 6 \\
-  \hline
-
-\end{tabular}
-\subsection{Breaking changes}
-\begin{tabular}{|c|c|}
-  \hline
-  \textbf{Other Ecosystems} & \textbf{GHA} \\
-  \hline
-  \hline
-    Cell 1 & Cell 2  \\
-  \hline
-   Cell 3& Cell 6 \\
-  \hline
-\end{tabular}
+    \begin{minipage}{\linewidth}
+      \begin{tabular}{|c|c|}
+        \hline
+        \multicolumn{2}{|c|}{\textbf{Security Vulnerability}} \\ \hline
+        \textbf{Other Ecosystems} & \textbf{GHA} \\
+        \hline
+        \hline
+        Cell 1 & Cell 2  \\
+        \hline
+        Cell 3 & Cell 6 \\
+        \hline
+      \end{tabular}
+      \end{minipage}
+      
+      \begin{minipage}{\linewidth}
+      \begin{tabular}{|c|c|}
+        \hline
+        \multicolumn{2}{|c|}{\textbf{Obsolescence}} \\ \hline
+        \textbf{Other Ecosystems} & \textbf{GHA} \\
+        \hline
+        \hline
+        Cell 1 & Cell 2  \\
+        \hline
+        Cell 2 & Cell 6 \\
+        \hline
+      \end{tabular}
+      \end{minipage}
+      
+      \begin{minipage}{\linewidth}
+      \begin{tabular}{|c|c|}
+        \hline
+        \multicolumn{2}{|c|}{\textbf{Dependency changes}} \\ \hline
+        \textbf{Other Ecosystems} & \textbf{GHA} \\
+        \hline
+        \hline
+        Cell 1 & Cell 2  \\
+        \hline
+        Cell 3 & Cell 6 \\
+        \hline
+      \end{tabular}
+      \end{minipage}
+      
+      \begin{minipage}{\linewidth}
+      \begin{tabular}{|c|c|}
+        \hline
+        \multicolumn{2}{|c|}{\textbf{Breaking changes}} \\ \hline
+        \textbf{Other Ecosystems} & \textbf{GHA} \\
+        \hline
+        \hline
+        Cell 1 & Cell 2  \\
+        \hline
+        Cell 3 & Cell 6 \\
+        \hline
+      \end{tabular}
+      \end{minipage}
 							    	      %%%DISCUSSION%%%
 
 \section{Conclusion}
@@ -307,6 +304,53 @@ In this section, we discuss the results in conjunction with relevant literature.
 							           %%% APPENDICES%%%
 
 \section{Appendices}
+\subsection{Correlation conference table}
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|l|c|r|}
+    \hline
+    Source Code size (bytes) & $|M|$ Local Actions & 0.23\(\rho\) \\
+    \hline
+    $|N|$ contributors &  $|M|$ Local Actions & 0.21\(\rho\) \\
+    \hline
+    Repo created (Unix timestamp) &  $|M|$ Local Actions & -0.11\(\rho\) \\
+    \hline
+    $|N|$ programming languages & $|M|$ Local Actions & 0.16\(\rho\) \\
+    \hline
+    Repository size (bytes) & $|M|$ Local Actions & 0.20\(\rho\) \\
+    \hline
+    Source Code size (bytes) & $|M|$ Local Actions referenced & 0.24\(\rho\)\\
+    \hline
+    $|N|$ contributors  & $|M|$ Local Actions referenced & 0.17\(\rho\) \\
+    \hline
+    Repo created (Unix timestamp) & $|M|$ Local Actions referenced & -0.14\(\rho\) \\
+    \hline
+    $|N|$ programming languages & $|M|$ Local Actions referenced & 0.23\(\rho\) \\
+    \hline
+    Repository size (bytes) & $|M|$ Local Actions referenced & 0.21\(\rho\) \\
+    \hline
+    Source Code size (bytes) & $|M|$ Marketplace Actions & 0.33\(\rho\) \\
+    \hline
+    $|N|$ contributors & $|M|$ Marketplace Actions & 0.30\(\rho\) \\
+    \hline
+    Repo created (Unix timestamp) & $|M|$ Marketplace Actions & -0.10\(\rho\) \\
+    \hline
+    $|N|$ programming languages & $|M|$ Marketplace Actions & 0.38\(\rho\) \\
+    \hline
+    Repository size (bytes) & $|M|$ Marketplace Actions & 0.27\(\rho\) \\
+    \hline
+    Source Code size (bytes) & $|M|$ Marketplace Actions referenced & 0.40\(\rho\) \\
+    \hline
+    $|N|$ contributors & $|M|$ Marketplace Actions referenced & 0.37\(\rho\) \\
+    \hline
+    Repo created (Unix timestamp) & $|M|$ Marketplace Actions referenced & -0.17\(\rho\) \\
+    \hline
+    $|N|$ programming languages & $|M|$ Marketplace Actions referenced & 0.41\(\rho\) \\
+    \hline
+    Repository size (bytes) & $|M|$ Marketplace Actions referenced & 0.30\(\rho\) \\
+    \hline
+  \end{tabular}
+  \end{table}
 
                                                                              %%% REFERENCES %%%
 \bibliographystyle{unsrt}
