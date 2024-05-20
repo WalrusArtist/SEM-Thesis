@@ -31,7 +31,7 @@ gusmaroka@student.gu.se}
 
                                                                       %%% INTRODUCTION %%%
 \section{Introduction}
-    Continuous Integration (CI) has become an integrated part of collaborative software development and DevOps practices. CI automates the quality of code checks, tests and integration of code changes in collaborative environments. The benefits of CI brings early detection of issues, fast feedback loops, increased code quality, reduced integration risks and continuous improvements. Famous examples of CI services include Jenkins, Travis, CircleCI and GitLab CI/CD \cite{dabbish2012social}. GitHub Actions (abbreviated as GHA) was introduced to the public in 2019 as an alternative CI service for GitHub repositories. GitHub introduced its marketplace for sharing automation tools in an effort for developers to reuse workflow components \cite{saroar2023developers}. \\ 
+    Continuous Integration (CI) has become an integrated part of collaborative software development awend DevOps practices. CI automates the quality of code checks, tests and integration of code changes in collaborative environments. The benefits of CI brings early detection of issues, fast feedback loops, increased code quality, reduced integration risks and continuous improvements. Famous examples of CI services include Jenkins, Travis, CircleCI and GitLab CI/CD \cite{dabbish2012social}. GitHub Actions (abbreviated as GHA) was introduced to the public in 2019 as an alternative CI service for GitHub repositories. GitHub introduced its marketplace for sharing automation tools in an effort for developers to reuse workflow components \cite{saroar2023developers}. \\ 
 
     The so called "Actions" refers to automated workflows triggered by specific events within a repository, including committing changes, opening pull requests, or creating new branches. These workflows streamline development processes by automating tasks and enhancing efficiency. GitHub's integration of GHA allows developers to define custom task sequences in response to events, simplifying collaboration and promoting a seamless development experience \cite{chandrasekara2021getting}. \\
 
@@ -47,9 +47,9 @@ gusmaroka@student.gu.se}
     Through this research, we intend to answer the following questions:\\
 
 
-    \textbf{RQ1: What factors cause developers to rely on locally maintained Actions within their repositories, as opposed to utilizing Actions available on the GitHub Marketplace?}\\
+    \textbf{RQ1: What factors cause developers to rely on Local Actions within their repositories, as opposed to utilizing Actions available on the GitHub Marketplace?}\\
 
-    Both Saroar et al. \cite{saroar2023developers} and Decan et al. \cite{decan2022use} observed that many repositories still prefer to use locally maintained Actions within their repositories, despite the availability of numerous open-source and reusable Actions on the GitHub Marketplace. However, these studies do not investigate the exact factors or make comparisons between the two types of Actions that contribute to developers' preferences. We selected RQ1 to distinguish the problems faced between locally maintained and Marketplace Actions and reach a conclusion. Additionally, some workflows utilize both types of actions, and understanding which types are more commonly locally maintained can provide valuable insights into the decision-making process for designing and developing workflows. \\
+    Both Saroar et al. \cite{saroar2023developers} and Decan et al. \cite{decan2022use} observed that many repositories still prefer to use Local Actions within their repositories, despite the availability of numerous open-source and reusable Actions on the GitHub Marketplace. However, these studies do not investigate the exact factors or make comparisons between the two types of Actions that contribute to developers' preferences. We selected RQ1 to distinguish the problems faced between locally maintained and Marketplace Actions and reach a conclusion. Additionally, some workflows utilize both types of actions, and understanding which types are more commonly locally maintained can provide valuable insights into the decision-making process for designing and developing workflows. \\
 
  \textbf{RQ2: In what ways do the key issues encountered in GHA parallel those found in other software ecosystems?}\\
 
@@ -93,7 +93,7 @@ gusmaroka@student.gu.se}
 
 	Decan et al. \cite{decan2022use} raised concerns regarding potential issues that might be encountered by GHA, including obsolescence \cite{decan2018evolution} \cite{cogo2021deprecation}, dependency issues \cite{decan2019empirical} \cite{soto2021comprehensive} \cite{decan2019package}, breaking changes \cite{dietrich2019dependency} \cite{decan2018impact}, and security vulnerabilities \cite{zimmermann2019small} \cite{kula2018developers}. These issues have already been faced in reusable software libraries within well-researched ecosystems. In our exploratory study, we aim to investigate whether similar problems also exist within the GHA ecosystem. Moreover, we will compile a list of specific issues from the aforementioned papers and compare our research findings on key issues in GHA with those identified in other ecosystems discussed in the literature. By doing so, we can potentially identify solutions proposed for similar issues in other ecosystems, which could offer insights into addressing the challenges encountered in GHA.\\
 
-	Furthermore, our study aims to build upon the findings of Saroar et al. \cite{saroar2023developers}, providing explanation for their observations regarding the distribution of locally maintained Actions compared to Actions from the marketplace. While the survey conducted by the authors offers valuable insights into the challenges faced when utilizing the GitHub Marketplace, it lacks comprehensive research and comparison involving locally maintained Actions. The primary objective of our research is to evaluate repositories' preferences in utilizing locally maintained Actions versus actions from the GitHub Marketplace. By doing so, we aim to identify and explain the factors that contribute to these preferences and the resulting differences in adoption.
+	Furthermore, our study aims to build upon the findings of Saroar et al. \cite{saroar2023developers}, providing explanation for their observations regarding the distribution of Local Actions compared to Actions from the marketplace. While the survey conducted by the authors offers valuable insights into the challenges faced when utilizing the GitHub Marketplace, it lacks comprehensive research and comparison involving Local Actions. The primary objective of our research is to evaluate repositories' preferences in utilizing Local Actions versus actions from the GitHub Marketplace. By doing so, we aim to identify and explain the factors that contribute to these preferences and the resulting differences in adoption.
 
 
 
@@ -124,8 +124,15 @@ gusmaroka@student.gu.se}
             To avoid redundancy, whenever an Action name is parsed out, that record is saved into a set with an attribute called $times.used$. If the same action is referenced elsewhere in Workflow, we increase $times.used$ by one data point. The $times.used$ attribute can allow us to measure the resuability of an Action within a repository workflow.\\
 
           \subsubsection{\textbf{Data Analysis}}
-            In the analysis we have taken a quantitative approach to measure the correlations between repository characteristics and the number of Actions. In order to ensure an accurate understanding of what factors are correlated to relying on Local Actions more, the same quantitative analysis has been conducted for both Local and Marketplace Actions. We have used the Spearman correlation coefficient (PCC) method to measure the correlations coefficient of each of the repository characteristics alongside the number of Local and Marketplace Actions available and referenced. We have then compared the results of these measurements to indicate if the preference for selecting Local Actions increases more than Marketplace Actions alongside any of the repository characteristics. \\
-            Owner based frequency measurement for the amount of Local Actions available per owner can also help with determining whether big organizations lean more towards developing in-house Actions. For this analysis we have aggregated the results of Local Actions available per repository and gategorized it per owner. The results from this analysis can indicate whether bigger organizations have a higher frequency in utilizing Local Actions more.
+            In the analysis we have taken a quantitative approach to measure the correlations between repository characteristics and the number of Actions. In order to ensure an accurate understanding of what factors are correlated to relying on Local Actions more, the same quantitative analysis has been conducted for both Local and Marketplace Actions. We have used the Spearman correlation coefficient (PCC) method to measure the correlations coefficient of each of the repository characteristics alongside the number of Local and Marketplace Actions available and referenced. The Spearman rank correlation coefficient, \(\rho\), is a measure of the strength and direction of the association between two ranked variables. It is calculated using the formula:
+
+            \begin{equation}
+            \rho = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)}
+            \end{equation}
+            
+            where \(d_i\) is the difference between the ranks of each pair of observations and \(n\) is the number of observations. This non-parametric measure is used to assess how well the relationship between two variables can be described using a monotonic function. \\             
+            \\ We have then compared the results of these measurements to indicate if the preference for selecting Local Actions increases more than Marketplace Actions alongside any of the repository characteristics. \\
+            Owner based frequency measurement for the amount of Local Actions available per owner can also help with determining whether big organizations lean more towards developing in-house Actions. For this analysis we have aggregated the results of Local Actions available per repository and categorized them per owner. The results from this analysis can indicate whether bigger organizations have a higher frequency in utilizing Local Actions more. \\
 
         \textbf{RQ2: In what ways do the key issues encountered in GHA parallel those found in other software ecosystems?}\\
 
@@ -167,45 +174,6 @@ gusmaroka@student.gu.se}
 
         These methods ensure a systematic approach to address each research question effectively.\\
 
-    \subsection{Time Plan}
-        The table bellow gives a high level overview of the time plan. A SCRUM framework will be in use throughout the management of the research. 
-        \begin{table}[h]
-            \centering
-            \caption{Project Sprint Timeline}
-            \label{tab:sprint_timeline}
-            \begin{tabular}{|c|p{0.7\linewidth}|}
-            \hline
-            \textbf{Sprints} & \textbf{Activities} \\ \hline
-            1 and 2  & Design base structure for data collection:
-            \begin{itemize}
-	      \item (25/03/2024 - 05/04/2024)
-                \item Surveys
-                \item API scripts
-                \item Database Queries
-                \item Document and write the literature
-            \end{itemize} \\ \hline
-            3 and 4  & Collect data based using the instruments designed in sprints 1 and 2:
-            \begin{itemize}
-                \item  (08/04/2024 - 19/04/2024) 
-                \item Send out surveys
-                \item Run and gather data from API calls and queries
-                \item Document and write the literature
-            \end{itemize} \\ \hline
-            5 and 6   & Analyse the data collected from sprints 3 and 4:
-            \begin{itemize}
-                \item(22/04/2024 - 03/05/2024)
-                \item Wrap up data collection
-                \item Detect patterns
-                \item Identify key factors
-                \item Draw conclusions
-                \item Document and write the literature
-            \end{itemize} \\ \hline
-            7 and 8   & Refine and finalize the analysis and ensure the literature is clear and concise. 
-	  \begin{itemize}
-                \item(06/05/2024 - 22/05/2024)
-            \end{itemize} \\ \hline
-            \end{tabular}
-        \end{table}
 
     \subsection{Threats to Validity}
         In this section, we discuss the limitations and threats to
@@ -226,9 +194,163 @@ gusmaroka@student.gu.se}
       In these repositories, Marketplace Actions consisted of 92.64\% of the total Actions, while the remaining 7.36\% consisted of Local Actions. And when analysing the number of times each Action was referenced in other parts of the workflow, we found that the result was quite similar with 92.62\% for Marketplace Actions and 7.38\% for Local Actions. 
       \\
       Data on number of different programming languages, repository size, number of contributors, date of repository creation and bytes of source code were also collected in order to see if there were any correlations between these repository attributes and the amount of Marketplace or Local Actions used or referenced.
-      The following subsections demonstrates the results of the correlations, categorized as Marketplace Actions and Local Actions. Later on, a comparison the results of the categories are presented. The number of elements in set $N$ is denoted by $|N|$, similarly for set $M$. \\
-
+      Table \ref{tab:correlation_results} demonstrates the results of the correlations, categorized as Marketplace Actions and Local Actions. The number of elements in set $N$ is denoted by $|N|$, similarly for set $M$. \\
       
+      \begin{table}[h]
+          \centering
+          \caption{Spearman Correlation Coefficients between Repository Characteristics and GitHub Actions}
+          \label{tab:correlation_results}
+          \hspace{-1cm}
+          \begin{tabular}{|l|l|r|}
+              \hline
+              \textbf{Repository Characteristic} & \textbf{GitHub Action Type} & \textbf{(\(\rho\))} \\
+              \hline
+              Source Code size (bytes) & $|M|$ Local Actions & 0.23 \\
+              \hline
+              $|N|$ contributors &  $|M|$ Local Actions & 0.21 \\
+              \hline
+              Repo created (Unix timestamp) &  $|M|$ Local Actions & -0.11 \\
+              \hline
+              $|N|$ programming languages & $|M|$ Local Actions & 0.16 \\
+              \hline
+              Repository size (bytes) & $|M|$ Local Actions & 0.20 \\
+              \hline
+              Source Code size (bytes) & $|M|$ Local Actions referenced & 0.24 \\
+              \hline
+              $|N|$ contributors  & $|M|$ Local Actions referenced & 0.17 \\
+              \hline
+              Repo created (Unix timestamp) & $|M|$ Local Actions referenced & -0.14 \\
+              \hline
+              $|N|$ programming languages & $|M|$ Local Actions referenced & 0.23 \\
+              \hline
+              Repository size (bytes) & $|M|$ Local Actions referenced & 0.21 \\
+              \hline
+              Source Code size (bytes) & $|M|$ Marketplace Actions & 0.33 \\
+              \hline
+              $|N|$ contributors & $|M|$ Marketplace Actions & 0.30 \\
+              \hline
+              Repo created (Unix timestamp) & $|M|$ Marketplace Actions & -0.10 \\
+              \hline
+              $|N|$ programming languages & $|M|$ Marketplace Actions & 0.38 \\
+              \hline
+              Repository size (bytes) & $|M|$ Marketplace Actions & 0.27 \\
+              \hline
+              Source Code size (bytes) & $|M|$ Marketplace Actions referenced & 0.40 \\
+              \hline
+              $|N|$ contributors & $|M|$ Marketplace Actions referenced & 0.37 \\
+              \hline
+              Repo created (Unix timestamp) & $|M|$ Marketplace Actions referenced & -0.17 \\
+              \hline
+              $|N|$ programming languages & $|M|$ Marketplace Actions referenced & 0.41 \\
+              \hline
+              Repository size (bytes) & $|M|$ Marketplace Actions referenced & 0.30 \\
+              \hline
+          \end{tabular}
+      \end{table}
+      
+      \subsection{Analysis of Correlations}
+      
+      \subsubsection{Local Actions}
+      For Local Actions, several repository characteristics showed weak positive correlations:
+      
+      \begin{itemize}
+          \item \textbf{Source Code Size:} A weak positive correlation (\(\rho = 0.23\)) was observed between the source code size and the number of Local Actions. This suggests that repositories with larger codebases tend to use more Local Actions.
+          \item \textbf{Number of Contributors:} A weak positive correlation (\(\rho = 0.21\)) indicates that repositories with more contributors are slightly more likely to use Local Actions.
+          \item \textbf{Repository Size:} Similar to the source code size, a weak positive correlation (\(\rho = 0.20\)) was found, reinforcing the idea that larger repositories are slightly more likely to utilise Local Actions.
+          \item \textbf{Number of Programming Languages:} There is a weak positive correlation (\(\rho = 0.16\)), implying that repositories with a higher number of programming languages tend to use more Local Actions.
+          \item \textbf{Repository Creation Date:} A weak negative correlation (\(\rho = -0.11\)) was observed, indicating that older repositories are less likely to use Local Actions.
+      \end{itemize}
+      
+      \subsubsection{Marketplace Actions}
+      Marketplace actions showed generally stronger correlations with repository characteristics compared to Local Actions:
+      
+      \begin{itemize}
+          \item \textbf{Source Code Size:} There is a weak positive correlation (\(\rho = 0.33\)) between the source code size and the use of Marketplace Actions, indicating that larger codebases are more inclined to use Marketplace Actions.
+          \item \textbf{Number of Contributors:} A weak positive correlation (\(\rho = 0.30\)) suggests that repositories with more contributors are more likely to use Marketplace Actions.
+          \item \textbf{Repository Size:} A similar trend is observed with a weak positive correlation (\(\rho = 0.27\)), suggesting that larger repositories favor Marketplace Actions.
+          \item \textbf{Number of Programming Languages:} The strongest positive correlation (\(\rho = 0.38\)) among all characteristics was found here, indicating a significant tendency for repositories with more programming languages to use Marketplace Actions.
+          \item \textbf{Repository Creation Date:} A weak negative correlation (\(\rho = -0.10\)) indicates that older repositories are slightly less likely to use Marketplace Actions.
+      \end{itemize}
+      
+      \subsubsection{Referenced Actions}
+      When considering Actions referenced within repositories:
+      
+      \begin{itemize}
+          \item \textbf{Local Actions Referenced:} The correlation coefficients for referenced Local Actions are slightly higher compared to non-referenced ones, with the highest being source code size (\(\rho = 0.24\)) and number of programming languages (\(\rho = 0.23\)).
+          \item \textbf{Marketplace Actions Referenced:} The correlations are generally higher for Marketplace Actions referenced, with the number of programming languages showing a moderate positive correlation (\(\rho = 0.41\)) and source code size (\(\rho = 0.40\)).
+      \end{itemize}
+
+      \subsubsection{Organizational Usage of Local Actions}
+
+      In addition to the correlation analysis, we examined the usage of Local Actions by various organizations. Table \ref{tab:org_usage} lists the top organizations based on their use of Local Actions. Notably, large organizations such as HashiCorp, Google, Microsoft, and Facebook are prominent in the usage of Local Actions, indicating a preference for maintaining their own workflows rather than relying solely on marketplace actions.
+      
+      \begin{table}[h]
+          \centering
+          \caption{Top Organizations by Use of Local Actions}
+          \label{tab:org_usage}
+          \begin{tabular}{|l|c|}
+              \hline
+              \textbf{Organization} & \textbf{Number of Local Actions} \\
+              \hline
+              HashiCorp & 58 \\
+              Datafuselabs & 46 \\
+              Hugging Face & 39 \\
+              NovuHQ & 26 \\
+              External Secrets & 26 \\
+              Google & 25 \\
+              Backstage & 25 \\
+              Grafana & 23 \\
+              KubeVela & 22 \\
+              Earthly & 20 \\
+              Cilium & 19 \\
+              LanceDB & 19 \\
+              Firezone & 18 \\
+              ZenML-io & 17 \\
+              Calcom & 17 \\
+              Coqui AI & 15 \\
+              Microsoft & 14 \\
+              Web Infra Dev & 14 \\
+              Appsmithorg & 14 \\
+              Anchore & 13 \\
+              Rustic-rs & 13 \\
+              LibJXL & 13 \\
+              Anuraghazra & 12 \\
+              Vercel & 12 \\
+              Haiibo & 12 \\
+              Bitnami & 11 \\
+              Chroma Core & 11 \\
+              MartinVonz & 11 \\
+              DataDog & 11 \\
+              Apache & 11 \\
+              Kafbat & 10 \\
+              Lienol & 10 \\
+              Mandiant & 10 \\
+              Argilla-io & 10 \\
+              CloudQuery & 10 \\
+              OpenTofu & 10 \\
+              Alibaba & 9 \\
+              Keiyoushi & 9 \\
+              Sigstore & 9 \\
+              DeterminateSystems & 9 \\
+              Kiddin9 & 9 \\
+              RustDesk & 9 \\
+              Techno Tim & 9 \\
+              Facebook & 9 \\
+              Lucidrains & 9 \\
+              Zitadel & 9 \\
+              JupyterLite & 8 \\
+              \hline
+          \end{tabular}
+      \end{table}
+      
+      The predominance of large organizations in the use of Local Actions may be attributed to concerns over security risks and dependency issues associated with marketplace actions. Larger organizations might prefer to maintain control over their workflows to mitigate potential vulnerabilities and ensure stability. However, further investigation is needed to substantiate these claims and understand the underlying reasons behind this trend.
+      
+      \subsection{Discussion}
+      The results indicate that certain repository characteristics, such as source code size, number of contributors, and number of programming languages, are positively correlated with the usage of GitHub Actions, whether locally maintained or from the marketplace. The stronger correlations for Marketplace Actions suggest that repositories with more complexity and collaboration tend to leverage Marketplace Actions more frequently. Conversely, the weak negative correlations with repository creation date suggest that newer repositories are more inclined to adopt both types of actions, potentially reflecting evolving practices and the increasing availability of GitHub Actions over time.
+      
+      In conclusion, the analysis provides insights into how various repository characteristics influence the adoption and referencing of GitHub Actions, highlighting trends that could inform best practices for repository management and automation strategy.
+    
+
 
   \subsection{RQ2}
     For RQ2, we have found three of four themes that have issues from GHA that can be mapped to issues from other ecosystems. The theme that showed the highest number of mapped issue in GHA was 'Security Vulnerability'. Following this theme were the themes 'Dependency changes' and 'Obsolescence'  that had almost the same number of mapped issue. However, our reasearch work did not find similar issues in GHA that can be mapped for the theme 'Breaking changes'. Figure 3 and 4 shows a heatmap of the issues found in each of the themes in GitHub Discussions and Stackoverflow before mapping the data. Figure 5 and 6 shows a heatmap of the issues found in each of the themes  in GitHub Discussions and Stackoverflow after mapping the data.
@@ -304,53 +426,6 @@ In this section, we discuss the results in conjunction with relevant literature.
 							           %%% APPENDICES%%%
 
 \section{Appendices}
-\subsection{Correlation conference table}
-\begin{table}[h!]
-  \centering
-  \begin{tabular}{|l|c|r|}
-    \hline
-    Source Code size (bytes) & $|M|$ Local Actions & 0.23\(\rho\) \\
-    \hline
-    $|N|$ contributors &  $|M|$ Local Actions & 0.21\(\rho\) \\
-    \hline
-    Repo created (Unix timestamp) &  $|M|$ Local Actions & -0.11\(\rho\) \\
-    \hline
-    $|N|$ programming languages & $|M|$ Local Actions & 0.16\(\rho\) \\
-    \hline
-    Repository size (bytes) & $|M|$ Local Actions & 0.20\(\rho\) \\
-    \hline
-    Source Code size (bytes) & $|M|$ Local Actions referenced & 0.24\(\rho\)\\
-    \hline
-    $|N|$ contributors  & $|M|$ Local Actions referenced & 0.17\(\rho\) \\
-    \hline
-    Repo created (Unix timestamp) & $|M|$ Local Actions referenced & -0.14\(\rho\) \\
-    \hline
-    $|N|$ programming languages & $|M|$ Local Actions referenced & 0.23\(\rho\) \\
-    \hline
-    Repository size (bytes) & $|M|$ Local Actions referenced & 0.21\(\rho\) \\
-    \hline
-    Source Code size (bytes) & $|M|$ Marketplace Actions & 0.33\(\rho\) \\
-    \hline
-    $|N|$ contributors & $|M|$ Marketplace Actions & 0.30\(\rho\) \\
-    \hline
-    Repo created (Unix timestamp) & $|M|$ Marketplace Actions & -0.10\(\rho\) \\
-    \hline
-    $|N|$ programming languages & $|M|$ Marketplace Actions & 0.38\(\rho\) \\
-    \hline
-    Repository size (bytes) & $|M|$ Marketplace Actions & 0.27\(\rho\) \\
-    \hline
-    Source Code size (bytes) & $|M|$ Marketplace Actions referenced & 0.40\(\rho\) \\
-    \hline
-    $|N|$ contributors & $|M|$ Marketplace Actions referenced & 0.37\(\rho\) \\
-    \hline
-    Repo created (Unix timestamp) & $|M|$ Marketplace Actions referenced & -0.17\(\rho\) \\
-    \hline
-    $|N|$ programming languages & $|M|$ Marketplace Actions referenced & 0.41\(\rho\) \\
-    \hline
-    Repository size (bytes) & $|M|$ Marketplace Actions referenced & 0.30\(\rho\) \\
-    \hline
-  \end{tabular}
-  \end{table}
 
                                                                              %%% REFERENCES %%%
 \bibliographystyle{unsrt}

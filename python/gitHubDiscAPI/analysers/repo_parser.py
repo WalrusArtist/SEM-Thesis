@@ -99,7 +99,7 @@ def sort_and_plot(myDict, xVariableName='', yVariableName='', lineLabel='', x_la
             i += 1
         print('max y: ', max(y_data), ' ', yVariableName)
 
-    cc, _ = spearmanr(x_data, y_data)
+    cc, _ = pearsonr(x_data, y_data)
     plt.figure(figsize=(20, 10))
     plt.plot(x_data, y_data, label=lineLabel, color='red')
     plt.xlim(min(x_data), max(x_data))      # range x axis
@@ -262,7 +262,7 @@ def languages_to_local_actions():
             languages_to_local_actions[repo_name]['localActionsUsedPercentage'] = languages_to_local_actions[repo_name]['localActionsUsedCount'] / (languages_to_local_actions[repo_name]['localActionsUsedCount'] + languages_to_local_actions[repo_name]['marketplaceActionsUsedCount'])
     return languages_to_local_actions
 
-def owners_with_local():
+def owners_with_local_v_market():
     parsed_repo_data = {}
     owners = set()
     local_per_owner = {}
@@ -288,7 +288,9 @@ def owners_with_local():
             repo_name = list(item.keys())[0]
             if owner == repo_name.split('/')[0] and item[repo_name]['localActions'] > 0:
                 local_owner_count += item[repo_name]['localActions']
-        local_owner_count_map[owner] = local_owner_count
+                market_owner_count += item[repo_name]['marketplaceActions']
+        local_owner_count_map[owner]['localActions'] = local_owner_count
+        local_owner_count_map[owner]['marketplaceActions'] = local_owner_count
 
     local_owner_count_map = dict(sorted(local_owner_count_map.items(), key=lambda item: item[1], reverse=True))    
     with open("../data/local_owner_count_map.json", "w") as json_file:
@@ -317,7 +319,7 @@ def main():
     #min_max_values()
     calculate_percentage_actions()
     get_total_actions_times_used()
-    owners_with_local()
+    owners_with_local_v_market()
 
     if normal_dist:
         size_to_local_actions_dict = size_to_local_actions()
