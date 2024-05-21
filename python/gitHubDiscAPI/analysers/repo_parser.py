@@ -6,6 +6,7 @@ import time
 from datetime import datetime
 import sys
 import os
+import math
 
 # Args
 remove_outlier = "--remove-out" in sys.argv
@@ -42,6 +43,13 @@ if do_market:
     labelFix = "Marketplace"
     actionsCounts = "marketActionsCount"
     actionsUsedCounts = "marketplaceActionsUsedCount"
+
+def custom_round(value):
+    third_decimal = int((value * 1000) % 10)
+    if third_decimal >= 5:
+        return math.ceil(value * 1000) / 1000
+    else:
+        return math.floor(value * 1000) / 1000
 
 def sort_and_plot(myDict, xVariableName='', yVariableName='', lineLabel='', x_label='', y_label='', inverted=False, remove_outliers=False):
 
@@ -99,8 +107,9 @@ def sort_and_plot(myDict, xVariableName='', yVariableName='', lineLabel='', x_la
             i += 1
         print('max y: ', max(y_data), ' ', yVariableName)
 
-    cc, _ = pearsonr(x_data, y_data)
-    plt.figure(figsize=(10, 10))
+    cc, _ = spearmanr(x_data, y_data)
+    cc = custom_round(cc)
+    plt.figure(figsize=(5, 5))
     plt.plot(x_data, y_data, label=lineLabel, color='red')
     plt.xlim(min(x_data), max(x_data))      # range x axis
     plt.ylim(min(y_data), max(y_data))  # range y axis
