@@ -100,7 +100,7 @@ def sort_and_plot(myDict, xVariableName='', yVariableName='', lineLabel='', x_la
         print('max y: ', max(y_data), ' ', yVariableName)
 
     cc, _ = pearsonr(x_data, y_data)
-    plt.figure(figsize=(20, 10))
+    plt.figure(figsize=(10, 10))
     plt.plot(x_data, y_data, label=lineLabel, color='red')
     plt.xlim(min(x_data), max(x_data))      # range x axis
     plt.ylim(min(y_data), max(y_data))  # range y axis
@@ -111,7 +111,7 @@ def sort_and_plot(myDict, xVariableName='', yVariableName='', lineLabel='', x_la
     plt.grid(True)
     plt.scatter(x_data, y_data, alpha=0.5, s=20)
     if save_graph:
-        folder_path = f'graphs/{labelFix}'
+        folder_path = f'/Users/kardodastin/school/SEM-Thesis/thesis/Thesis_Report_Template/graphs'
         if not os.path.exists(folder_path):
             os.makedirs(folder_path)
         file_path = os.path.join(folder_path, f"{labelFix}_{xVariableName}_{yVariableName}.png")
@@ -319,7 +319,7 @@ def main():
     #min_max_values()
     calculate_percentage_actions()
     get_total_actions_times_used()
-    owners_with_local_v_market()
+    #owners_with_local_v_market()
 
     if normal_dist:
         size_to_local_actions_dict = size_to_local_actions()

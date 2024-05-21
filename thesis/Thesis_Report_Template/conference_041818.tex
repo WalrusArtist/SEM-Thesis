@@ -8,8 +8,35 @@
 \usepackage{textcomp}
 \usepackage{xcolor}
 \usepackage{url}
+\usepackage{pgffor}  % For the loop
+\usepackage{caption} % For captions
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Define the folder containing the images
+\newcommand*{\graphs}
+{
+  graphs/Local_localActionsCount_codeSize.png,
+  graphs/Local_localActionsCount_contributor_count.png,
+  graphs/Local_localActionsCount_created_at.png,
+  graphs/Local_localActionsCount_languagesCount.png,
+  graphs/Local_localActionsCount_size.png,
+  graphs/Local_localActionsUsedCount_codeSize.png,
+  graphs/Local_localActionsUsedCount_contributor_count.png,
+  graphs/Local_localActionsUsedCount_created_at.png,
+  graphs/Local_localActionsUsedCount_languagesCount.png,
+  graphs/Local_localActionsUsedCount_size.png,
+  graphs/Marketplace_marketActionsCount_codeSize.png,
+  graphs/Marketplace_marketActionsCount_contributor_count.png,
+  graphs/Marketplace_marketActionsCount_created_at.png,
+  graphs/Marketplace_marketActionsCount_languagesCount.png,
+  graphs/Marketplace_marketActionsCount_size.png,
+  graphs/Marketplace_marketplaceActionsUsedCount_codeSize.png,
+  graphs/Marketplace_marketplaceActionsUsedCount_contributor_count.png,
+  graphs/Marketplace_marketplaceActionsUsedCount_created_at.png,
+  graphs/Marketplace_marketplaceActionsUsedCount_languagesCount.png,
+  graphs/Marketplace_marketplaceActionsUsedCount_size.png
+}
 \begin{document}
 
 \title{Exploring the factors and challenges in adopting GitHub Actions and its ecosystem\\}
@@ -424,8 +451,12 @@ In this section, we discuss the results in conjunction with relevant literature.
          This proposal is the collaborative effort of Kardo Marof and Saif Sayed, with guidance from our thesis supervisor, Linda Erlenhov. Marof's contributions include the Introduction section, as well as the sub-sections on Data Collection and Data Analysis within the Research Methodology section. Sayed, on the other hand, contributed to the Related Works section, the description of the Research Questions, the motivation behind the selected methodologies, and the identification of Threats to Validity within the Research Methodology section.
 
 							           %%% APPENDICES%%%
-
 \section{Appendices}
+
+\foreach \x in \graphs
+  {\includegraphics[width=80mm]{\x} \bigskip}
+
+
 
                                                                              %%% REFERENCES %%%
 \bibliographystyle{unsrt}
