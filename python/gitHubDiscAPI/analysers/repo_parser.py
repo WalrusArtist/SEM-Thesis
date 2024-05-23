@@ -120,7 +120,7 @@ def sort_and_plot(myDict, xVariableName='', yVariableName='', lineLabel='', x_la
     plt.grid(True)
     plt.scatter(x_data, y_data, alpha=0.5, s=20)
     if save_graph:
-        folder_path = f'/Users/kardodastin/school/SEM-Thesis/thesis/Thesis_Report_Template/graphs'
+        folder_path = f'../data/graphs'
         if not os.path.exists(folder_path):
             os.makedirs(folder_path)
         file_path = os.path.join(folder_path, f"{labelFix}_{xVariableName}_{yVariableName}.png")
