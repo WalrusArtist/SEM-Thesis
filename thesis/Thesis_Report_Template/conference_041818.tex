@@ -61,8 +61,8 @@ gusmaroka@student.gu.se}
                                                                       %%% ABSTRACT %%%
 \begin{abstract}
   Introduced in 2019, GitHub Actions offers an integrated alternative to traditional CI/CD services specifically for GitHub repositories. This deep integration enables developers to automate a wide range of software development workflows directly within the GitHub environment. Over the years, the GitHub Actions ecosystem has evolved into a mature software ecosystem, experiencing exponential growth in minutes of Actions usage. While previous studies have highlighted similarities between GitHub and package management ecosystems that distribute software libraries, our study provides an in-depth analysis of a dataset comprising 997 online posts from GitHub Discussions and Stack Overflow. These posts address prevalent issues in such ecosystems, including security, breaking changes, obsolescence, and dependency. \\
-  We empirically demonstrate the prevalence of these issues in GitHub Actions. Additionally, we analyzed a dataset of 4.1k GitHub repositories to examine the relationships between repository characteristics and their usage of GitHub Actions, focusing on the preference for locally maintained actions versus marketplace actions in light of ecosystem problems. Our results indicate an overall positive reliability of projects utilizing marketplace actions, with a higher correlation of marketplace actions being employed in larger and more complex projects. \\ 
-  Additionally, our thematic analysis on GitHub Discussion posts and Stack Overflow questions revealed that Security Vulnerability is the most prevalent issue in the GHA ecosystem, followed by Dependency Issues. Obsolescence and Breaking Changes have a similar number of occurrences
+  We empirically demonstrate the prevalence of these issues in GitHub Actions. Our thematic analysis on GitHub Discussion posts and Stack Overflow questions revealed that Security Vulnerability is the most prevalent issue in the GHA ecosystem, followed by Dependency Issues. Obsolescence and Breaking Changes have a similar number of occurrences. \\
+   Additionally, we analyzed a dataset of 4.1k GitHub repositories to examine the relationships between repository characteristics and their usage of GitHub Actions, focusing on the preference for locally maintained actions versus marketplace actions in light of ecosystem problems. Our results indicate an overall positive reliability of projects utilizing marketplace actions, with a higher correlation of marketplace actions being employed in larger and more complex projects. \\ 
  \end{abstract}
 
 
@@ -276,7 +276,7 @@ These methods ensure a systematic approach to address each research question eff
           \centering
           \caption{Spearman Correlation Coefficients between Repository Characteristics and GHA}
           \label{tab:correlation_results}
-          \hspace{1cm}
+          \hspace{-1cm}
           \begin{tabular}{|l|l|r|}
               \hline
               \textbf{Repository Characteristic} & \textbf{GitHub Action Type} & \textbf{(\(\rho\))} \\
@@ -360,7 +360,7 @@ These methods ensure a systematic approach to address each research question eff
 
       In addition to the correlation analysis, we examined the usage of Local Actions by various organizations. Table \ref{tab:org_usage} lists the top organizations based on their use of Local Actions. Notably, large organizations such as HashiCorp, Google, Microsoft, and Facebook are prominent in the usage of Local Actions, indicating a preference for maintaining their own workflows rather than relying solely on marketplace actions.
       
-      \begin{table}[h]
+      \begin{table}[!h]
           \centering
           \caption{Top Organizations by Use of Local Actions}
           \label{tab:org_usage}
@@ -427,47 +427,56 @@ These methods ensure a systematic approach to address each research question eff
       In conclusion, the analysis provides insights into how various repository characteristics influence the adoption and referencing of GHA, highlighting trends that could inform best practices for repository management and automation strategy. Currently, the usage of Marketplace Actions prove to be more dominant across repositories, which may be due to the reliability and stability of the GHA ecosystem.
 
   \subsection{RQ2}
-Our original dataset, collected through mining software repositories, comprised 997 GitHub discussion posts containing the query string "GitHub Actions" and 100 Stack Overflow questions tagged "GitHub Actions." By filtering this data using the key issues and their related keywords, we were able to collect and group posts and questions related to each key issue. We ended up with 101 posts and questions for the key issue of $Security Vulnerability$, 80 posts and questions for $Obsolescence$, 51 posts and questions for $Breaking Changes$, and 75 posts and questions for $Dependency Issues$. Since we also collected a list of target keywords that appeared in each post and question during the filtering process, we were able to narrow down the number of posts and questions needed for our thematic process. Using these lists of keywords, along with their corresponding post/question titles, we manually determined which of the collected posts and questions were relevant. \textbf{Table~\ref{tab:number_data}} shows the finalized number of posts and questions we used to perform our thematic analysis.
-\begin{table}[H]
-\centering
-\caption{Finalised number of posts and questions.}
-\label{tab:number_data}
-\begin{tabular}{|c|c|c|}
-  \hline
-  \textbf{Key issues} & \textbf{Posts}  & \textbf{Questions} \\
-  \hline
-  \hline
-    Security vulnerability & 16 &  2  \\
-  \hline
-   Obsolescence & 10  & 1 \\
-  \hline
-  \hline
-   Breaking Changes & 12 & 1 \\
-  \hline
-  \hline
-   Dependency changes & 10 & 6  \\
-  \hline
-\end{tabular}
-\end{table}
-Our thematic analysis of these posts revealed that \texttt{Security Vulnerability} is the most prevalent issue in GHA ecosystem among the four key issues. This is followed by \texttt{Dependency Issues}, while both \texttt{Obsolescence} and \texttt{Breaking Changes} appear with a similar number of occurrences. We have included results for each of the key issues and how they compare to other ecosystems in the following subsections.
-\subsection*{\textbf{Security Vulnerability}}
-\textbf{Related issues from other ecosystems:} 1.1., 1.2., 1.5., 1.6., 1.8. in \textbf{Table~\ref{tab:compiled_issues}}.\\\\
-The most relevant theme from our thematic analysis for this section was \texttt{Access Vulnerabitlity}. There were several numbers of our formulated codes that corresponded to this theme, although some of them were solved. One such example was the absence of a feature for having \texttt{Organization Environments}, that consequently allows all users within the organization with write access the ability to perform a malicious attack such as stealing credentials and sensitive secrets. In contrast, we also found a feature in the GHA ecosystem that doesn't allow Actions to automatically push changes to protected branches, preventing anyone with write access to push malicious code to protected branches. Another similar but solved example was building Actions on the creation of tags where environments can't be used in a secure way allowing anyone with write access to bypass the protection rule when creating protected tags.  These issues related to write access can be met with unwanted consequences as in \texttt{Problem Id 1.8.} from \textbf{Table~\ref{tab:compiled_issues}}, where an attacker released a mallicious version of the eslint-scope package in the npm ecosystem  by getting access to its credentials. \\
-\texttt{Attacks and Injections} was the theme where we encountered an actual attack on the GHA ecosystem. Specifically, the Crypto-mining attack where a GitHub user triggered the execution of malicious code through a pull request allowing crypto-mining in the victims GitHub Actions. Our analysis revealed that the GHA employees have encountered the occurences of such attacks and are  quick to take countermeasures against them. However, there were some users who blamed the attack on GHA ecosystem for allowing anyone on the internet to make a free, anonymous account and trigger a pull request to any public repositories. Similar attacks using malicious codes on other ecosystems can be seen in Problem Id 1.2., 1.4., 1.8. from \textbf{Table~\ref{tab:compiled_issues}}. One of the exposed security vulnerability discovered in GitHub Actions runner was allowing the injection of environment variable and paths in workflows that logs untrusted data to std:out. A possible consequence of this vulnerability is the introduction or modification of environment variables without the approval of the workflow author.
-\subsection*{\textbf{Obsolescence}}
-\textbf{Related issues from other ecosystems:} 1.1., 1.2., 1.5., 1.6., 1.8. in \textbf{Table~\ref{tab:compiled_issues}}.\\\\
-The most relevant theme for this section was \texttt{Deprecate Version}. The compiled codes corresponded  to Actions that was dependent on deprecated versions of packages. An example was the particular version of Xcode 11.2.1 which wasn't supported in GitHub Actions. Another similar issue found was found in \texttt{actions/upload-artifacts} Action where the workflow file was dependent on a super old and deprecate version of it which doesn't support the usecase of globbing anymore. The only fix for this issue was through the update of the Action to a newer versions. \\
-We also found a problem where a GitHub user removed their deprecated workflow file and replaced it with a newer one. However, even after removing the deprecated workflow file, the Action wasn't removed from the Action list which meant that the old workflow would still be triggered during events. One of the solution was to remove all the associated jobs with the Action. but this solution wasn't scalable.
-\subsection*{\textbf{Breaking changes}}
-\textbf{Related issues from other ecosystems:} 1.1., 1.2., 1.5., 1.6., 1.8. in \textbf{Table~\ref{tab:compiled_issues}}.\\\\
-The only theme we had for this section is called \texttt{Breaking changes}. We included all the codes here that relates to changes made that caused sequence of issues and broke the usual way of working. This kind of issue was observed when GitHub rolled out a security patch that forced a limitation on deploying code to production through creating a tag that stopped protected environments from working. This was a deliberate decision made by GitHub until the bug was fixed and was referred to as "Security of Breaking Changes" by one of the GitHub users. Another similar problem faced but remained unsolved found on a Discussion post was the sudden stop of the functionality of the Users workflow. Consequently, a collection of modules started to fail to push packages to the GitHub Maven registry.\\
-Moreover, in the same theme \texttt{Breaking changes}, we found two more issues with breaking changes. One of them was when Dependabot- a GitHub Action bot- started acting crazy by reporting unusual dependency update PR changes that resulted in false positives. However, the root cause of the Dependabot going crazy was from the GitHub Registry that processed the metadata of gemspec packages and explicitly tagged development packages as runtime\_development.  The final observation related to this theme was the addition of a new mechanism by GitHub that gated pull requests until all workflows were executed and passed.  Subsequently, this change effected some GitHub users with their pull requests rendering a "cached" version of the pull request, leaving the workflows to remain pending. 
-\subsection*{\textbf{Dependency issues}}
-\textbf{Related issues from other ecosystems:} 1.1., 1.2., 1.5., 1.6., 1.8. in \textbf{Table~\ref{tab:compiled_issues}}.\\\\
-For this section, we had identified two themes each comprising of codes with similar patterns. The theme that was observed to have several issues was \texttt{Direct Dependency}. Our findings revealed  two problems related  to jobs being dependant on other jobs. One of the problem was that a failed job is bound to fail again during a re-run, if any of its dependent jobs uses a reusable workflow. The reason for this was due to the cancellation of the in-process runs of the dependent jobs because re-running a failed job also causes its dependent job to re-run.  The second related problem was the dependency between two sequential jobs, for instance a build and a test job., the test job will be dependant on the status of the build job. . If the build job fails, the test job will not run. The other issues found in this theme was related to package dependencies in maven and GitHub Action bots. A GitHub user wasn't able to build their project using GitHub Action since the maven dependencies were not resolvable and none of the gradle versions were able to resolve the maven depency. This issue remained unsolved. The other problem was also mentioned in the \texttt{Breaking changes} theme where the GitHub registry explicitly tagged development packages as runtime\_development dependencies instead of development dependency.\\
-The second identified theme was \texttt{Transitive Dependency}, this included that weren't directly visible to the user but resulted in the GitHub Action failing. Our observation noted that the GitHub user didn't find any packages causing direct issues for the Action to fail. However, the user found a 4th tier dependency which caused the error.
-							    	      %%%CONCLUSION%%%
+      Our original dataset, collected through mining software repositories, comprised 997 GitHub discussion posts containing the query string "GitHub Actions" and 100 Stack Overflow questions tagged "GitHub Actions." By filtering this data using the key issues and their related keywords, we were able to collect and group posts and questions related to each key issue. We ended up with 101 posts and questions for the key issue of $Security Vulnerability$, 80 posts and questions for $Obsolescence$, 51 posts and questions for $Breaking Changes$, and 75 posts and questions for $Dependency Issues$. Since we also collected a list of target keywords that appeared in each post and question during the filtering process, we were able to narrow down the number of posts and questions needed for our thematic process. Using these lists of keywords, along with their corresponding post/question titles, we manually determined which of the collected posts and questions were relevant. \textbf{Table~\ref{tab:number_data}} shows the finalized number of posts and questions we used to perform our thematic analysis.
+      \begin{table}[H]
+      \centering
+      \caption{Finalised number of posts and questions.}
+      \label{tab:number_data}
+      \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Key issues} & \textbf{Posts}  & \textbf{Questions} \\
+        \hline
+        \hline
+          Security vulnerability & 16 &  2  \\
+        \hline
+        Obsolescence & 10  & 1 \\
+        \hline
+        \hline
+        Breaking Changes & 12 & 1 \\
+        \hline
+        \hline
+        Dependency changes & 10 & 6  \\
+        \hline
+      \end{tabular}
+      \end{table}
 
+
+      Our thematic analysis of these posts revealed that \texttt{Security Vulnerability} is the most prevalent issue in GHA ecosystem among the four key issues. This is followed by \texttt{Dependency Issues}, while both \texttt{Obsolescence} and \texttt{Breaking Changes} appear with a similar number of occurrences. We have included results for each of the key issues and how they compare to other ecosystems in the following subsections.
+
+
+  \subsection*{\textbf{Security Vulnerability}}
+    \textbf{Related issues from other ecosystems:} 1.1., 1.2., 1.5., 1.6., 1.8. in \textbf{Table~\ref{tab:compiled_issues}}.\\\\
+      The most relevant theme from our thematic analysis for this section was \texttt{Access Vulnerabitlity}. There were several numbers of our formulated codes that corresponded to this theme, although some of them were solved. One such example was the absence of a feature for having \texttt{Organization Environments}, that consequently allows all users within the organization with write access the ability to perform a malicious attack such as stealing credentials and sensitive secrets. In contrast, we also found a feature in the GHA ecosystem that doesn't allow Actions to automatically push changes to protected branches, preventing anyone with write access to push malicious code to protected branches. Another similar but solved example was building Actions on the creation of tags where environments can't be used in a secure way allowing anyone with write access to bypass the protection rule when creating protected tags.  These issues related to write access can be met with unwanted consequences as in \texttt{Problem Id 1.8.} from \textbf{Table~\ref{tab:compiled_issues}}, where an attacker released a mallicious version of the eslint-scope package in the npm ecosystem  by getting access to its credentials. \\
+
+    \texttt{Attacks and Injections} was the theme where we encountered an actual attack on the GHA ecosystem. Specifically, the Crypto-mining attack where a GitHub user triggered the execution of malicious code through a pull request allowing crypto-mining in the victims GHA. Our analysis revealed that the GHA employees have encountered the occurences of such attacks and are  quick to take countermeasures against them. However, there were some users who blamed the attack on GHA ecosystem for allowing anyone on the internet to make a free, anonymous account and trigger a pull request to any public repositories. Similar attacks using malicious codes on other ecosystems can be seen in Problem Id 1.2., 1.4., 1.8. from \textbf{Table~\ref{tab:compiled_issues}}. One of the exposed security vulnerability discovered in GHA runner was allowing the injection of environment variable and paths in workflows that logs untrusted data to std:out. A possible consequence of this vulnerability is the introduction or modification of environment variables without the approval of the workflow author.
+
+  \subsection*{\textbf{Obsolescence}}
+    \textbf{Related issues from other ecosystems:} 1.1., 1.2., 1.5., 1.6., 1.8. in \textbf{Table~\ref{tab:compiled_issues}}.\\\\
+      The most relevant theme for this section was \texttt{Deprecate Version}. The compiled codes corresponded  to Actions that was dependent on deprecated versions of packages. An example was the particular version of Xcode 11.2.1 which wasn't supported in GHA. Another similar issue found was found in \texttt{actions/upload-artifacts} Action where the workflow file was dependent on a super old and deprecate version of it which doesn't support the usecase of globbing anymore. The only fix for this issue was through the update of the Action to a newer versions. \\
+      We also found a problem where a GitHub user removed their deprecated workflow file and replaced it with a newer one. However, even after removing the deprecated workflow file, the Action wasn't removed from the Action list which meant that the old workflow would still be triggered during events. One of the solution was to remove all the associated jobs with the Action. but this solution wasn't scalable.
+
+  \subsection*{\textbf{Breaking changes}}
+    \textbf{Related issues from other ecosystems:} 1.1., 1.2., 1.5., 1.6., 1.8. in \textbf{Table~\ref{tab:compiled_issues}}.\\\\
+    The only theme we had for this section is called \texttt{Breaking changes}. We included all the codes here that relates to changes made that caused sequence of issues and broke the usual way of working. This kind of issue was observed when GitHub rolled out a security patch that forced a limitation on deploying code to production through creating a tag that stopped protected environments from working. This was a deliberate decision made by GitHub until the bug was fixed and was referred to as "Security of Breaking Changes" by one of the GitHub users. Another similar problem faced but remained unsolved found on a Discussion post was the sudden stop of the functionality of the Users workflow. Consequently, a collection of modules started to fail to push packages to the GitHub Maven registry.\\
+    Moreover, in the same theme \texttt{Breaking changes}, we found two more issues with breaking changes. One of them was when Dependabot- a GitHub Action bot- started acting crazy by reporting unusual dependency update PR changes that resulted in false positives. However, the root cause of the Dependabot going crazy was from the GitHub Registry that processed the metadata of gemspec packages and explicitly tagged development packages as runtime\_development.  The final observation related to this theme was the addition of a new mechanism by GitHub that gated pull requests until all workflows were executed and passed.  Subsequently, this change effected some GitHub users with their pull requests rendering a "cached" version of the pull request, leaving the workflows to remain pending. 
+
+  \subsection*{\textbf{Dependency issues}}
+    \textbf{Related issues from other ecosystems:} 1.1., 1.2., 1.5., 1.6., 1.8. in \textbf{Table~\ref{tab:compiled_issues}}.\\\\
+    For this section, we had identified two themes each comprising of codes with similar patterns. The theme that was observed to have several issues was \texttt{Direct Dependency}. Our findings revealed  two problems related  to jobs being dependant on other jobs. One of the problem was that a failed job is bound to fail again during a re-run, if any of its dependent jobs uses a reusable workflow. The reason for this was due to the cancellation of the in-process runs of the dependent jobs because re-running a failed job also causes its dependent job to re-run.  The second related problem was the dependency between two sequential jobs, for instance a build and a test job., the test job will be dependant on the status of the build job. . If the build job fails, the test job will not run. The other issues found in this theme was related to package dependencies in maven and GitHub Action bots. A GitHub user wasn't able to build their project using GitHub Action since the maven dependencies were not resolvable and none of the gradle versions were able to resolve the maven depency. This issue remained unsolved. The other problem was also mentioned in the \texttt{Breaking changes} theme where the GitHub registry explicitly tagged development packages as runtime\_development dependencies instead of development dependency.\\
+    The second identified theme was \texttt{Transitive Dependency}, this included that weren't directly visible to the user but resulted in the GitHub Action failing. Our observation noted that the GitHub user didn't find any packages causing direct issues for the Action to fail. However, the user found a 4th tier dependency which caused the error.
+
+
+							    	      %%%CONCLUSION%%%
 \section{Discussion}
 	
 In this section, we discuss the results in conjunction with relevant literature.
