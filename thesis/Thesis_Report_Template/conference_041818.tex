@@ -61,8 +61,8 @@ gusmaroka@student.gu.se}
                                                                       %%% ABSTRACT %%%
 \begin{abstract}
   Introduced in 2019, GitHub Actions offers an integrated alternative to traditional CI/CD services specifically for GitHub repositories. This deep integration enables developers to automate a wide range of software development workflows directly within the GitHub environment. Over the years, the GitHub Actions ecosystem has evolved into a mature software ecosystem, experiencing exponential growth in minutes of Actions usage. While previous studies have highlighted similarities between GitHub and package management ecosystems that distribute software libraries, our study provides an in-depth analysis of a dataset comprising 997 online posts from GitHub Discussions and Stack Overflow. These posts address prevalent issues in such ecosystems, including security, breaking changes, obsolescence, and dependency. \\
-  We empirically demonstrate the prevalence of these issues in GitHub Actions. Additionally, we analyzed a dataset of 4.1k GitHub repositories to examine the relationships between repository characteristics and their usage of GitHub Actions, focusing on the preference for locally maintained actions versus marketplace actions in light of ecosystem problems. Our results indicate an overall positive reliability of projects utilizing marketplace actions, with a higher correlation of marketplace actions being employed in larger and more complex projects. \\ 
-  Additionally, our thematic analysis on GitHub Discussion posts and Stack Overflow questions revealed that Security Vulnerability is the most prevalent issue in the GHA ecosystem, followed by Dependency Issues. Obsolescence and Breaking Changes have a similar number of occurrences
+  We empirically demonstrate the prevalence of these issues in GitHub Actions. Our thematic analysis on GitHub Discussion posts and Stack Overflow questions revealed that Security Vulnerability is the most prevalent issue in the GHA ecosystem, followed by Dependency Issues. Obsolescence and Breaking Changes have a similar number of occurrences. \\
+   Additionally, we analyzed a dataset of 4.1k GitHub repositories to examine the relationships between repository characteristics and their usage of GitHub Actions, focusing on the preference for locally maintained actions versus marketplace actions in light of ecosystem problems. Our results indicate an overall positive reliability of projects utilizing marketplace actions, with a higher correlation of marketplace actions being employed in larger and more complex projects. \\ 
  \end{abstract}
 
 
@@ -364,7 +364,7 @@ These methods ensure a systematic approach to address each research question eff
 
       In addition to the correlation analysis, we examined the usage of Local Actions by various organizations. Table \ref{tab:org_usage} lists the top organizations based on their use of Local Actions. Notably, large organizations such as HashiCorp, Google, Microsoft, and Facebook are prominent in the usage of Local Actions, indicating a preference for maintaining their own workflows rather than relying solely on marketplace actions.\\
       
-      \begin{table}[h]
+      \begin{table}[!h]
           \centering
           \caption{Top Organizations by Use of Local Actions}
           \label{tab:org_usage}
@@ -502,7 +502,6 @@ For this section, we had identified two themes each comprising of codes with sim
 
 The second identified theme was \texttt{Transitive Dependency}, this included that weren't directly visible to the user but resulted in the GitHub Action failing. Our observation noted that the GitHub user didn't find any packages causing direct issues for the Action to fail. However, the user found a 4th tier dependency which caused the error.
 							    	      %%%CONCLUSION%%%
-
 \section{Discussion}
 	In this section, we delve into our findings for each research question by presenting insights derived from the results and our own interpretation.\\
 
