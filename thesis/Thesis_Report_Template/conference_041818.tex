@@ -186,39 +186,45 @@ We begin our data collection process by compiling a list of both general and spe
         \hline
         \textbf{Problem Id} & \textbf{Issues encountered in other ecosystems} \\
         \hline
-        \multirow{8}{*}{\textbf{1.} Security vulnerability} &  \textbf{1.1.} Found atleast one library with a vulnerability in Node.js and Ruby packages [14].\\
-							&  \textbf{1.2.} Security bug in the OpenSSL cryptography library [14] with a simple programming mistake. \\
-							&  \textbf{1.3.} Spread of vulnerability  through vulnerable packages [14].  \\
-							&  \textbf{1.4.} Challenging fixes due to semantic versioning and dependency constraint [14].\\
-							&  \textbf{1.5.} Open nature of npm that caused its single packages to break/attack software running on millions of computers [15].\\
-							&  \textbf{1.6.} Electron distributed by npm on Windows platform affected other external software such as Skype,  slack due to exposure [14]. \\
-							&  \textbf{1.7.} Security issues and single point of failure from unmaintained packages in npm [15].\\
-							&  \textbf{1.8.} Access to credentials for the eslint-scope package from npm  caused the attacker to release a malicious version of it for download [15].  \\			
+        \multirow{8}{*}{\textbf{1.} Security vulnerability} &  \textbf{1.1.} Found atleast one library with a vulnerability in Node.js and Ruby packages \cite{decan2018impact}.\\
+							&  \textbf{1.2.} Security bug in the OpenSSL cryptography library \cite{decan2018impact} with a simple programming mistake. \\							&  \textbf{Consequences:}\\
+							&  (i) Memory Access by anyone on the internet.\\
+							&  (ii) Many trusted servers were exposed. \\
+							&  \textbf{Solution:}\\
+							&  (i) Monitoring  dependencies of packages and trigger alerts when vulnerabilities are detected.\\
+							&  (ii) Bounty hunting programs (lack of automated tools to assess security vulnerability in dependency networks).\\
+							&  \textbf{1.3.} Spread of vulnerability  through vulnerable packages \cite{decan2018impact}.  \\
+							&  \textbf{1.4.} Challenging fixes due to semantic versioning and dependency constraint \cite{decan2018impact}.\\
+							&  \textbf{1.5.} Open nature of npm that caused its single packages to break/attack software running on millions of computers \cite{zimmermann2019small}.\\
+							&  \textbf{1.6.} Electron distributed by npm on Windows platform affected other external software such as Skype,  slack due to exposure \cite{decan2018impact}. \\
+							&  \textbf{1.7.} Security issues and single point of failure from unmaintained packages in npm \cite{zimmermann2019small}.\\
+							&  \textbf{1.8.} Access to credentials for the eslint-scope package from npm  caused the attacker to release a malicious version of it for download \cite{zimmermann2019small}.  \\			
         \hline
-        \multirow{7}{*}{\textbf{2.} Obsolescence} &\textbf{2.1.} 81.5\% of open-source software systems studied had outdated dependencies [14].  \\
-					      & \textbf{2.2.} Depending on outdated packages 4 times likely to  be expose to security vulnerability [17].  \\
-					      & \textbf{2.3.} Deprecated code in npm packages has shown to give rise to risks such as incompatibility between two different dependant libraries, presence/absence of features, bugs, security vulnerability and more [9]. \\
-					      & \textbf{2.4.} Technical lag in npm where package dependencies are outdated [8].  \\
-					      & \textbf{2.5.} Strict dependency constraints in npm packages that doesn’t allow dependencies to be updated to newer versions [8].  \\
-					      & \textbf{2.6.} Security vulnerabilities found in 98\% of libraries in the Android ecosystem using outdated versions [8]. These can easily be fixed just by changing the version. \\
-					      & \textbf{2.7.} Transitive adoption of deprecated releases in npm that are hard to capture [9].  \\
+        \multirow{7}{*}{\textbf{2.} Obsolescence} &\textbf{2.1.} 81.5\% of open-source software systems studied had outdated dependencies \cite{decan2018impact}.  \\
+					      & \textbf{2.2.} Depending on outdated packages 4 times likely to  be expose to security vulnerability \cite{cox2015measuring}.  \\	
+					      & \textbf{2.3.} Deprecated code in npm packages has shown to give rise to risks such as incompatibility between two different dependant libraries, presence/absence of features, bugs, security vulnerability and more \cite{cogo2021deprecation}. \\
+					      & \textbf{2.4.} Technical lag in npm where package dependencies are outdated \cite{decan2018evolution}.  \\
+					      & \textbf{Solution:} Dependency management tools to notify when newer versions of dependencies are released.\\
+					      & \textbf{2.5.} Strict dependency constraints in npm packages that doesn’t allow dependencies to be updated to newer versions \cite{decan2018evolution}.  \\
+					      & \textbf{2.6.} Security vulnerabilities found in 98\% of libraries in the Android ecosystem using outdated versions \cite{decan2018evolution}. These can easily be fixed just by changing the version. \\
+					      & \textbf{2.7.} Transitive adoption of deprecated releases in npm that are hard to capture \cite{cogo2021deprecation}.  \\
         \hline
-        \multirow{6}{*}{\textbf{3.} Breaking changes} & \textbf{3.1.} Limitations due to semantic versioning and dependency constraint [14]. \\
-						    & \textbf{3.2.} Inclusion of versions that contain backward incompatible in the dependency constraint [14].  \\
-						    &\textbf{3.3.} Backward incompatibility risk when depending on outdated modules [14].  \\
-						    & \textbf{3.4.} Left-pad incident in npm: removal of the left-pad library caused many dependent packages to become unavailable [15]. \\
-						    & \textbf{3.5.} Loose dependency constraint allows backward incompatibility in CRAN, RubyGems package [8].\\
-						   & \textbf{3.6.}  Breaking changes in Maven ecosystem due to deprecation.\\
+        \multirow{6}{*}{\textbf{3.} Breaking changes} & \textbf{3.1.} Limitations due to semantic versioning and dependency constraint \cite{decan2018impact}. \\
+						    & \textbf{3.2.} Inclusion of versions that contain backward incompatible in the dependency constraint \cite{decan2018impact}.  \\
+						    &\textbf{3.3.} Backward incompatibility risk when depending on outdated modules \cite{decan2018impact}.  \\
+						    & \textbf{3.4.} Left-pad incident in npm: removal of the left-pad library caused many dependent packages to become unavailable \cite{zimmermann2019small}. \\
+						    & \textbf{3.5.} Loose dependency constraint allows backward incompatibility in CRAN, RubyGems package \cite{decan2018evolution}.\\
+						   & \textbf{3.6.}  Breaking changes in Maven ecosystem due to deprecation \cite{decan2018evolution}.\\
        \hline
-        \multirow{7}{*}{\textbf{4.} Dependency issues} & \textbf{4.1.} Software systems depending on the vulnerable versions of the  OpenSSL software [14].\\
-						     & \textbf{4.2.} Removing package dependency to avoid spread of bugs [14]. \\	
-						     & \textbf{4.3.} Limitations due to semantic versioning and dependency constraint [14].\\
-						     & \textbf{4.4.} Changing back to an earlier version or a recent version that doesn’t contain bug [14].\\
+        \multirow{7}{*}{\textbf{4.} Dependency issues} & \textbf{4.1.} Software systems depending on the vulnerable versions of the  OpenSSL software \cite{decan2018impact} . Same consequences and solution as in \textbf{Problem Id 1.2.}\\
+						     & \textbf{4.2.} Removing package dependency to avoid spread of bugs \cite{decan2018impact} . \\	
+						     & \textbf{4.3.} Limitations due to semantic versioning and dependency constraint \cite{decan2018impact}.\\
+						     & \textbf{4.4.} Changing back to an earlier version or a recent version that doesn’t contain bug \cite{decan2018impact}  .\\
 						     & \textbf{4.5.} Runtime conflicts due to incompatibility with
-the versions of other dependant packages [13].
+the versions of other dependant packages \cite{dietrich2019dependency}.
  \\
-						     & \textbf{4.6.} Left-pad incident in npm: removal of the left-pad library caused many dependent packages to become unavailable [15].  \\
-						     & \textbf{4.7.} High number of transitive dependencies in npm  being reused[15].  \\
+						     & \textbf{4.6.} Left-pad incident in npm: removal of the left-pad library caused many dependent packages to become unavailable \cite{zimmermann2019small}.  \\
+						     & \textbf{4.7.} High number of transitive dependencies in npm  being reused \cite{zimmermann2019small}.  \\
         \hline
     \end{tabular}
 \end{table*}
@@ -259,24 +265,22 @@ These methods ensure a systematic approach to address each research question eff
 
 	\textbf{Construct Validity:} The questionnaire, we are planning to use as our survey instrumentation, might have errors or inconsistencies. The formulated questions might be unclear, ambiguous and/or irrelevant. We could address this risk by adhering to a well-defined criterion for formulating questionnaires. Additionally, we could conduct pilot testing to validate our survey instrument.\\
 
-        \textbf{Response bias:} Collecting data through online surveys carries some risks and may result in anomalies in our results. Specifically, distributing surveys via social media can lead to invalid responses, and we may also face challenges in obtaining a sufficient number of responses to draw meaningful conclusions. To mitigate these potential limitations, we can consider distributing surveys through highly maintained development platforms or reaching out to potential companies in person. 
-
 							    	      %%%RESULTS%%%
 
 \section{Results}
 
   \subsection{RQ1}
       For RQ1, after collecting data across 4166 GitHub repositories that were on the top one-thousand list of popular repositories for the years throughout 2020, 2021, 2022, 2023 and 2024, we applied a filter to dismiss repositories that did not use any Actions. The number of repositries reduced to 1754. \\ 
-      In these repositories, Marketplace Actions consisted of 92.64\% of the total Actions, while the remaining 7.36\% consisted of Local Actions. And when analysing the number of times each Action was referenced in other parts of the workflow, we found that the result was quite similar with 92.62\% for Marketplace Actions and 7.38\% for Local Actions. 
-      \\
-      Data on number of different programming languages, repository size, number of contributors, date of repository creation and bytes of source code were also collected in order to see if there were any correlations between these repository attributes and the amount of Marketplace or Local Actions used or referenced.
-      Table \ref{tab:correlation_results} demonstrates the results of the correlations, categorized as Marketplace Actions and Local Actions. The number of elements in set $N$ is denoted by $|N|$, similarly for set $M$. \\
+
+      In these repositories, Marketplace Actions consisted of 92.64\% of the total Actions, while the remaining 7.36\% consisted of Local Actions. And when analysing the number of times each Action was referenced in other parts of the workflow, we found that the result was quite similar with 92.62\% for Marketplace Actions and 7.38\% for Local Actions. \\
+
+      Data on number of different programming languages, repository size, number of contributors, date of repository creation and bytes of source code were also collected in order to see if there were any correlations between these repository attributes and the amount of Marketplace or Local Actions used or referenced. Table \ref{tab:correlation_results} demonstrates the results of the correlations, categorized as Marketplace Actions and Local Actions. The number of elements in set $N$ is denoted by $|N|$, similarly for set $M$. The graphs for these comparisons are available in Appendix A.\\
       
       \begin{table}[h]
           \centering
           \caption{Spearman Correlation Coefficients between Repository Characteristics and GHA}
           \label{tab:correlation_results}
-          \hspace{1cm}
+          \hspace{-1cm}
           \begin{tabular}{|l|l|r|}
               \hline
               \textbf{Repository Characteristic} & \textbf{GitHub Action Type} & \textbf{(\(\rho\))} \\
@@ -334,7 +338,7 @@ These methods ensure a systematic approach to address each research question eff
           \item \textbf{Number of Contributors:} A weak positive correlation (\(\rho = 0.21\)) indicates that repositories with more contributors are slightly more likely to use Local Actions.
           \item \textbf{Repository Size:} Similar to the source code size, a weak positive correlation (\(\rho = 0.20\)) was found, reinforcing the idea that larger repositories are slightly more likely to utilise Local Actions.
           \item \textbf{Number of Programming Languages:} There is a weak positive correlation (\(\rho = 0.16\)), implying that repositories with a higher number of programming languages tend to use more Local Actions.
-          \item \textbf{Repository Creation Date:} A weak negative correlation (\(\rho = -0.11\)) was observed, indicating that older repositories are less likely to use Local Actions.
+          \item \textbf{Repository Creation Date:} A weak negative correlation (\(\rho = -0.11\)) was observed, indicating that older repositories are less likely to use Local Actions.\\
       \end{itemize}
       
       \subsubsection{Marketplace Actions}
@@ -345,7 +349,7 @@ These methods ensure a systematic approach to address each research question eff
           \item \textbf{Number of Contributors:} A weak positive correlation (\(\rho = 0.30\)) suggests that repositories with more contributors are more likely to use Marketplace Actions.
           \item \textbf{Repository Size:} A similar trend is observed with a weak positive correlation (\(\rho = 0.27\)), suggesting that larger repositories favor Marketplace Actions.
           \item \textbf{Number of Programming Languages:} The strongest positive correlation (\(\rho = 0.38\)) among all characteristics was found here, indicating a significant tendency for repositories with more programming languages to use Marketplace Actions.
-          \item \textbf{Repository Creation Date:} A weak negative correlation (\(\rho = -0.10\)) indicates that older repositories are slightly less likely to use Marketplace Actions.
+          \item \textbf{Repository Creation Date:} A weak negative correlation (\(\rho = -0.10\)) indicates that older repositories are slightly less likely to use Marketplace Actions.\\
       \end{itemize}
       
       \subsubsection{Referenced Actions}
@@ -353,12 +357,12 @@ These methods ensure a systematic approach to address each research question eff
       
       \begin{itemize}
           \item \textbf{Local Actions Referenced:} The correlation coefficients for referenced Local Actions are slightly higher compared to non-referenced ones, with the highest being source code size (\(\rho = 0.24\)) and number of programming languages (\(\rho = 0.23\)).
-          \item \textbf{Marketplace Actions Referenced:} The correlations are generally higher for Marketplace Actions referenced, with the number of programming languages showing a moderate positive correlation (\(\rho = 0.41\)) and source code size (\(\rho = 0.40\)).
+          \item \textbf{Marketplace Actions Referenced:} The correlations are generally higher for Marketplace Actions referenced, with the number of programming languages showing a moderate positive correlation (\(\rho = 0.41\)) and source code size (\(\rho = 0.40\)).\\
       \end{itemize}
 
       \subsubsection{Organizational Usage of Local Actions}
 
-      In addition to the correlation analysis, we examined the usage of Local Actions by various organizations. Table \ref{tab:org_usage} lists the top organizations based on their use of Local Actions. Notably, large organizations such as HashiCorp, Google, Microsoft, and Facebook are prominent in the usage of Local Actions, indicating a preference for maintaining their own workflows rather than relying solely on marketplace actions.
+      In addition to the correlation analysis, we examined the usage of Local Actions by various organizations. Table \ref{tab:org_usage} lists the top organizations based on their use of Local Actions. Notably, large organizations such as HashiCorp, Google, Microsoft, and Facebook are prominent in the usage of Local Actions, indicating a preference for maintaining their own workflows rather than relying solely on marketplace actions.\\
       
       \begin{table}[h]
           \centering
@@ -418,14 +422,6 @@ These methods ensure a systematic approach to address each research question eff
               \hline
           \end{tabular}
       \end{table}
-      
-      The predominance of large organizations in the use of Local Actions may be attributed to concerns over security risks and dependency issues associated with marketplace actions. Larger organizations might prefer to maintain control over their workflows to mitigate potential vulnerabilities and ensure stability. However, further investigation is needed to substantiate these claims and understand the underlying reasons behind this trend.
-      
-      \subsection{Discussion}
-      The results indicate that certain repository characteristics, such as source code size, number of contributors, and number of programming languages, are positively correlated with the usage of GHA, whether locally maintained or from the marketplace. The stronger correlations for Marketplace Actions suggest that repositories with more complexity and collaboration tend to leverage Marketplace Actions more frequently. Conversely, the weak negative correlations with repository creation date suggest that newer repositories are more inclined to adopt both types of actions, potentially reflecting evolving practices and the increasing availability of GHA over time.
-      
-      In conclusion, the analysis provides insights into how various repository characteristics influence the adoption and referencing of GHA, highlighting trends that could inform best practices for repository management and automation strategy. Currently, the usage of Marketplace Actions prove to be more dominant across repositories, which may be due to the reliability and stability of the GHA ecosystem.
-
   \subsection{RQ2}
 Our original dataset, collected through mining software repositories, comprised 997 GitHub discussion posts containing the query string "GitHub Actions" and 100 Stack Overflow questions tagged "GitHub Actions." By filtering this data using the key issues and their related keywords, we were able to collect and group posts and questions related to each key issue. We ended up with 101 posts and questions for the key issue of $Security Vulnerability$, 80 posts and questions for $Obsolescence$, 51 posts and questions for $Breaking Changes$, and 75 posts and questions for $Dependency Issues$. Since we also collected a list of target keywords that appeared in each post and question during the filtering process, we were able to narrow down the number of posts and questions needed for our thematic process. Using these lists of keywords, along with their corresponding post/question titles, we manually determined which of the collected posts and questions were relevant. \textbf{Table~\ref{tab:number_data}} shows the finalized number of posts and questions we used to perform our thematic analysis.
 \begin{table}[H]
@@ -449,44 +445,102 @@ Our original dataset, collected through mining software repositories, comprised 
   \hline
 \end{tabular}
 \end{table}
+\begin{table*}[!t]
+    \centering
+    \caption{RQ2: CODEBOOK.}
+    \label{tab:full-width}
+    \hspace{0.5cm}
+    \begin{tabular}{|p{3cm}|p{1cm}|p{1.5cm}|p{11cm}|}
+        \hline
+        \textbf{Theme} & \textbf{Codes}  & \textbf{Occurence}  & \textbf{Description} \\
+        \hline
+        Security Vulnerability & V & 11 & This theme is the top-level theme concerning all identified sub-themes related to security vulnerabilities. \\
+        \hline
+        Access Vulnerability & V-A & 8 & This sub-theme of vulnerability is related to attacks or occurrences due to access permissions to write and modify the system. \\
+        \hline
+        Vulnerability Solution & V-S & 3 & This sub-theme of vulnerability identifies suggested solutions by GitHub users for the identified vulnerability.\\
+        \hline
+        Attacks and Injections & V-AI & 3 & This sub-theme of vulnerability covers attacks or injections that occurred in the GHA ecosystem by using malicious or modified code. \\
+        \hline
+        Obsolescence & O & 3 & This theme is the top-level theme concerning all identified sub-themes related to obsolescence.\\
+        \hline
+        Deprecate Versions & O-DV & 2 & This sub-theme of obsolescence covers the identified issues and limitations that occurred due to the use of a deprecated version of a package. \\
+        \hline
+        Usage of Older Actions & O-UOA & 1& This sub-theme of obsolescence includes issues in the GitHub ecosystem that don't remove older Actions that are no longer being used. \\
+        \hline
+        Obsolescence Solution & O-S & 2 & This sub-theme of obsolescence includes all the code that suggests possible solutions to the identified issues. \\
+        \hline
+        Breaking Changes & BC & 4 & This is the only theme related to breaking changes, where a chain of issues was caused by a single change or update in the GHA ecosystem. \\
+        \hline
+        Dependency Issues & D & 5 & This is the top-level theme concerning all sub-themes related to dependency issues. \\	
+        \hline
+        Direct Dependency  & D-DD & 4 & This sub-theme of Dependency Issues was related to all identified issues caused by direct dependencies that are visible to the user. \\	
+        \hline
+        Transitive Dependency & D-TD & 1 & This sub-theme of Dependency Issues was related to all identified issues caused by transitive dependencies that aren’t visible to the user.\\	
+        \hline
+    \end{tabular}
+\end{table*}
 Our thematic analysis of these posts revealed that \texttt{Security Vulnerability} is the most prevalent issue in GHA ecosystem among the four key issues. This is followed by \texttt{Dependency Issues}, while both \texttt{Obsolescence} and \texttt{Breaking Changes} appear with a similar number of occurrences. We have included results for each of the key issues and how they compare to other ecosystems in the following subsections.
 \subsection*{\textbf{Security Vulnerability}}
 \textbf{Related issues from other ecosystems:} 1.1., 1.2., 1.5., 1.6., 1.8. in \textbf{Table~\ref{tab:compiled_issues}}.\\\\
 The most relevant theme from our thematic analysis for this section was \texttt{Access Vulnerabitlity}. There were several numbers of our formulated codes that corresponded to this theme, although some of them were solved. One such example was the absence of a feature for having \texttt{Organization Environments}, that consequently allows all users within the organization with write access the ability to perform a malicious attack such as stealing credentials and sensitive secrets. In contrast, we also found a feature in the GHA ecosystem that doesn't allow Actions to automatically push changes to protected branches, preventing anyone with write access to push malicious code to protected branches. Another similar but solved example was building Actions on the creation of tags where environments can't be used in a secure way allowing anyone with write access to bypass the protection rule when creating protected tags.  These issues related to write access can be met with unwanted consequences as in \texttt{Problem Id 1.8.} from \textbf{Table~\ref{tab:compiled_issues}}, where an attacker released a mallicious version of the eslint-scope package in the npm ecosystem  by getting access to its credentials. \\
+
 \texttt{Attacks and Injections} was the theme where we encountered an actual attack on the GHA ecosystem. Specifically, the Crypto-mining attack where a GitHub user triggered the execution of malicious code through a pull request allowing crypto-mining in the victims GitHub Actions. Our analysis revealed that the GHA employees have encountered the occurences of such attacks and are  quick to take countermeasures against them. However, there were some users who blamed the attack on GHA ecosystem for allowing anyone on the internet to make a free, anonymous account and trigger a pull request to any public repositories. Similar attacks using malicious codes on other ecosystems can be seen in Problem Id 1.2., 1.4., 1.8. from \textbf{Table~\ref{tab:compiled_issues}}. One of the exposed security vulnerability discovered in GitHub Actions runner was allowing the injection of environment variable and paths in workflows that logs untrusted data to std:out. A possible consequence of this vulnerability is the introduction or modification of environment variables without the approval of the workflow author.
 \subsection*{\textbf{Obsolescence}}
-\textbf{Related issues from other ecosystems:} 1.1., 1.2., 1.5., 1.6., 1.8. in \textbf{Table~\ref{tab:compiled_issues}}.\\\\
+\textbf{Related issues from other ecosystems:} 2.1., 2.3., 2.4. in \textbf{Table~\ref{tab:compiled_issues}}.\\\\
 The most relevant theme for this section was \texttt{Deprecate Version}. The compiled codes corresponded  to Actions that was dependent on deprecated versions of packages. An example was the particular version of Xcode 11.2.1 which wasn't supported in GitHub Actions. Another similar issue found was found in \texttt{actions/upload-artifacts} Action where the workflow file was dependent on a super old and deprecate version of it which doesn't support the usecase of globbing anymore. The only fix for this issue was through the update of the Action to a newer versions. \\
+
 We also found a problem where a GitHub user removed their deprecated workflow file and replaced it with a newer one. However, even after removing the deprecated workflow file, the Action wasn't removed from the Action list which meant that the old workflow would still be triggered during events. One of the solution was to remove all the associated jobs with the Action. but this solution wasn't scalable.
 \subsection*{\textbf{Breaking changes}}
-\textbf{Related issues from other ecosystems:} 1.1., 1.2., 1.5., 1.6., 1.8. in \textbf{Table~\ref{tab:compiled_issues}}.\\\\
+\textbf{Related issues from other ecosystems:} 3.4., 3.6. in \textbf{Table~\ref{tab:compiled_issues}}.\\\\
 The only theme we had for this section is called \texttt{Breaking changes}. We included all the codes here that relates to changes made that caused sequence of issues and broke the usual way of working. This kind of issue was observed when GitHub rolled out a security patch that forced a limitation on deploying code to production through creating a tag that stopped protected environments from working. This was a deliberate decision made by GitHub until the bug was fixed and was referred to as "Security of Breaking Changes" by one of the GitHub users. Another similar problem faced but remained unsolved found on a Discussion post was the sudden stop of the functionality of the Users workflow. Consequently, a collection of modules started to fail to push packages to the GitHub Maven registry.\\
+
 Moreover, in the same theme \texttt{Breaking changes}, we found two more issues with breaking changes. One of them was when Dependabot- a GitHub Action bot- started acting crazy by reporting unusual dependency update PR changes that resulted in false positives. However, the root cause of the Dependabot going crazy was from the GitHub Registry that processed the metadata of gemspec packages and explicitly tagged development packages as runtime\_development.  The final observation related to this theme was the addition of a new mechanism by GitHub that gated pull requests until all workflows were executed and passed.  Subsequently, this change effected some GitHub users with their pull requests rendering a "cached" version of the pull request, leaving the workflows to remain pending. 
 \subsection*{\textbf{Dependency issues}}
-\textbf{Related issues from other ecosystems:} 1.1., 1.2., 1.5., 1.6., 1.8. in \textbf{Table~\ref{tab:compiled_issues}}.\\\\
+\textbf{Related issues from other ecosystems:} 4.5., 4.6., 4.7. in \textbf{Table~\ref{tab:compiled_issues}}.\\\\
 For this section, we had identified two themes each comprising of codes with similar patterns. The theme that was observed to have several issues was \texttt{Direct Dependency}. Our findings revealed  two problems related  to jobs being dependant on other jobs. One of the problem was that a failed job is bound to fail again during a re-run, if any of its dependent jobs uses a reusable workflow. The reason for this was due to the cancellation of the in-process runs of the dependent jobs because re-running a failed job also causes its dependent job to re-run.  The second related problem was the dependency between two sequential jobs, for instance a build and a test job., the test job will be dependant on the status of the build job. . If the build job fails, the test job will not run. The other issues found in this theme was related to package dependencies in maven and GitHub Action bots. A GitHub user wasn't able to build their project using GitHub Action since the maven dependencies were not resolvable and none of the gradle versions were able to resolve the maven depency. This issue remained unsolved. The other problem was also mentioned in the \texttt{Breaking changes} theme where the GitHub registry explicitly tagged development packages as runtime\_development dependencies instead of development dependency.\\
+
 The second identified theme was \texttt{Transitive Dependency}, this included that weren't directly visible to the user but resulted in the GitHub Action failing. Our observation noted that the GitHub user didn't find any packages causing direct issues for the Action to fail. However, the user found a 4th tier dependency which caused the error.
 							    	      %%%CONCLUSION%%%
 
 \section{Discussion}
-	
-In this section, we discuss the results in conjunction with relevant literature.
+	In this section, we delve into our findings for each research question by presenting insights derived from the results and our own interpretation.\\
+
+\subsubsection{\textbf{RQ1}} The results indicate that certain repository characteristics, such as source code size, number of contributors, and number of programming languages, are positively correlated with the usage of GHA, whether locally maintained or from the marketplace. The stronger correlations for Marketplace Actions suggest that repositories with more complexity and collaboration tend to leverage Marketplace Actions more frequently. Conversely, the weak negative correlations with repository creation date suggest that newer repositories are more inclined to adopt both types of actions, potentially reflecting evolving practices and the increasing availability of GHA over time.\\
+      
+      In conclusion, the analysis provides insights into how various repository characteristics influence the adoption and referencing of GHA, highlighting trends that could inform best practices for repository management and automation strategy. Currently, the usage of Marketplace Actions prove to be more dominant across repositories, which may be due to the reliability and stability of the GHA ecosystem.\\
+
+\subsubsection{\textbf{RQ2}} The results addressed concerns raised by Decan et al. \cite{decan2022use} regarding challenges exposed to the GHA ecosystem, particularly surrounding the four key issues of Obsolescence, Security Vulnerability, Breaking Changes, and Dependency Issues, which are prevalent in other ecosystems as listed in \textbf{Table~\ref{tab:compiled_issues}}. However, our findings indicated fewer or less severe problems compared to those in other ecosystems. Notably, our findings did not align with all the Problem IDs in \textbf{Table~\ref{tab:compiled_issues}}, such as issues related to semantic versioning and dependency constraints commonly observed in other ecosystems. We attribute this discrepancy to the effective maintenance of the GHA ecosystem by administrators.\\
+
+	During our data analysis, we observed that GitHub Discussion posts are regularly monitored by admins, leading to immediate resolution of reported issues. In one instance, we found that attacks exploiting the GHA ecosystem are addressed immediately, even before being reported. Furthermore, additional features are developed to address concerns raised by GitHub users, which may involve bugs, security vulnerabilities, deprecated package versions, and dependency issues.
+\section{Conclusion}
+	In conclusion, the results of this study demonstrate that the GHA ecosystem is currently a stable and reliable environment for developers. While issues similar to those in other software ecosystems do exist, their impact appears to be less significant. The reliance on locally maintained actions is lower than on marketplace actions, indicating a high level of dependency and trust in the ecosystem-provided Actions. Although the relative novelty of the ecosystem might contribute to the lesser severity of these issues, further investigation is needed to determine if the current stability and scalability of GHA will be sustained in the long term.
 
 \section{Future work}
+	We acknowledge the potential for further research based on our findings. In RQ1, we conducted quantitative data analysis across numerous software repositories to gauge the reliance on Local Marketplace Actions. While our initial intention was to complement this with qualitative data analysis using surveys and mining GitHub discussions and Stack Overflow posts, time constraints led us to focus solely on quantitative analysis. Future studies could delve into qualitative data analysis to explore developers' preferences regarding action types and the challenges they encounter, thus reinforcing the credibility of our findings by comparing with quantitative results.\\
+
+	Moreover, we noticed the predominance of large organizations in the use of Local Actions may be attributed to concerns over security risks and dependency issues associated with marketplace actions. Larger organizations might prefer to maintain control over their workflows to mitigate potential vulnerabilities and ensure stability. However, further investigation is needed to substantiate these claims and understand the underlying reasons behind this trend.\\
+	
+	In RQ2, we found fewer instances corresponding to the four key issues in GHA compared to other ecosystems, and the severity wasn't as pronounced. Our findings didn't align with several issues listed in \textbf{Table~\ref{tab:compiled_issues}}. As discussed earlier, this could be attributed to the well-maintained nature of the GHA ecosystem, with identified bugs and issues promptly addressed. However, to assert such claims, future investigations should explore how the ecosystem mitigates risks associated with the four key areas.\\
+
+	Lastly, it would be pertinent and beneficial to compare the four key issues with other CIs such as Travis, CircleCI, and GitLab CI/CD, given their shared focus on automating code integration in collaborative platforms. This presents another avenue for future research.
 							    %%% ACKNOWLEDGEMENT %%%
 
 \section{Acknowledgement}
-
-         This proposal is the collaborative effort of Kardo Marof and Saif Sayed, with guidance from our thesis supervisor, Linda Erlenhov. Marof's contributions include the Introduction section, as well as the sub-sections on Data Collection and Data Analysis within the Research Methodology section. Sayed, on the other hand, contributed to the Related Works section, the description of the Research Questions, the motivation behind the selected methodologies, and the identification of Threats to Validity within the Research Methodology section.
+         This thesis report is the collaborative effort of Kardo Marof and Saif Sayed, under the guidance of our thesis supervisor, Linda Erlenhov. Marof's contributions include the Introduction section, as well as the sub-sections on Data Collection and Data Analysis for RQ1 within the Research Methodology section, and the Results section for RQ1. Kardo also contributed to the creation of scripts required for mining software repositories. Sayed, on the other hand, contributed to the Related Works section, as well as the sub-sections on Data Collection and Data Analysis for RQ2 within the Research Methodology section, and the Results section for RQ2. We would also like to express our gratitude to our supervisor, Linda, for entrusting us with her proposed thesis topic and for providing prompt feedback to any queries we had through meetings and Slack communications. This thesis report would not have been possible without the late-night meetings and numerous cups of coffee we shared.
                                                                              %%% REFERENCES %%%
 \bibliographystyle{unsrt}
 \bibliography{references}
 
-							           %%% APPENDICES%%%
-\section{Appendices}
+\appendix							           %%% APPENDICES%%%
 \subsection{Graphs}
 \foreach \x in \graphs
-  {\begin{center} \includegraphics[width=60mm]{\x} \bigskip \end{center}}
+  {\begin{figure}[H]
+\begin{center} 
+	\includegraphics[width=60mm]
+		{\x} \bigskip 
+  \end{center}
+\end{figure}}
 
 \vspace{12pt}
 \end{document}
