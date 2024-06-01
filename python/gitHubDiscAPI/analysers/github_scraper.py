@@ -7,7 +7,7 @@ with open('../data/github_scraper.json', 'r') as file:
 # Obsolescence
 obsolescence_terms = ["Outdate", "Legacy", "deprecat", "Phasing out", "Obsolete", "Unmaintain"]
 obsolescence_terms_lower = [term.lower() for term in obsolescence_terms]
-
+  
 # Dependency issues
 dependency_issues_terms = ["Dependency", "conflict", "mismatch", "Package", "Version", "Dependency problem", "Incompatible dependenc"]
 dependency_issues_terms_lower = [term.lower() for term in dependency_issues_terms]

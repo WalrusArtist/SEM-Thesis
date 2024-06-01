@@ -107,7 +107,9 @@ def sort_and_plot(myDict, xVariableName='', yVariableName='', lineLabel='', x_la
             i += 1
         print('max y: ', max(y_data), ' ', yVariableName)
 
-    cc, _ = spearmanr(x_data, y_data)
+    cc, p_value = spearmanr(x_data, y_data)
+    #print("cc: ", cc)
+    #print("p_value: ", p_value)
     cc = custom_round(cc)
     plt.figure(figsize=(5, 5))
     plt.plot(x_data, y_data, label=lineLabel, color='red')
