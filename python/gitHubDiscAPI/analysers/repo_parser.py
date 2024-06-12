@@ -49,7 +49,7 @@ def custom_round(value):
     if third_decimal >= 5:
         return math.ceil(value * 1000) / 1000
     else:
-        return math.floor(value * 1000) / 1000
+        return math.floor(value * 1000) / 1000 
 
 def sort_and_plot(myDict, xVariableName='', yVariableName='', lineLabel='', x_label='', y_label='', inverted=False, remove_outliers=False):
 
@@ -77,7 +77,7 @@ def sort_and_plot(myDict, xVariableName='', yVariableName='', lineLabel='', x_la
     x_data = np.array([item[1][xVariableName] for item in sorted_data])
     if not normal_dist:
         y_data = np.array([item[1][yVariableName] for item in sorted_data])
-    print('filtered count: ', len(x_data))
+    #print('filtered count: ', len(x_data)) 
 
     if normal_dist:
         mu, sigma = 0, 1  # mean and standard deviation
@@ -89,12 +89,12 @@ def sort_and_plot(myDict, xVariableName='', yVariableName='', lineLabel='', x_la
         plt.title('Standard Normal Distribution')
         plt.xlabel(xVariableName)
         plt.ylabel('Density')
-        if save_graph:
+        if save_graph: 
             folder_path = 'graphs'
-            if not os.path.exists(folder_path):
-                os.makedirs(folder_path)
-            file_path = os.path.join(folder_path, f"normal_{labelFix}_{xVariableName}_{yVariableName}.png")
-            plt.savefig(file_path)
+            if not os.path.exists(folder_path): 
+                os.makedirs(folder_path) 
+            file_path = os.path.join(folder_path, f"normal_{labelFix}_{xVariableName}_{yVariableName}.png")  
+            plt.savefig(file_path) 
         else:
             plt.show()
         return
@@ -102,37 +102,36 @@ def sort_and_plot(myDict, xVariableName='', yVariableName='', lineLabel='', x_la
     if verbose:
         i = 0
         for i in range(0,len(sorted_data)):
-            print(y_data[i], ' ', x_data[i])
-            print(sorted_data[i][1][yVariableName], ' ', sorted_data[i][1][xVariableName])
+            print(y_data[i], ' ', x_data[i]) 
+            print(sorted_data[i][1][yVariableName], ' ', sorted_data[i][1][xVariableName]) 
             i += 1
         print('max y: ', max(y_data), ' ', yVariableName)
 
     cc, p_value = spearmanr(x_data, y_data)
     #print("cc: ", cc)
-    #print("p_value: ", p_value)
-    cc = custom_round(cc)
-    plt.figure(figsize=(5, 5))
-    plt.plot(x_data, y_data, label=lineLabel, color='red')
-    plt.xlim(min(x_data), max(x_data))      # range x axis
-    plt.ylim(min(y_data), max(y_data))  # range y axis
-    plt.xlabel(x_label)
-    plt.ylabel(y_label)
-    plt.title(f'Correlation Coefficience: {cc}')
+    print("p_value: ", p_value, ' for: ', yVariableName, '/', xVariableName)
+    cc = custom_round(cc) 
+    plt.figure(figsize=(5, 5)) 
+    plt.plot(x_data, y_data, label=lineLabel, color='red') 
+    plt.xlim(min(x_data), max(x_data))      # range x axis 
+    plt.ylim(min(y_data), max(y_data))  # range y axis 
+    plt.xlabel(x_label)  
+    plt.ylabel(y_label) 
+    plt.title(f'Correlation Coefficience: {cc}')  
     plt.legend()
     plt.grid(True)
-    plt.scatter(x_data, y_data, alpha=0.5, s=20)
-    if save_graph:
-        folder_path = f'../data/graphs'
-        if not os.path.exists(folder_path):
-            os.makedirs(folder_path)
-        file_path = os.path.join(folder_path, f"{labelFix}_{xVariableName}_{yVariableName}.png")
-        if remove_outlier:
+    plt.scatter(x_data, y_data, alpha=0.5, s=20)  
+    if save_graph: 
+        folder_path = f'../data/graphs' 
+        if not os.path.exists(folder_path): 
+            os.makedirs(folder_path)  
+        file_path = os.path.join(folder_path, f"{labelFix}_{xVariableName}_{yVariableName}.png") 
+        if remove_outlier: 
             file_path = os.path.join(folder_path, f"mid_range_{labelFix}_{xVariableName}_{yVariableName}.png")
         plt.savefig(file_path)
     else:
-        plt.show()
-
-    
+        print()
+        #plt.show()
 
 def get_total_actions_times_used():
     total_local_times_used = 0

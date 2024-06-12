@@ -1,0 +1,45 @@
+Repo count:  4166
+precentage_local:  7.36
+percentage_market:  92.64
+precentage_used_local:  7.38
+percentage_used_market:  92.62
+filtered count:  245
+cc:  0.20133380951395136
+p_value:  0.0015361991627192682  for:  size / localActionsCount
+
+filtered count:  245
+cc:  0.20950730028321088
+p_value:  0.0009695107743269205  for:  size / localActionsUsedCount
+
+filtered count:  245
+cc:  0.20535945461444932
+p_value:  0.0012272656305861605  for:  contributor_count / localActionsCount
+
+filtered count:  245
+cc:  0.1686559483546186
+p_value:  0.00816042104230869  for:  contributor_count / localActionsUsedCount
+
+filtered count:  245
+cc:  -0.11370851466200163
+p_value:  0.07565321509197409  for:  created_at / localActionsCount
+
+filtered count:  245
+cc:  -0.13539200859042924
+p_value:  0.03416278904101878  for:  created_at / localActionsUsedCount
+
+filtered count:  245
+cc:  0.16432928438509084
+p_value:  0.009979312084879354  for:  languagesCount / localActionsCount
+
+filtered count:  245
+cc:  0.22981835534152165
+p_value:  0.00028617437652580244  for:  languagesCount / localActionsUsedCount
+
+filtered count:  245
+cc:  0.2254912487659071
+p_value:  0.00037458451807882297  for:  codeSize / localActionsCount
+
+filtered count:  245
+cc:  0.24090602867501706
+p_value:  0.0001402525736279786  for:  codeSize / localActionsUsedCount
+
